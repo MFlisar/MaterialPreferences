@@ -22,3 +22,11 @@ TODO
 
 ```kotlin
 ```
+
+# Credits
+
+Special thanks goes to following 2 libraries that do something very similar but do not work with the `DataStore` (yet).
+
+[KotPref](https://github.com/chibatching/Kotpref) This library gave me the idea of the kotlin delegate based preference setup which is really useful
+
+[ModernAndroidPreferences](https://github.com/Maxr1998/ModernAndroidPreferences) This library gave me the idea for the preference screens and I also copied a basic layout from there
