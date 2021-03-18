@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <item type="id" name="pref_choice_single" />
+    <item type="id" name="pref_choice_multi" />
+
+</resources>
+

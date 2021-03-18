@@ -1,0 +1,66 @@
+plugins {
+    id 'com.android.library'
+    id 'kotlin-android'
+    id 'kotlin-parcelize'
+    id 'com.github.dcendents.android-maven'
+}
+
+group = 'com.github.MFlisar'
+
+android {
+
+    compileSdkVersion setup.compileSdk
+
+    buildFeatures {
+        viewBinding setup.enableViewBinding
+    }
+
+    defaultConfig {
+        minSdkVersion setup.minSdk
+        targetSdkVersion setup.targetSdk
+        vectorDrawables.useSupportLibrary = true
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_1_8.toString()
+    }
+}
+
+dependencies {
+
+    // ------------------------
+    // Kotlin
+    // ------------------------
+
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:${versions.kotlinVersion}"
+
+    // ------------------------
+    // AndroidX
+    // ------------------------
+
+    implementation "com.google.android.material:material:${androidx.material}"
+    implementation "androidx.recyclerview:recyclerview:${androidx.recyclerview}"
+    implementation "androidx.startup:startup-runtime:${androidx.startup}"
+    implementation "androidx.core:core-ktx:${androidx.core}"
+    implementation "androidx.lifecycle:lifecycle-runtime-ktx:${androidx.lifecycle}"
+
+    // ------------------------
+    // Library
+    // ------------------------
+
+    api "com.github.MFlisar:AndroidText:${versions.androidText}"
+
+    implementation project(':materialpreferences-core')
+}

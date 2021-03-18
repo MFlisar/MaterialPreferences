@@ -1,0 +1,19 @@
+include ':demo'
+
+include ':materialpreferences-core'
+project(':materialpreferences-core').projectDir = new File(settingsDir, 'library')
+include ':materialpreferences-datastore'
+project(':materialpreferences-datastore').projectDir = new File(settingsDir, 'library-datastore')
+include ':materialpreferences-preference-screen'
+project(':materialpreferences-preference-screen').projectDir = new File(settingsDir, 'library-preference-screen')
+
+// ------------
+// Extensions
+// ------------
+
+include ':materialpreferences-preference-screen-input'
+project(':materialpreferences-preference-screen-input').projectDir = new File(settingsDir, 'library-preference-screen-input')
+include ':materialpreferences-preference-screen-choice'
+project(':materialpreferences-preference-screen-choice').projectDir = new File(settingsDir, 'library-preference-screen-choice')
+include ':materialpreferences-preference-screen-color'
+project(':materialpreferences-preference-screen-color').projectDir = new File(settingsDir, 'library-preference-screen-color')

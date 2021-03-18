@@ -1,0 +1,14 @@
+<!-- copied from https://github.com/Maxr1998/ModernAndroidPreferences/blob/master/testapp/src/main/res/anim/preference_item_fall_down.xml -->
+<set xmlns:android="http://schemas.android.com/apk/res/android"
+    android:duration="400">
+
+    <translate
+        android:fromYDelta="15%"
+        android:interpolator="@android:interpolator/linear_out_slow_in"
+        android:toYDelta="0" />
+
+    <alpha
+        android:fromAlpha="0"
+        android:interpolator="@android:interpolator/linear_out_slow_in"
+        android:toAlpha="1" />
+</set>

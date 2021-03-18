@@ -1,0 +1,424 @@
+package com.michaelflisar.materialpreferences.demo
+
+import android.content.Context
+import android.content.Intent
+import android.os.Bundle
+import android.text.InputType
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
+import com.michaelflisar.lumberjack.L
+import com.michaelflisar.materialpreferences.demo.databinding.ActivitySettingsBinding
+import com.michaelflisar.materialpreferences.demo.settings.DemoSettingsModel
+import com.michaelflisar.materialpreferences.preferencescreen.*
+import com.michaelflisar.materialpreferences.preferencescreen.choice.asChoiceListString
+import com.michaelflisar.materialpreferences.preferencescreen.choice.multiChoice
+import com.michaelflisar.materialpreferences.preferencescreen.choice.singleChoice
+import com.michaelflisar.materialpreferences.preferencescreen.classes.asBatch
+import com.michaelflisar.materialpreferences.preferencescreen.classes.asIcon
+import com.michaelflisar.materialpreferences.preferencescreen.color.color
+import com.michaelflisar.materialpreferences.preferencescreen.dependencies.asDependency
+import com.michaelflisar.materialpreferences.preferencescreen.input.input
+import com.michaelflisar.materialpreferences.preferencescreen.preferences.*
+import com.michaelflisar.text.asText
+
+class SettingsActivity : AppCompatActivity() {
+
+    companion object {
+        fun start(context: Context) {
+            context.startActivity(Intent(context, SettingsActivity::class.java))
+        }
+    }
+
+    lateinit var binding: ActivitySettingsBinding
+    lateinit var preferenceScreen: PreferenceScreen
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        AppCompatDelegate.setDefaultNightMode(if (DemoSettingsModel.darkTheme.value) AppCompatDelegate.MODE_NIGHT_YES else AppCompatDelegate.MODE_NIGHT_NO)
+
+        binding = ActivitySettingsBinding.inflate(layoutInflater)
+        val view = binding.root
+        setContentView(view)
+
+        // ---------------
+        // set up settings
+        // ---------------
+
+        preferenceScreen = initSettings(savedInstanceState)
+    }
+
+    private fun initSettings(savedInstanceState: Bundle?): PreferenceScreen {
+
+        // global settings to avoid
+        // INFO:
+        // some global settings can be overwritten per preference (e.g. bottomSheet yes/no)
+        // other global settings can only be changed globally
+
+        // following is optional!
+        PreferenceScreenConfig.apply {
+            bottomSheet = true  // default: false
+            maxLinesTitle = 1   // default: 1
+            maxLinesSummary = 3 // default: 3
+        }
+
+        // -----------------
+        // 1) create screen(s)
+        // -----------------
+
+        val screen = screen {
+
+            // set up screen
+            state = savedInstanceState
+            onScreenChanged = {
+                L.d { "Preference Screen - level = $it" }
+            }
+
+            // set up settings (and sub settings)
+
+            // -----------------
+            // 1) test app settings (root level)
+            // -----------------
+
+            category {
+                title = "Test App Style".asText()
+            }
+
+            switch(DemoSettingsModel.darkTheme) {
+                title = "Dark Theme".asText()
+                icon = R.drawable.ic_baseline_style_24.asIcon()
+                summary = "This setting is applying to the demo app\n(enabled: %b)".asText()
+                onChanged = {
+                    L.d { "Dark Theme Settings Listener called: $it" }
+                    //recreate()
+                    AppCompatDelegate.setDefaultNightMode(if (it) AppCompatDelegate.MODE_NIGHT_YES else AppCompatDelegate.MODE_NIGHT_NO)
+                }
+            }
+
+            category {
+                title = "Demo Settings".asText()
+            }
+
+            // -----------------
+            // 2) demo settings - sub screens
+            // -----------------
+
+            subScreen {
+                title = "Nested Sub Screens".asText()
+                summary = "Test nested screens (with any nesting hierarchy)".asText()
+                icon = R.drawable.ic_baseline_double_arrow_24.asIcon()
+
+                category {
+                    title = "Sub Screens".asText()
+                }
+
+                subScreen {
+                    title = "Sub Screen 1".asText()
+                    icon = R.drawable.ic_baseline_double_arrow_24.asIcon()
+                    category {
+                        title = this@subScreen.title
+                    }
+                    button {
+                        title = "Button 1.1".asText()
+                        icon = R.drawable.ic_baseline_touch_app_24.asIcon()
+                    }
+                    button {
+                        title = "Button 1.2".asText()
+                        icon = R.drawable.ic_baseline_touch_app_24.asIcon()
+                    }
+                    subScreen {
+                        title = "Sub Sub Screen 1".asText()
+                        icon = R.drawable.ic_baseline_double_arrow_24.asIcon()
+                        category {
+                            title = this@subScreen.title
+                        }
+                        button {
+                            title = "Button 1.3.1".asText()
+                            icon = R.drawable.ic_baseline_touch_app_24.asIcon()
+                        }
+                        button {
+                            title = "Button 1.3.2".asText()
+                            icon = R.drawable.ic_baseline_touch_app_24.asIcon()
+                        }
+                    }
+                }
+
+                subScreen {
+                    title = "Sub Screen 2".asText()
+                    icon = R.drawable.ic_baseline_double_arrow_24.asIcon()
+                    category {
+                        title = this@subScreen.title
+                    }
+                    button {
+                        title = "Button 2.1".asText()
+                        icon = R.drawable.ic_baseline_touch_app_24.asIcon()
+                    }
+                    button {
+                        title = "Button 2.2".asText()
+                        icon = R.drawable.ic_baseline_touch_app_24.asIcon()
+                    }
+                    subScreen {
+                        title = "Sub Sub Screen 2".asText()
+                        icon = R.drawable.ic_baseline_double_arrow_24.asIcon()
+                        category {
+                            title = this@subScreen.title
+                        }
+                        button {
+                            title = "Button 2.3.1".asText()
+                            icon = R.drawable.ic_baseline_touch_app_24.asIcon()
+                        }
+                        button {
+                            title = "Button 2.3.2".asText()
+                            icon = R.drawable.ic_baseline_touch_app_24.asIcon()
+                        }
+                    }
+                }
+            }
+
+            // -----------------
+            // 3) sub screen booleans
+            // -----------------
+
+            subScreen {
+                title = "Booleans".asText()
+                icon = R.drawable.ic_baseline_check_box_24.asIcon()
+                summary = "Switches / Checkboxes".asText()
+                category {
+                    title = "Switches".asText()
+                }
+                switch(DemoSettingsModel.enableFeature1) {
+                    title = "Feature 1".asText()
+                    icon = R.drawable.ic_baseline_keyboard_arrow_right_24.asIcon()
+                }
+                switch(DemoSettingsModel.enableFeature2) {
+                    title = "Feature 2".asText()
+                    icon = R.drawable.ic_baseline_keyboard_arrow_right_24.asIcon()
+                }
+                category {
+                    title = "Checkboxes".asText()
+                }
+                checkbox(DemoSettingsModel.enableFeature3) {
+                    title = "Feature 3".asText()
+                    icon = R.drawable.ic_baseline_keyboard_arrow_right_24.asIcon()
+                }
+                checkbox(DemoSettingsModel.enableFeature4) {
+                    title = "Feature 4".asText()
+                    icon = R.drawable.ic_baseline_keyboard_arrow_right_24.asIcon()
+                }
+            }
+
+            // -----------------
+            // 4) sub screen inputs (text, int)
+            // -----------------
+
+            subScreen {
+                title = "Inputs".asText()
+                icon = R.drawable.ic_baseline_text_fields_24.asIcon()
+                summary = "Texts / Numbers".asText()
+                category {
+                    title = "Inputs".asText()
+                    summary = "Worked with int and string preferences!".asText()
+                }
+                input(DemoSettingsModel.text1) {
+                    title = "Input 1".asText()
+                    icon = R.drawable.ic_baseline_text_fields_24.asIcon()
+                    summary = "Insert ANY text".asText()
+                    hint = "Insert a value...".asText()
+                }
+                input(DemoSettingsModel.text2) {
+                    title = "Input 2".asText()
+                    icon = R.drawable.ic_baseline_text_fields_24.asIcon()
+                    summary = "Insert NUMBERS only\n(value = %s)".asText()
+                    textInputType = InputType.TYPE_CLASS_NUMBER
+                    hint = "Insert a value...".asText()
+                }
+                input(DemoSettingsModel.number1) {
+                    title = "Number Input 1".asText()
+                    icon = R.drawable.ic_baseline_attach_money_24.asIcon()
+                    summary = "%d".asText()
+                    hint = "Insert a value...".asText()
+                }
+                input(DemoSettingsModel.number2) {
+                    title = "Number Input 2".asText()
+                    icon = R.drawable.ic_baseline_attach_money_24.asIcon()
+                    summary = "%d".asText()
+                    hint = "Insert a value...".asText()
+                }
+            }
+
+            // -----------------
+            // 5) sub screen color
+            // -----------------
+
+            subScreen {
+                title = "Colors".asText()
+                icon = R.drawable.ic_baseline_color_lens_24.asIcon()
+                category {
+                    title = "Colors".asText()
+                }
+                color(DemoSettingsModel.color1) {
+                    title = "Color 1".asText()
+                    icon = R.drawable.ic_baseline_color_lens_24.asIcon()
+                    summary = "This color SUPPORTS alpha values".asText()
+                }
+                color(DemoSettingsModel.color2) {
+                    title = "Color 2".asText()
+                    icon = R.drawable.ic_baseline_color_lens_24.asIcon()
+                    summary = "This color DOES NOT SUPPORT alpha values".asText()
+                    supportsAlpha = false
+                }
+                color(DemoSettingsModel.color3) {
+                    title = "Color 3".asText()
+                    icon = R.drawable.ic_baseline_color_lens_24.asIcon()
+                    summary = "This color also has an alpha value by default".asText()
+                }
+            }
+
+            // -----------------
+            // 6) sub screen buttons
+            // -----------------
+
+            subScreen {
+                title = "Buttons".asText()
+                icon = R.drawable.ic_baseline_touch_app_24.asIcon()
+                summary = "Show messages / dialogs / ...".asText()
+                category {
+                    title = "Buttons".asText()
+                }
+                button {
+                    title = "Button 1".asText()
+                    icon = R.drawable.ic_baseline_touch_app_24.asIcon()
+                    onClick = {
+                        showMessage("Button 1 clicked!")
+                    }
+                }
+                button {
+                    title = "Button 2".asText()
+                    icon = R.drawable.ic_baseline_touch_app_24.asIcon()
+                    onClick = {
+                        showMessage("Button 2 clicked!")
+                    }
+                }
+                button {
+                    title = "Button 3".asText()
+                    icon = R.drawable.ic_baseline_touch_app_24.asIcon()
+                    onClick = {
+                        showMessage("Button 3 clicked!")
+                    }
+                }
+            }
+
+            // -----------------
+            // 7) sub screen dependencies
+            // -----------------
+
+            subScreen {
+                title = "Dependencies".asText()
+                icon = R.drawable.ic_baseline_supervisor_account_24.asIcon()
+                summary = "Enable settings based on another setting".asText()
+                category {
+                    title = this@subScreen.title
+                }
+                switch(DemoSettingsModel.enableChild) {
+                    title = "Enable children".asText()
+                    icon = R.drawable.ic_baseline_supervisor_account_24.asIcon()
+                    summary = "Enables children below".asText()
+                    onChanged = {
+                        showMessage("Enable children changed: $it")
+                    }
+                }
+                listOf(
+                        DemoSettingsModel.childName1,
+                        DemoSettingsModel.childName2,
+                        DemoSettingsModel.childName3
+                ).forEachIndexed { index, setting ->
+                    input(setting) {
+                        title = "Child ${index + 1}".asText()
+                        icon = R.drawable.ic_baseline_person_24.asIcon()
+                        dependsOn = DemoSettingsModel.enableChild.asDependency()
+                    }
+                }
+            }
+
+            // -----------------
+            // 8) sub screen choices
+            // -----------------
+
+            subScreen {
+                title = "Choices".asText()
+                summary = "Single / Multi Choices".asText()
+                icon = R.drawable.ic_baseline_format_list_bulleted_24.asIcon()
+                category {
+                    title = "Choices".asText()
+                }
+                singleChoice(DemoSettingsModel.choiceSingle) {
+                    title = "Choice 1 - Single Choice".asText()
+                    icon = R.drawable.ic_baseline_format_list_bulleted_24.asIcon()
+                    choices = listOf(
+                            "Value 1",
+                            "Value 2",
+                            "Value 3",
+                            "Value 4",
+                            "Value 5"
+                    ).asChoiceListString()
+                }
+                multiChoice(DemoSettingsModel.choiceMulti) {
+                    title = "Choice 2 - Multi Choice".asText()
+                    icon = R.drawable.ic_baseline_format_list_bulleted_24.asIcon()
+                    choices = listOf(
+                            "Value 1",
+                            "Value 2",
+                            "Value 3",
+                            "Value 4",
+                            "Value 5"
+                    ).asChoiceListString()
+                    allowEmptySelection = true
+                }
+            }
+
+            // -----------------
+            // .) preferences inside root screen
+            // -----------------
+
+            category {
+                title = "Root Level Preferences".asText()
+            }
+
+            switch(DemoSettingsModel.proFeature1) {
+                title = "Pro Feature 1".asText()
+                icon = R.drawable.ic_baseline_phone_android_24.asIcon()
+                summary = "Enable a fancy pro feature".asText()
+                badge = "PRO".asBatch()
+                canChange = {
+                    // we can't change this settings, it's enabled but will only work in the pro version
+                    showMessage("Changing this setting is disabled via 'canChange' function!", Toast.LENGTH_LONG)
+                    false
+                }
+                onChanged = {
+                    showMessage("Pro feature changed (this should never be called!): $it")
+                }
+            }
+            switch(DemoSettingsModel.proFeature2) {
+                title = "Pro Feature 2".asText()
+                icon = R.drawable.ic_baseline_phone_android_24.asIcon()
+                summary = "This setting is always disabled".asText()
+                badge = "PRO".asBatch()
+                enabled = false
+            }
+        }
+        screen.bind(binding.rvSettings)
+        return screen
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        preferenceScreen.onSaveInstanceState(outState)
+    }
+
+    override fun onBackPressed() {
+        if (preferenceScreen.onBackPressed()) {
+            return
+        }
+        super.onBackPressed()
+    }
+}
