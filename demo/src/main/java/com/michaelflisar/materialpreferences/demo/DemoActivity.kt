@@ -7,8 +7,11 @@ import androidx.lifecycle.lifecycleScope
 import com.michaelflisar.materialpreferences.demo.databinding.ActivityDemoBinding
 import com.michaelflisar.materialpreferences.demo.settings.DemoSettingsModel
 import com.michaelflisar.lumberjack.L
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.drop
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import kotlin.concurrent.fixedRateTimer
 
 class DemoActivity : AppCompatActivity() {
@@ -61,11 +64,19 @@ class DemoActivity : AppCompatActivity() {
             binding.tvText2.text = binding.tvText2.text.toString() + "\n[FLOW READ] test = $it"
         }
 
-        DemoSettingsModel.test.flow
+        // -----------------------
+        // Test 4 - read from flows directly
+        // -----------------------
 
-        // ALTERNATIVELY access the flow directly and do what you want
-        // readSingleBlocking / readSingle / observe are only convenient functions for this flow
-        // val flow: Flow<String> = SettingsModel.test.flow
+        lifecycleScope.launch(Dispatchers.IO) {
+            val name1 = DemoSettingsModel.childName1.flow.first()
+            val name2 = DemoSettingsModel.childName1.flow.first()
+            val name3 = DemoSettingsModel.childName1.flow.first()
+            val names = listOf(name1, name2, name3)
+            withContext(Dispatchers.Main) {
+                binding.tvText1.text = binding.tvText1.text.toString() + "\nChildrens: ${names.joinToString(", ")}"
+            }
+        }
 
         // -----------------------
         // ...

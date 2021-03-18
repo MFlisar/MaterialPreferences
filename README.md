@@ -65,6 +65,16 @@ val lifedata = UserSettingsModel.name.flow.asLiveData()
 // 5) access flow directly and do whatever you want with it
 val flow = UserSettingsModel.name.flow
 
+// 6) read multiple settings in a suspending way
+lifecycleScope.launch(Dispatchers.IO) {
+  val name = UserSettingsModel.childName1.flow.first()
+  val alive = DemoSettingsModel.alive.flow.first()
+  val hairColor = DemoSettingsModel.hairColor.flow.first()
+  withContext(Dispatchers.Main) {
+	textView.text = "Informations: $name, $alive, $hairColor"
+  }
+}
+
 ```
 
 ### Introduction Storage
