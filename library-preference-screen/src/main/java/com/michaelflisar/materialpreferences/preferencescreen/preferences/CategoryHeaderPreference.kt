@@ -14,8 +14,7 @@ import com.michaelflisar.text.Text
 
 class CategoryHeaderPreference(
         override var title: Text = Text.Empty,
-        override var enabled: Boolean = true,
-        override var visible: Boolean = true
+        override var enabled: Boolean = true
 ) : PreferenceItem.Preference {
 
     companion object : ViewHolderFactory.ViewHolderCreator {

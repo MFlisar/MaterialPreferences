@@ -22,7 +22,6 @@ class SingleChoicePreference(
         override var summary: Text = "%s".asText(),
         override var badge: Badge = Badge.Empty,
         override var enabled: Boolean = true,
-        override var visible: Boolean = true,
         override var dependsOn: Dependency<*>? = null,
         override var canChange: (value: Int) -> Boolean = { true },
         override var onChanged: ((value: Int) -> Unit)? = null,

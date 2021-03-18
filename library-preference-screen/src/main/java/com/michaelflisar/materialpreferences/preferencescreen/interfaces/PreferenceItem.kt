@@ -20,7 +20,6 @@ interface PreferenceItem {
 
     interface Preference : PreferenceItem {
         var enabled: Boolean
-        var visible: Boolean
         var dependsOn: Dependency<*>?
     }
 

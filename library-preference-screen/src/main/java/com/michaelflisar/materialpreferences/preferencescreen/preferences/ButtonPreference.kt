@@ -18,7 +18,6 @@ class ButtonPreference(
         override var summary: Text = Text.Empty,
         override var badge: Badge = Badge.Empty,
         override var enabled: Boolean = true,
-        override var visible: Boolean = true,
         override var dependsOn: Dependency<*>? = null,
         override var onClick: (() -> Unit)? = null
 ) : PreferenceItem.Preference, PreferenceItem.ClickablePreference {

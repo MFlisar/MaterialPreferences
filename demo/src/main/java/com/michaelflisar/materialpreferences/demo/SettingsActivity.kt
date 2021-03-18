@@ -398,7 +398,7 @@ class SettingsActivity : AppCompatActivity() {
                     showMessage("Pro feature changed (this should never be called!): $it")
                 }
             }
-            
+
             switch(DemoSettingsModel.proFeature2) {
                 title = "Pro Feature 2".asText()
                 icon = R.drawable.ic_baseline_phone_android_24.asIcon()

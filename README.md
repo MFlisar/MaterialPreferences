@@ -118,3 +118,13 @@ dependencies {
   implementation 'com.github.MFlisar.MaterialPreferences:screen-color:<LATEST-VERSION>'
 }
 ```
+
+TODO
+
+- [ ] Choices summary + sorting in der summary ([0, 1, 2] vs [0, 2, 1])
+- [ ] SeekBar Preference
+- [ ] Collapse Preference
+- [ ] Restore Dialogs
+- [ ] Restore RV Scroll Position (screen rotation, level up/down)
+- [ ] Global Setting:
+  - [ ] enable title numbering (Count numbers of categories yes/no)

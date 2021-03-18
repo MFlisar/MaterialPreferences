@@ -22,7 +22,6 @@ class InputStringPreference(
         override var summary: Text = "%s".asText(),
         override var badge: Badge = Badge.Empty,
         override var enabled: Boolean = true,
-        override var visible: Boolean = true,
         override var dependsOn: Dependency<*>? = null,
         var textInputType: Int = InputType.TYPE_NULL,
         var hint: Text = "".asText(),
