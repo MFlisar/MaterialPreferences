@@ -4,7 +4,13 @@
 ![Build status](https://img.shields.io/github/workflow/status/MFlisar/MaterialPreferences/Build%20library%20and%20test%20app)
 ![License](https://img.shields.io/github/license/MFlisar/MaterialPreferences)
 
-### Introduction
+### Structure
+
+This library is based on `Flows` and `Coroutines` and works with the provided *DataStore Storage* or even with a custom storage implementation.
+It supports `LiveData` by default as `Flows` can easily be converted to `LiveData`.
+Additionally the *preference-screen* module provides a DSL to easily set up `RecyclerView` based preference screens.
+
+### Introduction Core
 
 With this library you can observe a storage (JetPack DataStore based implemention is provided, but can be replaced by any custom storage) via kotlin `Flows`.
 This implicitly means it supports `LiveData` as well.
@@ -36,29 +42,43 @@ object UserSettingsModel : SettingsModel(DataStoreStorage(name = "user")) {
 }
 ```
 
-### Modules
+And here's a simply example of the usage of this definition:
 
-* **core**
-  * this module contains kotlin delegate based settings (preferences) that can work with any storage type
-  * it provides convenient methods to declare, read and observe settings inside a storage (e.g. a datastore)
-* **datastore**
-  * this module contains a storage implementation based on [Android JetPack DataStore](https://developer.android.com/topic/libraries/architecture/datastore) that can be used with the core module
-* **preference-screen-&ast;** 
-  * contains a DSL to create a `RecyclerView` preference screen (no XML, no preferences, can be used with ANY `RecyclerView`)
+```kotlin
 
-### Structure
+// 1) simply observe a setting
+UserSettingsModel.name.observe(lifecycleScope) {
+	L.d { "name = $it"}
+}
 
-This library is based on `Flows` and `Coroutines` and works with the provided *DataStore Storage* or even with a custom storage implementation.
-It supports `LiveData` by default as `Flows` can easily be converted to `LiveData`.
-Additionally the *preference-screen* module provides a DSL to easily set up `RecyclerView` based preference screens.
+// 2) direct read (ot recommended if not necessary)
+val name = UserSettingsModel.name.value
 
-### Informations
+// 3) observe a setting once
+UserSettingsModel.name.observeOnce(lifecycleScope) {
+	L.d { "name = $it"}
+}
 
-Check out following readmes for each module group:
+// 4) lifedata
+val lifedata = UserSettingsModel.name.flow.asLiveData()
 
-* **core**: this module is described in the introduction already
-* **datastore**: [Readme](README-DATASTORE.md)
-* **preference-screen-&ast;**: [Readme](README-PREFERENCE-SCREEN.md)
+// 5) access flow directly and do whatever you want with it
+val flow = UserSettingsModel.name.flow
+
+```
+
+### Introduction Storage
+
+The `Storage` is an abstraction to support any storage implementation. The `datastore` module provides an implementation based on the [Android JetPack DataStore](https://developer.android.com/topic/libraries/architecture/datastore).
+
+More about it here: [DataStore Module](README-DATASTORE.md)
+
+### Introduction Preference Screen
+
+The *preference-screen&ast;* modules allow you to create preference screens like following easily via DSL.
+
+More about it here: [Preference Screen Modules](README-PREFERENCE-SCREEN.md)
+
 
 ### Gradle (via [JitPack.io](https://jitpack.io/))
 

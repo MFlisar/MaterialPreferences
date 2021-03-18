@@ -61,6 +61,8 @@ class DemoActivity : AppCompatActivity() {
             binding.tvText2.text = binding.tvText2.text.toString() + "\n[FLOW READ] test = $it"
         }
 
+        DemoSettingsModel.test.flow
+
         // ALTERNATIVELY access the flow directly and do what you want
         // readSingleBlocking / readSingle / observe are only convenient functions for this flow
         // val flow: Flow<String> = SettingsModel.test.flow
