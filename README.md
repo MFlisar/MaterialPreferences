@@ -15,24 +15,24 @@ Here's a simply example of a preference definitions:
 ```kotlin
 object UserSettingsModel : SettingsModel(DataStoreStorage(name = "user")) {
 
-	// Basec
-    val name by stringPref("User")
-	val alive by boolPref(true)
-	val hairColor by intPref(Color.parseColor("#A52A2A"))
-	val age by intPref(40)
-	val income by floatPref(50000f)
-	val dayOfBirth by longPref(0L)
-	
-	// Sets
-	val childrenAges by intSetPref(setOf(20, 18, 16))
-	val childrenIncomes by floatSetPref(setOf(30000f, 10000f, 0f))
-	val childrenDaysOfBirth by longSetPref(setOf(0L, 0L, 0L))
-	
-	// Enum
-    val car by enumPref(Car.Tesla)
-
-    // custom class - provide a custom converter (String <=> Class)
-    val testClass by anyPref(TestClass.CONVERTER, TestClass())
+  // Basic
+  val name by stringPref("User")
+  val alive by boolPref(true)
+  val hairColor by intPref(Color.parseColor("#A52A2A"))
+  val age by intPref(40)
+  val income by floatPref(50000f)
+  val dayOfBirth by longPref(0L)
+  
+  // Sets
+  val childrenAges by intSetPref(setOf(20, 18, 16))
+  val childrenIncomes by floatSetPref(setOf(30000f, 10000f, 0f))
+  val childrenDaysOfBirth by longSetPref(setOf(0L, 0L, 0L))
+  
+  // Enum
+  val car by enumPref(Car.Tesla)
+  
+  // custom class - provide a custom converter (String <=> Class)
+  val testClass by anyPref(TestClass.CONVERTER, TestClass())
 }
 ```
 

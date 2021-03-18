@@ -8,25 +8,25 @@ Here's an example and it's output.
 
 ```kotlin
 val screen = screen {
-    state = savedInstanceState
-    category {
-        title = "Test App Style".asText()
+  state = savedInstanceState
+  category {
+    title = "Test App Style".asText()
+  }
+  input(UserSettingsModel.name) {
+    title = "Name".asText()
+  }
+  switch(UserSettingsModel.alive) {
+    title = "Alive".asText()
+  }
+  subScreen {
+    title = "More".asText()
+    color(UserSettingsModel.hairColor) {
+      title = "Hair Color".asText()
     }
-    input(UserSettingsModel.name) {
-        title = "Name".asText()
+    input(UserSettingsModel.age) {
+      title = "Age".asText()
     }
-    switch(UserSettingsModel.alive) {
-        title = "Alive".asText()
-    }
-    subScreen {
-        title = "More".asText()
-        color(UserSettingsModel.hairColor) {
-            title = "Hair Color".asText()
-        }
-        input(UserSettingsModel.age) {
-            title = "Age".asText()
-        }
-    }
+  }
 }
 ```
 
