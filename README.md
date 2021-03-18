@@ -102,16 +102,16 @@ repositories {
 ```groovy
 dependencies {
 
-	// core module
-	implementation 'com.github.MFlisar.MaterialPreferences:materialpreferences-core:<LATEST-VERSION>'
+  // core module
+  implementation 'com.github.MFlisar.MaterialPreferences:materialpreferences-core:<LATEST-VERSION>'
 
-	// data store module
-	implementation 'com.github.MFlisar.MaterialPreferences:materialpreferences-datastore:<LATEST-VERSION>'
+  // data store module
+  implementation 'com.github.MFlisar.MaterialPreferences:materialpreferences-datastore:<LATEST-VERSION>'
     
-    // preference screen modules
-	implementation 'com.github.MFlisar.MaterialPreferences:materialpreferences-preference-screen:<LATEST-VERSION>'
-	implementation 'com.github.MFlisar.MaterialPreferences:materialpreferences-preference-screen-input:<LATEST-VERSION>'
-	implementation 'com.github.MFlisar.MaterialPreferences:materialpreferences-preference-screen-choice:<LATEST-VERSION>'
-	implementation 'com.github.MFlisar.MaterialPreferences:materialpreferences-preference-screen-color:<LATEST-VERSION>'
+  // preference screen modules
+  implementation 'com.github.MFlisar.MaterialPreferences:materialpreferences-preference-screen:<LATEST-VERSION>'
+  implementation 'com.github.MFlisar.MaterialPreferences:materialpreferences-preference-screen-input:<LATEST-VERSION>'
+  implementation 'com.github.MFlisar.MaterialPreferences:materialpreferences-preference-screen-choice:<LATEST-VERSION>'
+  implementation 'com.github.MFlisar.MaterialPreferences:materialpreferences-preference-screen-color:<LATEST-VERSION>'
 }
 ```
