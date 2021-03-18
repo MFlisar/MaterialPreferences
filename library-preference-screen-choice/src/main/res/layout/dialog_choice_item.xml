@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/MD_ListItem.Choice"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+
+    <FrameLayout
+        android:id="@+id/md_image_frame"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal">
+
+        <androidx.appcompat.widget.AppCompatCheckBox
+            android:id="@+id/md_control_checkbox"
+            style="@style/MD_ListItem_Control" />
+
+        <androidx.appcompat.widget.AppCompatRadioButton
+            android:id="@+id/md_control_radio"
+            style="@style/MD_ListItem_Control" />
+
+    </FrameLayout>
+
+    <TextView
+        android:id="@+id/text"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center_vertical|start"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <ImageView
+        android:id="@+id/image"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:cropToPadding="true"
+        android:paddingStart="4dp"
+        android:paddingTop="4dp"
+        android:paddingBottom="4dp" />
+
+</LinearLayout>

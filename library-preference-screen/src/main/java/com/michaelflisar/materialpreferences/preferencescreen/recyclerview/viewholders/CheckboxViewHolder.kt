@@ -6,6 +6,7 @@ import com.michaelflisar.materialpreferences.preferencescreen.databinding.Widget
 import com.michaelflisar.materialpreferences.preferencescreen.databinding.WidgetSwitchBinding
 import com.michaelflisar.materialpreferences.preferencescreen.preferences.CheckboxPreference
 import com.michaelflisar.materialpreferences.preferencescreen.preferences.SwitchPreference
+import com.michaelflisar.materialpreferences.preferencescreen.recyclerview.PreferenceAdapter
 import com.michaelflisar.materialpreferences.preferencescreen.recyclerview.viewholders.base.BaseViewHolderWidget
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -13,7 +14,8 @@ import kotlinx.coroutines.withContext
 
 class CheckboxViewHolder(
         inflater: LayoutInflater,
-        parent: ViewGroup
+        parent: ViewGroup,
+        override val adapter: PreferenceAdapter
 ) : BaseViewHolderWidget<Boolean, CheckboxPreference, WidgetCheckboxBinding>(inflater, parent) {
 
     override fun createSubBinding(inflater: LayoutInflater, parent: ViewGroup, attachToParent: Boolean) =

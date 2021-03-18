@@ -9,12 +9,15 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewbinding.ViewBinding
 import com.michaelflisar.materialpreferences.preferencescreen.interfaces.PreferenceItem
+import com.michaelflisar.materialpreferences.preferencescreen.recyclerview.PreferenceAdapter
 import com.michaelflisar.materialpreferences.preferencescreen.views.SettingsRootView
 import kotlinx.coroutines.Job
 
 abstract class BaseViewHolder<T : ViewBinding, P : PreferenceItem>(
         val binding: T
 ) : RecyclerView.ViewHolder(binding.root) {
+
+    abstract val adapter: PreferenceAdapter
 
     protected val scope = (binding.root.context as AppCompatActivity).lifecycleScope
     private var job: Job? = null

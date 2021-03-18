@@ -19,9 +19,10 @@ class PreferenceScreen(
     }
 
     private val adapter: PreferenceAdapter = PreferenceAdapter(preferences, onScreenChanged)
+    private var stateToRestore: PreferenceAdapter.StackEntry? = null
 
     init {
-        savedInstanceState?.getParcelable<PreferenceAdapter.SavedState>(KEY_ADAPTER_STATE)?.let(::loadSavedState)
+        savedInstanceState?.getParcelable<PreferenceAdapter.SavedState>(KEY_ADAPTER_STATE)?.let(::loadAdapterState)
     }
 
     fun bind(recyclerView: RecyclerView) {
@@ -31,13 +32,18 @@ class PreferenceScreen(
             layoutAnimation = AnimationUtils.loadLayoutAnimation(context, R.anim.preference_layout_fall_down)
         }
         adapter.recyclerView = recyclerView
+        stateToRestore?.let {
+           adapter.restoreView(it)
+        }
+        stateToRestore = null
     }
 
     fun onBackPressed() = adapter.onBackPressed()
 
     @MainThread
-    fun loadSavedState(state: PreferenceAdapter.SavedState) {
-        adapter.restoreState(state.stack)
+    fun loadAdapterState(state: PreferenceAdapter.SavedState) {
+        stateToRestore = if (state.stack.size > 0) state.stack.pop() else null
+        adapter.restoreStack(state)
     }
 
     fun onSaveInstanceState(outState: Bundle) {

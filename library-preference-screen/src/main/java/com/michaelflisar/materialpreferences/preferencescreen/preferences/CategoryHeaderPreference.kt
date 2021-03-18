@@ -20,7 +20,7 @@ class CategoryHeaderPreference(
     companion object : ViewHolderFactory.ViewHolderCreator {
         val TYPE = R.id.pref_category
         override fun createViewHolder(adapter: PreferenceAdapter, layoutInflater: LayoutInflater, parent: ViewGroup) =
-                CategoryViewHolder(layoutInflater, parent)
+                CategoryViewHolder(layoutInflater, parent, adapter)
     }
 
     override val type = TYPE

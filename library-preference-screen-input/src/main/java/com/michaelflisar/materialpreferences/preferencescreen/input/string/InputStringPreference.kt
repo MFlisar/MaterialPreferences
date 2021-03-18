@@ -23,7 +23,7 @@ class InputStringPreference(
         override var badge: Badge = Badge.Empty,
         override var enabled: Boolean = true,
         override var dependsOn: Dependency<*>? = null,
-        var textInputType: Int = InputType.TYPE_NULL,
+        var textInputType: Int? = null,
         var hint: Text = "".asText(),
         var allowEmpty: Boolean = true,
         var bottomSheet: Boolean = PreferenceScreenConfig.bottomSheet,
@@ -34,7 +34,7 @@ class InputStringPreference(
     companion object : ViewHolderFactory.ViewHolderCreator {
         val TYPE = R.id.pref_input_string
         override fun createViewHolder(adapter: PreferenceAdapter, layoutInflater: LayoutInflater, parent: ViewGroup) =
-                InputStringViewHolder(layoutInflater, parent)
+                InputStringViewHolder(layoutInflater, parent, adapter)
     }
 
     override val type = TYPE

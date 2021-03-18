@@ -33,7 +33,7 @@ class MultiChoicePreference(
     companion object : ViewHolderFactory.ViewHolderCreator {
         val TYPE = R.id.pref_choice_multi
         override fun createViewHolder(adapter: PreferenceAdapter, layoutInflater: LayoutInflater, parent: ViewGroup) =
-                MultiChoiceViewHolder(layoutInflater, parent)
+                MultiChoiceViewHolder(layoutInflater, parent, adapter)
     }
 
     override val type = TYPE

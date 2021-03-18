@@ -32,7 +32,7 @@ class InputIntPreference(
     companion object : ViewHolderFactory.ViewHolderCreator {
         val TYPE = R.id.pref_input_int
         override fun createViewHolder(adapter: PreferenceAdapter, layoutInflater: LayoutInflater, parent: ViewGroup) =
-                InputIntViewHolder(layoutInflater, parent)
+                InputIntViewHolder(layoutInflater, parent, adapter)
     }
 
     override val type = TYPE

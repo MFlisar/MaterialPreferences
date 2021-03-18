@@ -28,7 +28,7 @@ class SwitchPreference(
     companion object : ViewHolderFactory.ViewHolderCreator {
         val TYPE = R.id.pref_switch
         override fun createViewHolder(adapter: PreferenceAdapter, layoutInflater: LayoutInflater, parent: ViewGroup) =
-                SwitchViewHolder(layoutInflater, parent)
+                SwitchViewHolder(layoutInflater, parent, adapter)
     }
 
     override val type = TYPE

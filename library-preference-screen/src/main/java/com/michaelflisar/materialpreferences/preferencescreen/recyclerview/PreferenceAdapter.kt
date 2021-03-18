@@ -2,6 +2,7 @@ package com.michaelflisar.materialpreferences.preferencescreen.recyclerview
 
 import android.os.Parcelable
 import android.view.ViewGroup
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewbinding.ViewBinding
 import com.michaelflisar.materialpreferences.preferencescreen.ViewHolderFactory
@@ -17,7 +18,8 @@ class PreferenceAdapter(
 ) : RecyclerView.Adapter<BaseViewHolder<ViewBinding, PreferenceItem>>() {
 
     private var prefs: List<PreferenceItem> = preferences
-    private var stack: Stack<Int> = Stack()
+    private var stack: Stack<StackEntry> = Stack()
+    var dialogInfo: DialogInfo? = null
     var recyclerView: RecyclerView? = null
 
     override fun getItemViewType(position: Int) = prefs[position].type
@@ -41,24 +43,25 @@ class PreferenceAdapter(
 
     fun onSubScreenClicked(subScreen: SubScreen) {
         val index = prefs.indexOf(subScreen)
-        stack.push(index)
+        stack.push(StackEntry.create(index, recyclerView))
         prefs = subScreen.preferences
-        onScreenChanged()
+        onScreenChanged(stack.peek())
     }
 
     internal fun onBackPressed(): Boolean {
         return if (stack.size > 0) {
-            stack.pop()
+            val stackEntry = stack.pop()
             prefs = getCurrentSubScreenPreferences()
-            onScreenChanged()
+            onScreenChanged(stackEntry)
             true
         } else false
     }
 
-    private fun onScreenChanged() {
+    private fun onScreenChanged(stackEntry: StackEntry) {
         // rerun view animation
         recyclerView?.scheduleLayoutAnimation()
         notifyDataSetChanged()
+        restoreView(stackEntry)
         onScreenChanged?.invoke(stack.size)
     }
 
@@ -66,33 +69,68 @@ class PreferenceAdapter(
         if (stack.size == 0) {
             return preferences
         } else {
-            var p = preferences[stack[0]] as SubScreen
+            var p = preferences[stack[0].index] as SubScreen
             stack.asSequence().drop(1).forEach {
-                p = p.preferences[it] as SubScreen
+                p = p.preferences[it.index] as SubScreen
             }
             return p.preferences
         }
     }
 
-    fun restoreState(stack: Stack<Int>) {
-        if (stack != this.stack) {
-            this.stack = stack
+    fun restoreStack(state: SavedState) {
+        if (state.stack != stack) {
+            stack = state.stack
             prefs = getCurrentSubScreenPreferences()
             notifyDataSetChanged()
         }
+        dialogInfo = state.dialogShown?.let { DialogInfo(it, null) }
     }
 
-    fun getSavedState(): SavedState = SavedState(stack)
+    fun restoreView(state: StackEntry) {
+        dialogInfo?.let {
+            it.preference = prefs[it.index]
+            // the rv will scroll to this item and it will check and reset the showDialog variable itself, nothing more to do here
+        }
+        if (state.firstVisibleItem != 0 || state.firstVisibleItemOffset != 0) {
+            (recyclerView?.layoutManager as? LinearLayoutManager)?.scrollToPositionWithOffset(state.firstVisibleItem, state.firstVisibleItemOffset)
+        }
+    }
+
+    fun getSavedState(): SavedState {
+        val fullStack = stack.clone() as Stack<StackEntry>
+        fullStack.push(StackEntry.create(-1, recyclerView))
+        return SavedState(fullStack, dialogInfo?.index)
+    }
 
     @Parcelize
-    data class SavedState(val stack: Stack<Int>) : Parcelable {
-        override fun equals(other: Any?): Boolean {
-            if (this === other) return true
-            return javaClass == other?.javaClass && stack == (other as SavedState).stack
-        }
+    data class SavedState(
+            val stack: Stack<StackEntry>,
+            val dialogShown: Int?
+    ) : Parcelable
 
-        override fun hashCode(): Int {
-            return stack.hashCode()
+    @Parcelize
+    data class StackEntry(
+            val index: Int,
+            val firstVisibleItem: Int,
+            val firstVisibleItemOffset: Int
+    ) : Parcelable {
+
+        companion object {
+            fun create(index: Int, recyclerView: RecyclerView?): StackEntry {
+                var position = 0
+                var offset = 0
+                (recyclerView?.layoutManager as? LinearLayoutManager)?.let {
+                    position = it.findFirstCompletelyVisibleItemPosition()
+                    offset = recyclerView?.findViewHolderForAdapterPosition(position)?.run { itemView.top }
+                            ?: 0
+                }
+                return StackEntry(index, position, offset)
+            }
         }
     }
+
+    class DialogInfo(
+            val index: Int,
+            var preference: PreferenceItem? = null
+    )
 }

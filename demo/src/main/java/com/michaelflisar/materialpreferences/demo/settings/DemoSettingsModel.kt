@@ -25,6 +25,8 @@ object DemoSettingsModel : SettingsModel(DataStoreStorage(name = "demo_settings"
     val choiceSingle by intPref(0)
     val choiceMulti by intSetPref()
 
+    val parentOfCustomDependency by stringPref("Data")
+
     val enableFeature1 by boolPref(false)
     val enableFeature2 by boolPref(false)
     val enableFeature3 by boolPref(false)

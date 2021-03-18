@@ -7,6 +7,7 @@ import androidx.viewbinding.ViewBinding
 import com.michaelflisar.materialpreferences.preferencescreen.PreferenceScreenConfig
 import com.michaelflisar.materialpreferences.preferencescreen.databinding.PreferenceBinding
 import com.michaelflisar.materialpreferences.preferencescreen.interfaces.PreferenceItem
+import com.michaelflisar.materialpreferences.preferencescreen.recyclerview.PreferenceAdapter
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -66,8 +67,12 @@ abstract class BaseViewHolderWidget<D : Any, T, B : ViewBinding?>(
     }
 
     fun rebind(preference: T) {
-        preference.summary.display(binding.summary, View.GONE, value)
+        updateSummary(preference)
         bindWidget(preference, true)
+    }
+
+    open fun updateSummary(preference: T) {
+        preference.summary.display(binding.summary, View.GONE, value)
     }
 
     abstract fun createSubBinding(inflater: LayoutInflater, parent: ViewGroup, attachToParent: Boolean): B

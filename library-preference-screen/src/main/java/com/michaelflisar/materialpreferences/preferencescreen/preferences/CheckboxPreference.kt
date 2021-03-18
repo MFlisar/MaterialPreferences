@@ -28,7 +28,7 @@ class CheckboxPreference(
     companion object : ViewHolderFactory.ViewHolderCreator {
         val TYPE = R.id.pref_checkbox
         override fun createViewHolder(adapter: PreferenceAdapter, layoutInflater: LayoutInflater, parent: ViewGroup) =
-                CheckboxViewHolder(layoutInflater, parent)
+                CheckboxViewHolder(layoutInflater, parent, adapter)
     }
 
     override val type = TYPE

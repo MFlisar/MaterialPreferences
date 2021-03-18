@@ -37,6 +37,25 @@ Check out the demo activities code for more details.
 This library uses my [AndroidText](https://github.com/MFlisar/AndroidText) class for title and summaries. This is a minimal sealedclass (a few lines of code) and allows to use `Strings` and `Ints` via a common class and so avoids the necessity to add `resText` and `stringText` parameters to all classes that do support string or resources as texts as most other libraries do.
 Usage of this class is very simply, I've created extension functions for `Strings` and `Ints` as you can see in the example.
 
+### Supported Settings
+
+Following settings are supported already:
+
+* Category
+* Sub Screens (supports nesting)
+* Checkbox
+* Switch
+* Input (text, number, password, ...)
+* Buttons
+* Color (w/o alpha)
+
+And following features are supported:
+
+* callback to check if a value is allowed to be changed (e.g. to only allow a change in the pro version)
+* dependency on other preference (even with custom dependency evaluator)
+* badges to display a badge next to a settings title
+* restores list state automatically even in nested preferences
+
 ### Default Settings
 
 Some values can be defined globally and will be used by all preferences - those default values are stored in the `PreferenceScreenConfig` object. You can change dafault values like following:
@@ -55,7 +74,7 @@ The preferences with dialogs do depend on [Material Dialogs](https://github.com/
 
 ### Credits
 
-Special thanks goes to [ModernAndroidPreferences](https://github.com/Maxr1998/ModernAndroidPreferences) because if copied a few things from there, namely following:
+Special thanks goes to [ModernAndroidPreferences](https://github.com/Maxr1998/ModernAndroidPreferences) because I copied a few things from there, namely following:
 * the root layout xml
 * the `RecyclerView` animations
 * the badge idea and the badge drawable

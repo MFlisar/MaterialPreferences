@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.michaelflisar.materialpreferences.preferencescreen.databinding.WidgetSwitchBinding
 import com.michaelflisar.materialpreferences.preferencescreen.preferences.SwitchPreference
+import com.michaelflisar.materialpreferences.preferencescreen.recyclerview.PreferenceAdapter
 import com.michaelflisar.materialpreferences.preferencescreen.recyclerview.viewholders.base.BaseViewHolderWidget
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -11,7 +12,8 @@ import kotlinx.coroutines.withContext
 
 class SwitchViewHolder(
         inflater: LayoutInflater,
-        parent: ViewGroup
+        parent: ViewGroup,
+        override val adapter: PreferenceAdapter
 ) : BaseViewHolderWidget<Boolean, SwitchPreference, WidgetSwitchBinding>(inflater, parent) {
 
     override fun createSubBinding(inflater: LayoutInflater, parent: ViewGroup, attachToParent: Boolean) =

@@ -33,7 +33,7 @@ class SingleChoicePreference(
     companion object : ViewHolderFactory.ViewHolderCreator {
         val TYPE = R.id.pref_choice_single
         override fun createViewHolder(adapter: PreferenceAdapter, layoutInflater: LayoutInflater, parent: ViewGroup) =
-                SingleChoiceViewHolder(layoutInflater, parent)
+                SingleChoiceViewHolder(layoutInflater, parent, adapter)
     }
 
     override val type = TYPE

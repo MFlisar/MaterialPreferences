@@ -4,11 +4,13 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.michaelflisar.materialpreferences.preferencescreen.databinding.PreferenceCategoryBinding
 import com.michaelflisar.materialpreferences.preferencescreen.preferences.CategoryHeaderPreference
+import com.michaelflisar.materialpreferences.preferencescreen.recyclerview.PreferenceAdapter
 import com.michaelflisar.materialpreferences.preferencescreen.recyclerview.viewholders.base.BaseViewHolder
 
 class CategoryViewHolder(
         inflater: LayoutInflater,
-        parent: ViewGroup
+        parent: ViewGroup,
+        override val adapter: PreferenceAdapter
 ) : BaseViewHolder<PreferenceCategoryBinding, CategoryHeaderPreference>(PreferenceCategoryBinding.inflate(inflater, parent, false)
 ) {
     override fun bind(preferences: CategoryHeaderPreference, rebind: Boolean) {

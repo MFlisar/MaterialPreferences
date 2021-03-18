@@ -12,7 +12,7 @@ import com.michaelflisar.materialpreferences.preferencescreen.recyclerview.viewh
 class SimpleViewHolder(
         inflater: LayoutInflater,
         parent: ViewGroup,
-        val adapter: PreferenceAdapter
+        override val adapter: PreferenceAdapter
 ) : BaseViewHolder<PreferenceBinding, PreferenceItem>(PreferenceBinding.inflate(inflater, parent, false)) {
 
     override fun bind(preference: PreferenceItem, rebind: Boolean) {

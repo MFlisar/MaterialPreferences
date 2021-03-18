@@ -30,7 +30,7 @@ class ColorPreference(
     companion object : ViewHolderFactory.ViewHolderCreator {
         val TYPE = R.id.pref_color
         override fun createViewHolder(adapter: PreferenceAdapter, layoutInflater: LayoutInflater, parent: ViewGroup) =
-                ColorViewHolder(layoutInflater, parent)
+                ColorViewHolder(layoutInflater, parent, adapter)
     }
 
     override val type = TYPE

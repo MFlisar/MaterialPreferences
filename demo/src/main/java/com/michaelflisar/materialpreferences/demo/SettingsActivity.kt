@@ -17,10 +17,12 @@ import com.michaelflisar.materialpreferences.preferencescreen.choice.singleChoic
 import com.michaelflisar.materialpreferences.preferencescreen.classes.asBatch
 import com.michaelflisar.materialpreferences.preferencescreen.classes.asIcon
 import com.michaelflisar.materialpreferences.preferencescreen.color.color
+import com.michaelflisar.materialpreferences.preferencescreen.dependencies.Dependency
 import com.michaelflisar.materialpreferences.preferencescreen.dependencies.asDependency
 import com.michaelflisar.materialpreferences.preferencescreen.input.input
 import com.michaelflisar.materialpreferences.preferencescreen.preferences.*
 import com.michaelflisar.text.asText
+import kotlinx.coroutines.flow.first
 
 class SettingsActivity : AppCompatActivity() {
 
@@ -40,6 +42,8 @@ class SettingsActivity : AppCompatActivity() {
         binding = ActivitySettingsBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
+
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         // ---------------
         // set up settings
@@ -338,6 +342,28 @@ class SettingsActivity : AppCompatActivity() {
                         dependsOn = DemoSettingsModel.enableChild.asDependency()
                     }
                 }
+                category {
+                    title = "Custom Dependency".asText()
+                }
+                input(DemoSettingsModel.parentOfCustomDependency) {
+                    title = "Parent".asText()
+                    icon = R.drawable.ic_baseline_supervisor_account_24.asIcon()
+                    summary = "Must contain a string that is a valid number between [0, 100] to enable the next setting".asText()
+                }
+                button {
+                    title = "Button with custom dependency on the setting above".asText()
+                    icon = R.drawable.ic_baseline_person_24.asIcon()
+                    onClick = {
+                        showMessage("Button clicked - parent must contain a string representing a number between [0, 100] now")
+                    }
+                    dependsOn = object : Dependency<String> {
+                        override val setting = DemoSettingsModel.parentOfCustomDependency
+                        override suspend fun isEnabled(): Boolean {
+                            val value = setting.flow.first().toIntOrNull()
+                            return value != null && value >= 0 && value <= 100
+                        }
+                    }
+                }
             }
 
             // -----------------
@@ -352,7 +378,7 @@ class SettingsActivity : AppCompatActivity() {
                     title = "Choices".asText()
                 }
                 singleChoice(DemoSettingsModel.choiceSingle) {
-                    title = "Choice 1 - Single Choice".asText()
+                    title = " Single Choice".asText()
                     icon = R.drawable.ic_baseline_format_list_bulleted_24.asIcon()
                     choices = listOf(
                             "Value 1",
@@ -363,7 +389,7 @@ class SettingsActivity : AppCompatActivity() {
                     ).asChoiceListString()
                 }
                 multiChoice(DemoSettingsModel.choiceMulti) {
-                    title = "Choice 2 - Multi Choice".asText()
+                    title = "Multi Choice".asText()
                     icon = R.drawable.ic_baseline_format_list_bulleted_24.asIcon()
                     choices = listOf(
                             "Value 1",
@@ -421,5 +447,12 @@ class SettingsActivity : AppCompatActivity() {
             return
         }
         super.onBackPressed()
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        if (!preferenceScreen.onBackPressed()) {
+            finish()
+        }
+        return true
     }
 }
