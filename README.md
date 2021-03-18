@@ -1,7 +1,6 @@
 ### About
 
-![Latest release](https://img.shields.io/github/v/release/MFlisar/MaterialPreferences)
-![Build status](https://img.shields.io/github/workflow/status/MFlisar/MaterialPreferences/Build%20library%20and%20test%20app)
+[![Release](https://jitpack.io/v/MFlisar/MaterialPreferences.svg)](https://jitpack.io/#MFlisar/MaterialPreferences)
 ![License](https://img.shields.io/github/license/MFlisar/MaterialPreferences)
 
 ### Structure
