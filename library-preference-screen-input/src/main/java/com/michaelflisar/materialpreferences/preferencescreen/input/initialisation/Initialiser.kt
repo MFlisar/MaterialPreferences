@@ -1,4 +1,4 @@
-package com.michaelflisar.materialpreferences.preferencescreen.color.initialisation
+package com.michaelflisar.materialpreferences.preferencescreen.input.initialisation
 
 import android.content.Context
 import androidx.startup.Initializer

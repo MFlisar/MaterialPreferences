@@ -59,8 +59,8 @@ dependencies {
     // Library
     // ------------------------
 
-    implementation project(':materialpreferences-core')
-    implementation project(':materialpreferences-preference-screen')
+    implementation project(':core')
+    implementation project(':screen')
 
     implementation "com.afollestad.material-dialogs:core:${versions.materialDialogs}"
     implementation "com.afollestad.material-dialogs:bottomsheets:${versions.materialDialogs}"

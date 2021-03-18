@@ -57,9 +57,9 @@ class SettingsActivity : AppCompatActivity() {
 
         // following is optional!
         PreferenceScreenConfig.apply {
-            bottomSheet = true  // default: false
-            maxLinesTitle = 1   // default: 1
-            maxLinesSummary = 3 // default: 3
+            bottomSheet = false     // default: false
+            maxLinesTitle = 1       // default: 1
+            maxLinesSummary = 3     // default: 3
         }
 
         // -----------------
@@ -87,7 +87,7 @@ class SettingsActivity : AppCompatActivity() {
             switch(DemoSettingsModel.darkTheme) {
                 title = "Dark Theme".asText()
                 icon = R.drawable.ic_baseline_style_24.asIcon()
-                summary = "This setting is applying to the demo app\n(enabled: %b)".asText()
+                summary = "This setting is applied to this demo app\n(enabled: %b)".asText()
                 onChanged = {
                     L.d { "Dark Theme Settings Listener called: $it" }
                     //recreate()
@@ -96,15 +96,15 @@ class SettingsActivity : AppCompatActivity() {
             }
 
             category {
-                title = "Demo Settings".asText()
+                title = "Demos".asText()
             }
 
             // -----------------
-            // 2) demo settings - sub screens
+            // 2) sub screens
             // -----------------
 
             subScreen {
-                title = "Nested Sub Screens".asText()
+                title = "Sub Screen Nesting".asText()
                 summary = "Test nested screens (with any nesting hierarchy)".asText()
                 icon = R.drawable.ic_baseline_double_arrow_24.asIcon()
 
@@ -398,6 +398,7 @@ class SettingsActivity : AppCompatActivity() {
                     showMessage("Pro feature changed (this should never be called!): $it")
                 }
             }
+            
             switch(DemoSettingsModel.proFeature2) {
                 title = "Pro Feature 2".asText()
                 icon = R.drawable.ic_baseline_phone_android_24.asIcon()

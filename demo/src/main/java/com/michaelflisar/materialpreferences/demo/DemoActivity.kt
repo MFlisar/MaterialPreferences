@@ -70,11 +70,11 @@ class DemoActivity : AppCompatActivity() {
 
         lifecycleScope.launch(Dispatchers.IO) {
             val name1 = DemoSettingsModel.childName1.flow.first()
-            val name2 = DemoSettingsModel.childName1.flow.first()
-            val name3 = DemoSettingsModel.childName1.flow.first()
+            val name2 = DemoSettingsModel.childName2.flow.first()
+            val name3 = DemoSettingsModel.childName3.flow.first()
             val names = listOf(name1, name2, name3)
             withContext(Dispatchers.Main) {
-                binding.tvText1.text = binding.tvText1.text.toString() + "\nChildrens: ${names.joinToString(", ")}"
+                binding.tvText1.text = binding.tvText1.text.toString() + "\n[SUSPENDED FLOW READ] Childrens: ${names.joinToString(", ")}"
             }
         }
 

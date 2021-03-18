@@ -9,6 +9,7 @@
 This library is based on `Flows` and `Coroutines` and works with the provided *DataStore Storage* or even with a custom storage implementation.
 It supports `LiveData` by default as `Flows` can easily be converted to `LiveData`.
 Additionally the *preference-screen* module provides a DSL to easily set up `RecyclerView` based preference screens.
+It also supports custom extensions for custom preference screens.
 
 ### Introduction Core
 
@@ -105,15 +106,15 @@ repositories {
 dependencies {
 
   // core module
-  implementation 'com.github.MFlisar.MaterialPreferences:materialpreferences-core:<LATEST-VERSION>'
+  implementation 'com.github.MFlisar.MaterialPreferences:core:<LATEST-VERSION>'
 
   // data store module
-  implementation 'com.github.MFlisar.MaterialPreferences:materialpreferences-datastore:<LATEST-VERSION>'
+  implementation 'com.github.MFlisar.MaterialPreferences:datastore:<LATEST-VERSION>'
     
-  // preference screen modules
-  implementation 'com.github.MFlisar.MaterialPreferences:materialpreferences-preference-screen:<LATEST-VERSION>'
-  implementation 'com.github.MFlisar.MaterialPreferences:materialpreferences-preference-screen-input:<LATEST-VERSION>'
-  implementation 'com.github.MFlisar.MaterialPreferences:materialpreferences-preference-screen-choice:<LATEST-VERSION>'
-  implementation 'com.github.MFlisar.MaterialPreferences:materialpreferences-preference-screen-color:<LATEST-VERSION>'
+  // screen modules
+  implementation 'com.github.MFlisar.MaterialPreferences:screen:<LATEST-VERSION>'
+  implementation 'com.github.MFlisar.MaterialPreferences:screen-input:<LATEST-VERSION>'
+  implementation 'com.github.MFlisar.MaterialPreferences:screen-choice:<LATEST-VERSION>'
+  implementation 'com.github.MFlisar.MaterialPreferences:screen-color:<LATEST-VERSION>'
 }
 ```

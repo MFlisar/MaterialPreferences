@@ -30,7 +30,7 @@ ext {
             mavenVersion   : "2.0",
 
             lumberjack     : "4.0.3",
-            androidText    : "0.4",
+            androidText    : "0.6",
             materialDialogs: "3.3.0"
     ]
 

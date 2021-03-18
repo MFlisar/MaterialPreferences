@@ -62,5 +62,5 @@ dependencies {
 
     api "com.github.MFlisar:AndroidText:${versions.androidText}"
 
-    implementation project(':materialpreferences-core')
+    implementation project(':core')
 }

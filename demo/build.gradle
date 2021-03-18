@@ -62,12 +62,12 @@ dependencies {
     // Library
     // ------------------------
 
-    implementation project(':materialpreferences-core')
-    implementation project(':materialpreferences-datastore')
-    implementation project(':materialpreferences-preference-screen')
-    implementation project(':materialpreferences-preference-screen-input')
-    implementation project(':materialpreferences-preference-screen-choice')
-    implementation project(':materialpreferences-preference-screen-color')
+    implementation project(':core')
+    implementation project(':datastore')
+    implementation project(':screen')
+    implementation project(':screen-input')
+    implementation project(':screen-choice')
+    implementation project(':screen-color')
 
     implementation "com.github.MFlisar.Lumberjack:lumberjack-library:${versions.lumberjack}"
 }
