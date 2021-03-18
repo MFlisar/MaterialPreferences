@@ -105,21 +105,22 @@ repositories {
 dependencies {
 
   // core module
-  implementation 'com.github.MFlisar.MaterialPreferences:core:<LATEST-VERSION>'
+  implementation "com.github.MFlisar.MaterialPreferences:core:<LATEST-VERSION>"
 
   // data store module
-  implementation 'com.github.MFlisar.MaterialPreferences:datastore:<LATEST-VERSION>'
+  implementation "com.github.MFlisar.MaterialPreferences:datastore:<LATEST-VERSION>"
     
   // screen modules
-  implementation 'com.github.MFlisar.MaterialPreferences:screen:<LATEST-VERSION>'
-  implementation 'com.github.MFlisar.MaterialPreferences:screen-input:<LATEST-VERSION>'
-  implementation 'com.github.MFlisar.MaterialPreferences:screen-choice:<LATEST-VERSION>'
-  implementation 'com.github.MFlisar.MaterialPreferences:screen-color:<LATEST-VERSION>'
+  implementation "com.github.MFlisar.MaterialPreferences:screen:<LATEST-VERSION>"
+  implementation "com.github.MFlisar.MaterialPreferences:screen-input:<LATEST-VERSION>"
+  implementation "com.github.MFlisar.MaterialPreferences:screen-choice:<LATEST-VERSION>"
+  implementation "com.github.MFlisar.MaterialPreferences:screen-color:<LATEST-VERSION>"
 }
 ```
 
 TODO
 
+- [ ] onScreenChanged should also report the parent screen(s) => so that the user can build breadcrumbs based on this or similar
 - [ ] Preference Types
 	- [ ] SeekBar Preference
 	- [ ] Collapse Preference - add sub items ONCE on click

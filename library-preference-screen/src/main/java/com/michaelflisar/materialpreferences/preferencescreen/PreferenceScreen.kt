@@ -42,7 +42,7 @@ class PreferenceScreen(
 
     @MainThread
     fun loadAdapterState(state: PreferenceAdapter.SavedState) {
-        stateToRestore = if (state.stack.size > 0) state.stack.pop() else null
+        stateToRestore = if (state.stack.size > 0) state.stack.removeLast() else null
         adapter.restoreStack(state)
     }
 

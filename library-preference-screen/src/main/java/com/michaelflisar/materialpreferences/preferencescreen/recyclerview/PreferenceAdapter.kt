@@ -79,7 +79,10 @@ class PreferenceAdapter(
 
     fun restoreStack(state: SavedState) {
         if (state.stack != stack) {
-            stack = state.stack
+            stack = Stack()
+            state.stack.forEach {
+                stack.push(it)
+            }
             prefs = getCurrentSubScreenPreferences()
             notifyDataSetChanged()
         }
@@ -99,12 +102,12 @@ class PreferenceAdapter(
     fun getSavedState(): SavedState {
         val fullStack = stack.clone() as Stack<StackEntry>
         fullStack.push(StackEntry.create(-1, recyclerView))
-        return SavedState(fullStack, dialogInfo?.index)
+        return SavedState(ArrayList(fullStack.toList()), dialogInfo?.index)
     }
 
     @Parcelize
     data class SavedState(
-            val stack: Stack<StackEntry>,
+            val stack: ArrayList<StackEntry>,
             val dialogShown: Int?
     ) : Parcelable
 
