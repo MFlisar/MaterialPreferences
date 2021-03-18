@@ -11,7 +11,7 @@ It supports `LiveData` by default as `Flows` can easily be converted to `LiveDat
 Additionally the *preference-screen* module provides a DSL to easily set up `RecyclerView` based preference screens.
 It also supports custom extensions for custom preference screens.
 
-### Introduction Core
+### Core
 
 With this library you can observe a storage (JetPack DataStore based implemention is provided, but can be replaced by any custom storage) via kotlin `Flows`.
 This implicitly means it supports `LiveData` as well.
@@ -78,19 +78,19 @@ lifecycleScope.launch(Dispatchers.IO) {
 
 ```
 
-### Introduction Storage
+### Storage
 
 The `Storage` is an abstraction to support any storage implementation. The `datastore` module provides an implementation based on the [Android JetPack DataStore](https://developer.android.com/topic/libraries/architecture/datastore).
 
 Check out the corresponding readme here: [DataStore Module README](README-DATASTORE.md)
 
-### Introduction Preference Screen
+### Preference Screen
 
 The *preference-screen&ast;* modules allow you to create preference screens like following easily via DSL.
 
 ![Preference Screen](screenshots/preference-screen.jpg)
 
-Check out the corresponding readme here: [Preference Screen Modules README](README-PREFERENCE-SCREEN.md)
+Explanations, code examples and more be found here: [Preference Screen Modules README](README-PREFERENCE-SCREEN.md)
 
 
 ### Gradle (via [JitPack.io](https://jitpack.io/))
