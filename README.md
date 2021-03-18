@@ -88,7 +88,9 @@ Check out the corresponding readme here: [DataStore Module README](README-DATAST
 
 The *preference-screen&ast;* modules allow you to create preference screens like following easily via DSL.
 
-![Preference Screen](https://github.com/MFlisar/RxBus2/blob/master/screenshots/preference-screen.png)
+![Preference Screen](https://github.com/MFlisar/RxBus2/blob/master/screenshots/preference-screen-1.jpg)
+![Preference Screen](https://github.com/MFlisar/RxBus2/blob/master/screenshots/preference-screen-2.jpg)
+![Preference Screen](https://github.com/MFlisar/RxBus2/blob/master/screenshots/preference-screen-3.jpg)
 
 Check out the corresponding readme here: [Preference Screen Modules README](README-PREFERENCE-SCREEN.md)
 
@@ -123,7 +125,7 @@ TODO
 
 - [ ] Preference Types
 	- [ ] SeekBar Preference
-	- [ ] Collapse Preference
+	- [ ] Collapse Preference - add sub items ONCE on click
 - [ ] Others
   - [ ] Global Setting - enable title numbering (Count numbers of categories yes/no)
   - [ ] use [MaterialDialogFragments](https://github.com/MFlisar/MaterialDialogFragments) dialog fragments so that even the dialogs restore their state and remember temporary user changes inside the dialogs
