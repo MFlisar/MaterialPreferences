@@ -1,7 +1,6 @@
 package com.michaelflisar.materialpreferences.preferencescreen.recyclerview.viewholders.base
 
 import android.app.Dialog
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.viewbinding.ViewBinding
