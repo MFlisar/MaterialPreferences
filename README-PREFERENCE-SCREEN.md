@@ -34,7 +34,7 @@ Check out the demo activities code for more details.
 
 *Side note:*
 
-This library uses my (AndroidText)[https://github.com/MFlisar/AndroidText] class for title and summaries. This is a minimal sealedclass (a few lines of code) and allows to use `Strings` and `Ints` via a common class and so avoids the necessity to add `resText` and `stringText` parameters to all classes that do support string or resources as texts as most other libraries do.
+This library uses my [AndroidText](https://github.com/MFlisar/AndroidText) class for title and summaries. This is a minimal sealedclass (a few lines of code) and allows to use `Strings` and `Ints` via a common class and so avoids the necessity to add `resText` and `stringText` parameters to all classes that do support string or resources as texts as most other libraries do.
 Usage of this class is very simply, I've created extension functions for `Strings` and `Ints` as you can see in the example.
 
 ### Default Settings

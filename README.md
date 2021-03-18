@@ -81,13 +81,15 @@ lifecycleScope.launch(Dispatchers.IO) {
 
 The `Storage` is an abstraction to support any storage implementation. The `datastore` module provides an implementation based on the [Android JetPack DataStore](https://developer.android.com/topic/libraries/architecture/datastore).
 
-More about it here: [DataStore Module](README-DATASTORE.md)
+Check out the corresponding readme here: [DataStore Module README](README-DATASTORE.md)
 
 ### Introduction Preference Screen
 
 The *preference-screen&ast;* modules allow you to create preference screens like following easily via DSL.
 
-More about it here: [Preference Screen Modules](README-PREFERENCE-SCREEN.md)
+![Preference Screen](https://github.com/MFlisar/RxBus2/blob/master/screenshots/preference-screen.png)
+
+Check out the corresponding readme here: [Preference Screen Modules README](README-PREFERENCE-SCREEN.md)
 
 
 ### Gradle (via [JitPack.io](https://jitpack.io/))
