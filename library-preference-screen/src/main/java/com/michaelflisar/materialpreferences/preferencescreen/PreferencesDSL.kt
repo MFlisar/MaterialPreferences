@@ -81,7 +81,11 @@ class Screen {
     @PreferenceMarker
     class SubBuilder : BaseBuilder() {
         fun build(): SubScreen {
-            return SubScreen(title, preferences, icon, summary, badge)
+            return SubScreen(title, preferences).apply {
+                icon = this@SubBuilder.icon
+                badge = this@SubBuilder.badge
+                summary = this@SubBuilder.summary
+            }
         }
     }
 

@@ -1,5 +1,7 @@
 package com.michaelflisar.materialpreferences.preferencescreen
 
+import com.michaelflisar.materialpreferences.preferencescreen.enums.NoIconVisibility
+
 object PreferenceScreenConfig {
 
     /**
@@ -22,4 +24,18 @@ object PreferenceScreenConfig {
      * Default: false
      */
     var bottomSheet: Boolean = false
+
+    /**
+     * defines the default behaviour for items without an icon
+     *
+     * Default: Invisible
+     */
+    var noIconVisibility: NoIconVisibility = NoIconVisibility.Invisible
+
+    /**
+     * defines if icons should be aligned with a toolbars back arrow or not
+     *
+     * Default: false
+     */
+    var alignIconsWithBackArrow: Boolean = false
 }

@@ -75,6 +75,12 @@ lifecycleScope.launch(Dispatchers.IO) {
   }
 }
 
+// 7) update valuess
+lifecycleScope.launch(Dispatchers.IO)  {
+  UserSettingsModel.name.update("Some new name")
+  UserSettingsModel.age.update(30)
+}
+
 ```
 
 ### Storage
@@ -124,6 +130,8 @@ TODO
 - [ ] Preference Types
 	- [ ] SeekBar Preference
 	- [ ] Collapse Preference - add sub items ONCE on click
+	- [ ] Dropdown Preference
+	- [ ] Spacer Preference
 - [ ] Others
   - [ ] Global Setting - enable title numbering (Count numbers of categories yes/no)
   - [ ] use [MaterialDialogFragments](https://github.com/MFlisar/MaterialDialogFragments) dialog fragments so that even the dialogs restore their state and remember temporary user changes inside the dialogs

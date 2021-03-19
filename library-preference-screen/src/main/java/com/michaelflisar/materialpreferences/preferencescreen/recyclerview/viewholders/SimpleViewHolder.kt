@@ -18,9 +18,16 @@ class SimpleViewHolder(
     override fun bind(preference: PreferenceItem, rebind: Boolean) {
         super.bind(preference, rebind)
         preference.title.display(binding.title)
-        preference.icon.display(binding.icon)
-        preference.badge.display(binding.badge)
-        preference.summary.display(binding.summary, View.GONE)
+        if (preference is PreferenceItem.PreferenceWithIcon) {
+            updateIconFrame(preference, binding.iconFrame)
+            preference.icon.display(binding.icon)
+        }
+        if (preference is PreferenceItem.PreferenceWithBadge) {
+            preference.badge.display(binding.badge)
+        }
+        if (preference is PreferenceItem.PreferenceWithSummary) {
+            preference.summary.display(binding.summary, View.GONE)
+        }
         if (!rebind) {
             binding.root.setOnClickListener {
                 onClick(preference)

@@ -7,28 +7,19 @@ import com.michaelflisar.materialpreferences.preferencescreen.PreferenceScreenCo
 import com.michaelflisar.materialpreferences.preferencescreen.ViewHolderFactory
 import com.michaelflisar.materialpreferences.preferencescreen.choice.ChoiceItem
 import com.michaelflisar.materialpreferences.preferencescreen.choice.R
-import com.michaelflisar.materialpreferences.preferencescreen.classes.Badge
-import com.michaelflisar.materialpreferences.preferencescreen.classes.Icon
-import com.michaelflisar.materialpreferences.preferencescreen.dependencies.Dependency
 import com.michaelflisar.materialpreferences.preferencescreen.interfaces.PreferenceItem
+import com.michaelflisar.materialpreferences.preferencescreen.preferences.BasePreferenceItem
 import com.michaelflisar.materialpreferences.preferencescreen.recyclerview.PreferenceAdapter
-import com.michaelflisar.text.Text
-import com.michaelflisar.text.asText
 
 class SingleChoicePreference(
-        override val setting: StorageSetting<Int>,
-        override var title: Text = Text.Empty,
-        override var icon: Icon = Icon.Empty,
-        override var summary: Text = "%s".asText(),
-        override var badge: Badge = Badge.Empty,
-        override var enabled: Boolean = true,
-        override var dependsOn: Dependency<*>? = null,
-        override var canChange: (value: Int) -> Boolean = { true },
-        override var onChanged: ((value: Int) -> Unit)? = null,
-        var choices: List<ChoiceItem> = emptyList(),
-        var showCheckBoxes: Boolean = false,
-        var bottomSheet: Boolean = PreferenceScreenConfig.bottomSheet
-) : PreferenceItem.Preference, PreferenceItem.PreferenceWithData<Int> {
+        override val setting: StorageSetting<Int>
+) : BasePreferenceItem(), PreferenceItem.PreferenceWithData<Int> {
+
+    override var canChange: (value: Int) -> Boolean = { true }
+    override var onChanged: ((value: Int) -> Unit)? = null
+    var choices: List<ChoiceItem> = emptyList()
+    var showCheckBoxes: Boolean = false
+    var bottomSheet: Boolean = PreferenceScreenConfig.bottomSheet
 
     companion object : ViewHolderFactory.ViewHolderCreator {
         val TYPE = R.id.pref_choice_single

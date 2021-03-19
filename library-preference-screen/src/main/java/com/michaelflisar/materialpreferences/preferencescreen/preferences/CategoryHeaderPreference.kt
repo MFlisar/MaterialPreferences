@@ -7,15 +7,15 @@ import com.michaelflisar.materialpreferences.preferencescreen.ViewHolderFactory
 import com.michaelflisar.materialpreferences.preferencescreen.classes.Badge
 import com.michaelflisar.materialpreferences.preferencescreen.classes.Icon
 import com.michaelflisar.materialpreferences.preferencescreen.dependencies.Dependency
+import com.michaelflisar.materialpreferences.preferencescreen.enums.NoIconVisibility
 import com.michaelflisar.materialpreferences.preferencescreen.interfaces.PreferenceItem
 import com.michaelflisar.materialpreferences.preferencescreen.recyclerview.PreferenceAdapter
 import com.michaelflisar.materialpreferences.preferencescreen.recyclerview.viewholders.CategoryViewHolder
 import com.michaelflisar.text.Text
 
-class CategoryHeaderPreference(
-        override var title: Text = Text.Empty,
-        override var enabled: Boolean = true
-) : PreferenceItem.Preference {
+class CategoryHeaderPreference : PreferenceItem.Category {
+
+    override var title: Text = Text.Empty
 
     companion object : ViewHolderFactory.ViewHolderCreator {
         val TYPE = R.id.pref_category
@@ -24,10 +24,4 @@ class CategoryHeaderPreference(
     }
 
     override val type = TYPE
-
-    override var icon: Icon = Icon.Empty
-    override var badge: Badge = Badge.Empty
-    override var summary: Text = Text.Empty
-
-    override var dependsOn: Dependency<*>? = null
 }

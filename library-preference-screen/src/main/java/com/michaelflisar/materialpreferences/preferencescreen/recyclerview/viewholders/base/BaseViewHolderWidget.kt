@@ -7,7 +7,6 @@ import androidx.viewbinding.ViewBinding
 import com.michaelflisar.materialpreferences.preferencescreen.PreferenceScreenConfig
 import com.michaelflisar.materialpreferences.preferencescreen.databinding.PreferenceBinding
 import com.michaelflisar.materialpreferences.preferencescreen.interfaces.PreferenceItem
-import com.michaelflisar.materialpreferences.preferencescreen.recyclerview.PreferenceAdapter
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -44,8 +43,13 @@ abstract class BaseViewHolderWidget<D : Any, T, B : ViewBinding?>(
     override fun bind(preference: T, rebind: Boolean) {
         super.bind(preference, rebind)
         preference.title.display(binding.title)
-        preference.icon.display(binding.icon)
-        preference.badge.display(binding.badge)
+        if (preference is PreferenceItem.PreferenceWithIcon) {
+            updateIconFrame(preference, binding.iconFrame)
+            preference.icon.display(binding.icon)
+        }
+        if (preference is PreferenceItem.PreferenceWithBadge) {
+            preference.badge.display(binding.badge)
+        }
         scope.launch(Dispatchers.IO) {
             value = preference.setting.read()
             withContext(Dispatchers.Main) {
@@ -72,7 +76,9 @@ abstract class BaseViewHolderWidget<D : Any, T, B : ViewBinding?>(
     }
 
     open fun updateSummary(preference: T) {
-        preference.summary.display(binding.summary, View.GONE, value)
+        if (preference is PreferenceItem.PreferenceWithSummary) {
+            preference.summary.display(binding.summary, View.GONE, value)
+        }
     }
 
     abstract fun createSubBinding(inflater: LayoutInflater, parent: ViewGroup, attachToParent: Boolean): B

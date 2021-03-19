@@ -2,6 +2,7 @@ package com.michaelflisar.materialpreferences.demo
 
 import android.content.Context
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.text.InputType
 import android.widget.Toast
@@ -14,11 +15,13 @@ import com.michaelflisar.materialpreferences.preferencescreen.*
 import com.michaelflisar.materialpreferences.preferencescreen.choice.asChoiceListString
 import com.michaelflisar.materialpreferences.preferencescreen.choice.multiChoice
 import com.michaelflisar.materialpreferences.preferencescreen.choice.singleChoice
+import com.michaelflisar.materialpreferences.preferencescreen.classes.Badge
 import com.michaelflisar.materialpreferences.preferencescreen.classes.asBatch
 import com.michaelflisar.materialpreferences.preferencescreen.classes.asIcon
 import com.michaelflisar.materialpreferences.preferencescreen.color.color
 import com.michaelflisar.materialpreferences.preferencescreen.dependencies.Dependency
 import com.michaelflisar.materialpreferences.preferencescreen.dependencies.asDependency
+import com.michaelflisar.materialpreferences.preferencescreen.enums.NoIconVisibility
 import com.michaelflisar.materialpreferences.preferencescreen.input.input
 import com.michaelflisar.materialpreferences.preferencescreen.preferences.*
 import com.michaelflisar.text.asText
@@ -61,9 +64,11 @@ class SettingsActivity : AppCompatActivity() {
 
         // following is optional!
         PreferenceScreenConfig.apply {
-            bottomSheet = false     // default: false
-            maxLinesTitle = 1       // default: 1
-            maxLinesSummary = 3     // default: 3
+            bottomSheet = false                             // default: false
+            maxLinesTitle = 1                               // default: 1
+            maxLinesSummary = 3                             // default: 3
+            noIconVisibility = NoIconVisibility.Invisible   // default: Invisible
+            alignIconsWithBackArrow = false                 // default: false
         }
 
         // -----------------
@@ -237,16 +242,16 @@ class SettingsActivity : AppCompatActivity() {
                     hint = "Insert a value...".asText()
                 }
                 input(DemoSettingsModel.number1) {
-                    title = "Number Input 1".asText()
+                    title = "Euros".asText()
                     icon = R.drawable.ic_baseline_attach_money_24.asIcon()
-                    summary = "%d".asText()
-                    hint = "Insert a value...".asText()
+                    summary = "%d€".asText()
+                    hint = "Insert an amount in $".asText()
                 }
                 input(DemoSettingsModel.number2) {
-                    title = "Number Input 2".asText()
+                    title = "Dollars".asText()
                     icon = R.drawable.ic_baseline_attach_money_24.asIcon()
-                    summary = "%d".asText()
-                    hint = "Insert a value...".asText()
+                    summary = "%d$".asText()
+                    hint = "Insert an amount in €".asText()
                 }
             }
 
@@ -378,7 +383,7 @@ class SettingsActivity : AppCompatActivity() {
                     title = "Choices".asText()
                 }
                 singleChoice(DemoSettingsModel.choiceSingle) {
-                    title = " Single Choice".asText()
+                    title = "Single Choice".asText()
                     icon = R.drawable.ic_baseline_format_list_bulleted_24.asIcon()
                     choices = listOf(
                             "Value 1",
@@ -399,6 +404,31 @@ class SettingsActivity : AppCompatActivity() {
                             "Value 5"
                     ).asChoiceListString()
                     allowEmptySelection = true
+                }
+            }
+
+            // -----------------
+            // 9) various
+            // -----------------
+
+            subScreen {
+                title = "Various".asText()
+                icon = R.drawable.ic_baseline_format_list_bulleted_24.asIcon()
+                button {
+                    title = "Button".asText()
+                    summary = "Custom Badge Colors".asText()
+                    icon = R.drawable.ic_baseline_touch_app_24.asIcon()
+                    badge = Badge.Text("Test".asText(), Color.GREEN)
+                }
+                button {
+                    title = "Button".asText()
+                    summary = "No Icon Visibility INVISIBLE".asText()
+                    noIconVisibility = NoIconVisibility.Invisible
+                }
+                button {
+                    title = "Button".asText()
+                    summary = "No Icon Visibility GONE".asText()
+                    noIconVisibility = NoIconVisibility.Gone
                 }
             }
 

@@ -82,7 +82,7 @@ class DemoActivity : AppCompatActivity() {
         // ...
         // -----------------------
 
-        lifecycleScope.launch {
+        lifecycleScope.launch(Dispatchers.IO)  {
             DemoSettingsModel.testBool.update(true)
             DemoSettingsModel.testBool.update(false)
             DemoSettingsModel.testBool.update(true)

@@ -1,13 +1,17 @@
 package com.michaelflisar.materialpreferences.preferencescreen.recyclerview.viewholders.base
 
+import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
 import androidx.annotation.CallSuper
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.children
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewbinding.ViewBinding
+import com.michaelflisar.materialpreferences.preferencescreen.PreferenceScreenConfig
+import com.michaelflisar.materialpreferences.preferencescreen.classes.Icon
 import com.michaelflisar.materialpreferences.preferencescreen.interfaces.PreferenceItem
 import com.michaelflisar.materialpreferences.preferencescreen.recyclerview.PreferenceAdapter
 import com.michaelflisar.materialpreferences.preferencescreen.views.SettingsRootView
@@ -48,6 +52,15 @@ abstract class BaseViewHolder<T : ViewBinding, P : PreferenceItem>(
             (v as? ViewGroup)?.children?.forEach {
                 setState(it, enabled)
             }
+        }
+    }
+
+    protected fun updateIconFrame(preference: PreferenceItem.PreferenceWithIcon, iconFrame: LinearLayout) {
+        iconFrame.gravity = if (PreferenceScreenConfig.alignIconsWithBackArrow) Gravity.START or Gravity.CENTER_VERTICAL else Gravity.CENTER
+        if (preference.icon is Icon.Empty) {
+            iconFrame.visibility = preference.noIconVisibility.visibility
+        } else {
+            iconFrame.visibility = View.VISIBLE
         }
     }
 }
