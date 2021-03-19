@@ -92,7 +92,10 @@ Check out the corresponding readme here: [DataStore Module README](README-DATAST
 
 The *preference-screen&ast;* modules allow you to create preference screens like following easily via DSL.
 
-![Preference Screen](screenshots/preference-screen.jpg)
+![Demo 1](screenshots/preference-screen-1.jpg)
+![Demo 2](screenshots/preference-screen-2.jpg)
+![Demo 3](screenshots/preference-screen-3.jpg)
+![Demo 4](screenshots/preference-screen-4.jpg)
 
 Explanations, code examples and more be found here: [Preference Screen Modules README](README-PREFERENCE-SCREEN.md)
 
