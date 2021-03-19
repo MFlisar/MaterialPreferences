@@ -3,18 +3,17 @@
 [![Release](https://jitpack.io/v/MFlisar/MaterialPreferences.svg)](https://jitpack.io/#MFlisar/MaterialPreferences)
 ![License](https://img.shields.io/github/license/MFlisar/MaterialPreferences)
 
-### Structure
+### Introduction
 
 This library is based on `Flows` and `Coroutines` and works with the provided *DataStore Storage* or even with a custom storage implementation.
-It supports `LiveData` by default as `Flows` can easily be converted to `LiveData`.
+It supports `LiveData` by default as `Flows` can easily be converted to `LiveData`. Preferences are elegantly declared via `delegates`.
 Additionally the *preference-screen* module provides a DSL to easily set up `RecyclerView` based preference screens.
 It also supports custom extensions for custom preference screens.
 
 ### Core
 
-With this library you can observe a storage (JetPack DataStore based implemention is provided, but can be replaced by any custom storage) via kotlin `Flows`.
-This implicitly means it supports `LiveData` as well.
-Settings (Preferences) are simply declared by delegates.
+With this library you can declare preferences via kotlin `delegates`,and observe and update them via kotlin `Flows`. This works with any storage implementation, an implementation for JetPack DataStore is provided already.
+
 
 Here's a simply example of a preference definitions:
 
@@ -126,7 +125,6 @@ dependencies {
 
 TODO
 
-- [ ] onScreenChanged should also report the parent screen(s) => so that the user can build breadcrumbs based on this or similar
 - [ ] Preference Types
 	- [ ] SeekBar Preference
 	- [ ] Collapse Preference - add sub items ONCE on click
