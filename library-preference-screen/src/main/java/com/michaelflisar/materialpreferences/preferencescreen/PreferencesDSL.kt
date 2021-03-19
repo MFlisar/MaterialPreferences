@@ -67,7 +67,7 @@ class Screen {
         private val preferences: MutableList<PreferenceItem> = ArrayList()
 
         var state: Bundle? = null
-        var onScreenChanged: ((level: Int) -> Unit)? = null
+        var onScreenChanged: ScreenChangedListener? = null
 
         fun build(): PreferenceScreen {
             return PreferenceScreen(preferences, state, onScreenChanged)

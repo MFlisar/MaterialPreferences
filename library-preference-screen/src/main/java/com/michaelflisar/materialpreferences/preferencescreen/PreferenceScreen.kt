@@ -8,10 +8,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.michaelflisar.materialpreferences.preferencescreen.interfaces.PreferenceItem
 import com.michaelflisar.materialpreferences.preferencescreen.recyclerview.PreferenceAdapter
 
+typealias ScreenChangedListener = (subScreenStack: List<PreferenceItem.SubScreen>, stateRestored: Boolean) -> Unit
 class PreferenceScreen(
         val preferences: List<PreferenceItem>,
         savedInstanceState: Bundle?,
-        onScreenChanged: ((level: Int) -> Unit)? = null
+        onScreenChanged: ScreenChangedListener? = null
 ) {
 
     companion object {

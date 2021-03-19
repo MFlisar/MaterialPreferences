@@ -5,16 +5,18 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewbinding.ViewBinding
+import com.michaelflisar.materialpreferences.preferencescreen.ScreenChangedListener
 import com.michaelflisar.materialpreferences.preferencescreen.ViewHolderFactory
 import com.michaelflisar.materialpreferences.preferencescreen.interfaces.PreferenceItem
 import com.michaelflisar.materialpreferences.preferencescreen.preferences.SubScreen
 import com.michaelflisar.materialpreferences.preferencescreen.recyclerview.viewholders.base.BaseViewHolder
 import kotlinx.parcelize.Parcelize
 import java.util.*
+import kotlin.collections.ArrayList
 
 class PreferenceAdapter(
         private val preferences: List<PreferenceItem>,
-        private val onScreenChanged: ((level: Int) -> Unit)?
+        private val onScreenChanged: ScreenChangedListener?
 ) : RecyclerView.Adapter<BaseViewHolder<ViewBinding, PreferenceItem>>() {
 
     private var prefs: List<PreferenceItem> = preferences
@@ -62,7 +64,25 @@ class PreferenceAdapter(
         recyclerView?.scheduleLayoutAnimation()
         notifyDataSetChanged()
         restoreView(stackEntry)
-        onScreenChanged?.invoke(stack.size)
+        notifyScreenChangedListener(false)
+    }
+
+    private fun notifyScreenChangedListener(stateRestored: Boolean) {
+        val subScreens = getCurrentSubScreens()
+        onScreenChanged?.invoke(subScreens, stateRestored)
+    }
+
+    private fun getCurrentSubScreens(): List<SubScreen> {
+        val screens = ArrayList<SubScreen>()
+        if (stack.size > 0) {
+            var p = preferences[stack[0].index] as SubScreen
+            screens.add(p)
+            stack.asSequence().drop(1).forEach {
+                p = p.preferences[it.index] as SubScreen
+                screens.add(p)
+            }
+        }
+        return screens
     }
 
     private fun getCurrentSubScreenPreferences(): List<PreferenceItem> {
@@ -86,6 +106,7 @@ class PreferenceAdapter(
             prefs = getCurrentSubScreenPreferences()
             notifyDataSetChanged()
         }
+        notifyScreenChangedListener(true)
         dialogInfo = state.dialogShown?.let { DialogInfo(it, null) }
     }
 

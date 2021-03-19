@@ -45,6 +45,7 @@ class SettingsActivity : AppCompatActivity() {
         binding = ActivitySettingsBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
+        setSupportActionBar(binding.toolbar)
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
@@ -79,8 +80,10 @@ class SettingsActivity : AppCompatActivity() {
 
             // set up screen
             state = savedInstanceState
-            onScreenChanged = {
-                L.d { "Preference Screen - level = $it" }
+            onScreenChanged = { subScreenStack, stateRestored ->
+                val breadcrumbs = subScreenStack.joinToString(" > ") { it.title.get(this@SettingsActivity) }
+                L.d { "Preference Screen - level = ${subScreenStack.size} | $breadcrumbs | restored: $stateRestored" }
+                supportActionBar?.subtitle = breadcrumbs
             }
 
             // set up settings (and sub settings)

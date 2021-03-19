@@ -27,6 +27,7 @@ class DemoActivity : AppCompatActivity() {
         binding = ActivityDemoBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
+        setSupportActionBar(binding.toolbar)
 
         binding.btSettings.setOnClickListener { SettingsActivity.start(this) }
 
