@@ -14,7 +14,7 @@ It also supports custom extensions for custom preference screens.
 
 With this library you can declare preferences via kotlin `delegates`,and observe and update them via kotlin `Flows`. This works with any storage implementation, an implementation for JetPack DataStore is provided already.
 
-##### Define preferences:
+##### 1/4 Define preferences:
 
 ```kotlin
 object UserSettingsModel : SettingsModel(DataStoreStorage(name = "user")) {
@@ -40,7 +40,7 @@ object UserSettingsModel : SettingsModel(DataStoreStorage(name = "user")) {
 }
 ```
 
-##### Observe/Read preferences:
+##### 2/4 Observe/Read preferences:
 
 ```kotlin
 // 1) simply observe a setting
@@ -82,13 +82,13 @@ lifecycleScope.launch(Dispatchers.IO) {
 }
 ```
 
-##### Lifedata:
+##### 3/4 Lifedata:
 
 ```kotlin
 val lifedata = UserSettingsModel.name.flow.asLiveData()
 ```
 
-##### Update preferences:
+##### 4/4 Update preferences:
 
 ```kotlin
 lifecycleScope.launch(Dispatchers.IO)  {
