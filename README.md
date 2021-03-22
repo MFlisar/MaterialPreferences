@@ -12,6 +12,7 @@ It also supports custom extensions for custom preference screens.
 
 Following are the key features:
 
+* define preferences elegantly via delegates
 * flow and coroutine based
 * allows to observe single / some / all preferences
 * provides suspending update functions
