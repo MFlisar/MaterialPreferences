@@ -17,7 +17,9 @@ interface StorageSetting<T : Any> : ReadOnlyProperty<SettingsModel, StorageSetti
 
     suspend fun read() : T = flow.first()
 
-    @Deprecated("NOT RECOMMENDAT - if possible, use a non blocking function instead")
+    /*
+     * be careful with this - if possible, use a non blocking function instead
+     */
     val value: T
         get() = runBlocking(Dispatchers.IO) { flow.first() }
 
