@@ -15,7 +15,10 @@ internal class StringSetting(
     override val key: String by lazy { customKey ?: name!! }
 
     override val flow: Flow<String> by lazy { model.storage.getString(key, defaultValue) }
-    override suspend fun update(value: String) = model.storage.setString(key, value)
+    override suspend fun update(value: String)  {
+        model.storage.setString(key, value)
+        model.storage.onValueChanged(this, value)
+    }
 
     private fun init(name: String) {
         if (this.name == null) {

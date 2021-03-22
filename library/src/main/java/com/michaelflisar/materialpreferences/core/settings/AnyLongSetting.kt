@@ -18,7 +18,10 @@ class AnyLongSetting<T : Any>(
     override val key: String by lazy { customKey ?: name!! }
 
     override val flow: Flow<T> by lazy { model.storage.getLong(key, converter.to(defaultValue)).map { converter.from(it) } }
-    override suspend fun update(value: T) = model.storage.setLong(key, converter.to(value))
+    override suspend fun update(value: T) {
+        model.storage.setLong(key, converter.to(value))
+        model.storage.onValueChanged(this, value)
+    }
 
     private fun init(name: String) {
         if (this.name == null) {

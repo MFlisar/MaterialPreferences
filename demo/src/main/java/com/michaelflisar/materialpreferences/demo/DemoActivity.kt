@@ -4,12 +4,11 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.lifecycle.lifecycleScope
+import com.michaelflisar.lumberjack.L
 import com.michaelflisar.materialpreferences.demo.databinding.ActivityDemoBinding
 import com.michaelflisar.materialpreferences.demo.settings.DemoSettingsModel
-import com.michaelflisar.lumberjack.L
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.drop
-import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import kotlin.concurrent.fixedRateTimer
@@ -40,6 +39,22 @@ class DemoActivity : AppCompatActivity() {
             recreate = true
             L.d { "darkTheme changed" }
         }
+
+        // -----------------------
+        // OBSERVE ALL / MULTIPLE SETTINGS
+        // -----------------------
+
+        DemoSettingsModel.changes.onEach {
+            L.d { "[ALL SETTINGS OBSERVER] Setting '${it.setting.key}' changed its value to ${it.value}" }
+        }.launchIn(lifecycleScope)
+
+        DemoSettingsModel.changes
+                .filter {
+                    it.setting == DemoSettingsModel.darkTheme ||
+                            it.setting == DemoSettingsModel.testBool
+                }.onEach {
+                    L.d { "[SOME SETTINGS OBSERVER] Setting '${it.setting.key}' changed its value to ${it.value}" }
+                }.launchIn(lifecycleScope)
 
         // -----------------------
         // NOT RECOMMENDED - only use this if really necessary
@@ -83,7 +98,7 @@ class DemoActivity : AppCompatActivity() {
         // ...
         // -----------------------
 
-        lifecycleScope.launch(Dispatchers.IO)  {
+        lifecycleScope.launch(Dispatchers.IO) {
             DemoSettingsModel.testBool.update(true)
             DemoSettingsModel.testBool.update(false)
             DemoSettingsModel.testBool.update(true)

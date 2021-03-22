@@ -15,7 +15,10 @@ internal class LongSetSetting(
     override val key: String by lazy { customKey ?: name!! }
 
     override val flow: Flow<Set<Long>> by lazy { model.storage.getLongSet(key, defaultValue) }
-    override suspend fun update(value: Set<Long>) = model.storage.setLongSet(key, value)
+    override suspend fun update(value: Set<Long>) {
+        model.storage.setLongSet(key, value)
+        model.storage.onValueChanged(this, value)
+    }
 
     private fun init(name: String) {
         if (this.name == null) {

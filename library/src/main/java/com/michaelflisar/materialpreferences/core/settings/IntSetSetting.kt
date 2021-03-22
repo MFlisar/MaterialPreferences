@@ -15,7 +15,10 @@ internal class IntSetSetting(
     override val key: String by lazy { customKey ?: name!! }
 
     override val flow: Flow<Set<Int>> by lazy { model.storage.getIntSet(key, defaultValue) }
-    override suspend fun update(value: Set<Int>) = model.storage.setIntSet(key, value)
+    override suspend fun update(value: Set<Int>) {
+        model.storage.setIntSet(key, value)
+        model.storage.onValueChanged(this, value)
+    }
 
     private fun init(name: String) {
         if (this.name == null) {

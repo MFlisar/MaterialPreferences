@@ -11,6 +11,9 @@ import kotlin.properties.ReadOnlyProperty
 
 interface StorageSetting<T : Any> : ReadOnlyProperty<SettingsModel, StorageSetting<T>> {
 
+    val key: String
+    val defaultValue: T
+
     val flow: Flow<T>
 
     suspend fun update(value: T)

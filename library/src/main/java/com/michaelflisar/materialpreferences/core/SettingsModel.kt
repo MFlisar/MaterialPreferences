@@ -4,16 +4,16 @@ import com.michaelflisar.materialpreferences.core.classes.EnumConverter
 import com.michaelflisar.materialpreferences.core.interfaces.Storage
 import com.michaelflisar.materialpreferences.core.interfaces.StorageSetting
 import com.michaelflisar.materialpreferences.core.settings.*
-import com.michaelflisar.materialpreferences.core.settings.AnyStringSetting
-import com.michaelflisar.materialpreferences.core.settings.BoolSetting
-import com.michaelflisar.materialpreferences.core.settings.FloatSetting
-import com.michaelflisar.materialpreferences.core.settings.IntSetting
-import com.michaelflisar.materialpreferences.core.settings.LongSetting
+import kotlinx.coroutines.flow.Flow
 
 abstract class SettingsModel(
         internal val storage: Storage
 ) {
     internal val internalProperties: MutableMap<String, StorageSetting<*>> = mutableMapOf()
+
+    val changes: Flow<SettingsChangeEvent<*>> by lazy {
+        storage.changeFlow
+    }
 
     /**
      * Delegate string property

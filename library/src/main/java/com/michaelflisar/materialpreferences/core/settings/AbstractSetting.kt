@@ -4,6 +4,4 @@ import com.michaelflisar.materialpreferences.core.interfaces.StorageSetting
 
 abstract class AbstractSetting<T : Any> : StorageSetting<T> {
     abstract val customKey: String?
-    abstract val key: String
-    abstract val defaultValue: T
 }

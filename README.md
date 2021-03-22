@@ -15,7 +15,7 @@ It also supports custom extensions for custom preference screens.
 With this library you can declare preferences via kotlin `delegates`,and observe and update them via kotlin `Flows`. This works with any storage implementation, an implementation for JetPack DataStore is provided already.
 
 
-Here's a simply example of a preference definitions:
+Define preferences:
 
 ```kotlin
 object UserSettingsModel : SettingsModel(DataStoreStorage(name = "user")) {
@@ -41,10 +41,9 @@ object UserSettingsModel : SettingsModel(DataStoreStorage(name = "user")) {
 }
 ```
 
-And here's a simply example of the usage of this definition:
+Observe/Read preferences:
 
 ```kotlin
-
 // 1) simply observe a setting
 UserSettingsModel.name.observe(lifecycleScope) {
 	L.d { "name = $it"}
@@ -58,12 +57,21 @@ UserSettingsModel.name.observeOnce(lifecycleScope) {
 	L.d { "name = $it"}
 }
 
-// 4) lifedata
-val lifedata = UserSettingsModel.name.flow.asLiveData()
+// 4) observe ALL settings
+UserSettingsModel.changes.onEach {
+	L.d { "[ALL SETTINGS OBSERVER] Setting '${it.setting.key}' changed its value to ${it.value}" }
+}.launchIn(lifecycleScope)
 
-// 5) access flow directly and do whatever you want with it
-val flow = UserSettingsModel.name.flow
-
+// 5) observe SOME settings
+UserSettingsModel.changes´
+	.filter {
+		it.setting == UserSettingsModel.name ||
+		it.setting == UserSettingsModel.age
+	}.onEach {
+		// we know that either the name or the age changes
+		L.d { "[SOME SETTINGS OBSERVER] Setting '${it.setting.key}' changed its value to ${it.value}" }
+	}.launchIn(lifecycleScope)
+	
 // 6) read multiple settings in a suspending way
 lifecycleScope.launch(Dispatchers.IO) {
   val name = UserSettingsModel.childName1.flow.first()
@@ -73,13 +81,21 @@ lifecycleScope.launch(Dispatchers.IO) {
 	textView.text = "Informations: $name, $alive, $hairColor"
   }
 }
+```
 
-// 7) update valuess
+Lifedata:
+
+```kotlin
+val lifedata = UserSettingsModel.name.flow.asLiveData()
+```
+
+Update preferences:
+
+```kotlin
 lifecycleScope.launch(Dispatchers.IO)  {
   UserSettingsModel.name.update("Some new name")
   UserSettingsModel.age.update(30)
 }
-
 ```
 
 ### Storage

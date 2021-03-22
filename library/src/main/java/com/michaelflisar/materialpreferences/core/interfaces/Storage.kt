@@ -1,8 +1,12 @@
 package com.michaelflisar.materialpreferences.core.interfaces
 
+import com.michaelflisar.materialpreferences.core.SettingsChangeEvent
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableSharedFlow
 
 interface Storage {
+
+    val changeFlow: Flow<SettingsChangeEvent<*>>
 
     suspend fun clear()
 
@@ -29,4 +33,6 @@ interface Storage {
 
     fun getLongSet(key: String, defaultValue: Set<Long>): Flow<Set<Long>>
     suspend fun setLongSet(key: String, value: Set<Long>)
+
+    suspend fun <T : Any> onValueChanged(setting: StorageSetting<T>, value: T)
 }
