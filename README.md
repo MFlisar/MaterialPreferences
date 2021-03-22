@@ -48,7 +48,7 @@ UserSettingsModel.name.observe(lifecycleScope) {
 	L.d { "name = $it"}
 }
 
-// 2) direct read (ot recommended if not necessary)
+// 2) direct read (not recommended if not necessary but may be useful in many cases => simply returns flow.first() in a blocking way)
 val name = UserSettingsModel.name.value
 
 // 3) observe a setting once
