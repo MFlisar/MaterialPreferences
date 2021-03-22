@@ -10,6 +10,13 @@ It supports `LiveData` by default as `Flows` can easily be converted to `LiveDat
 Additionally the *preference-screen* module provides a DSL to easily set up `RecyclerView` based preference screens.
 It also supports custom extensions for custom preference screens.
 
+Following are the key features:
+
+* flow and coroutine based
+* allows to observe single / some / all preferences
+* provides suspending update functions
+* provides a DSL for a `RecyclerView` based setting screen
+
 ### Core
 
 With this library you can declare preferences via kotlin `delegates`,and observe and update them via kotlin `Flows`. This works with any storage implementation, an implementation for JetPack DataStore is provided already.
