@@ -51,6 +51,7 @@ object UserSettingsModel : SettingsModel(DataStoreStorage(name = "user")) {
   val nullableString by nullableStringPref()
   val nullableInt by nullableIntPref()
   val nullableFloat by nullableFloatPref()
+  val nullableDouble by nullableDoublePref()
   val nullableLong by nullableLongPref()
   val nullableBool by nullableBoolPref()
 }
