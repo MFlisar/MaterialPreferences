@@ -13,9 +13,9 @@ class CategoryViewHolder(
         override val adapter: PreferenceAdapter
 ) : BaseViewHolder<PreferenceCategoryBinding, CategoryHeaderPreference>(PreferenceCategoryBinding.inflate(inflater, parent, false)
 ) {
-    override fun bind(preferences: CategoryHeaderPreference, rebind: Boolean) {
-        super.bind(preferences, rebind)
-        preferences.title.display(binding.title)
+    override fun bind(preference: CategoryHeaderPreference, rebind: Boolean) {
+        super.bind(preference, rebind)
+        preference.title.display(binding.title)
     }
 
     override fun unbind() {
