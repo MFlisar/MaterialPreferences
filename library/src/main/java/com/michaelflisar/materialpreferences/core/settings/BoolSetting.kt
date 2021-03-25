@@ -5,17 +5,17 @@ import com.michaelflisar.materialpreferences.core.interfaces.StorageSetting
 import kotlinx.coroutines.flow.Flow
 import kotlin.reflect.KProperty
 
-internal class BoolSetting(
-        private val model: SettingsModel,
-        override val defaultValue: Boolean,
-        override val customKey: String?
-) : AbstractSetting<Boolean>() {
-
+internal abstract class BaseBoolSetting<T : Boolean?>(
+        private val model: SettingsModel
+) : AbstractSetting<T>() {
     private var name: String? = null
     override val key: String by lazy { customKey ?: name!! }
 
-    override val flow: Flow<Boolean> by lazy { model.storage.getBool(key, defaultValue) }
-    override suspend fun update(value: Boolean) {
+    override val flow: Flow<T> by lazy {
+        model.storage.getBool(key, defaultValue)
+    }
+
+    override suspend fun update(value: T) {
         model.storage.setBool(key, value)
         model.storage.onValueChanged(this, value)
     }
@@ -31,8 +31,20 @@ internal class BoolSetting(
     override fun getValue(
             thisRef: SettingsModel,
             property: KProperty<*>
-    ): StorageSetting<Boolean> {
+    ): StorageSetting<T> {
         init(property.name)
         return this
     }
 }
+
+internal class BoolSetting(
+        model: SettingsModel,
+        override val defaultValue: Boolean,
+        override val customKey: String?
+) : BaseBoolSetting<Boolean>(model)
+
+internal class NullableBoolSetting(
+        model: SettingsModel,
+        override val defaultValue: Boolean?,
+        override val customKey: String?
+) : BaseBoolSetting<Boolean?>(model)

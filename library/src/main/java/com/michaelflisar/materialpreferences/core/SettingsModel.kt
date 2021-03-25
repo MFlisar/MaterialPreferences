@@ -26,6 +26,16 @@ abstract class SettingsModel(
     ): StorageSetting<String> = StringSetting(this, default, key)
 
     /**
+     * Delegate string property
+     * @param default default string value
+     * @param key custom storage key
+     */
+    protected fun nullableStringPref(
+            default: String? = null,
+            key: String? = null
+    ): StorageSetting<String?> = NullableStringSetting(this, default, key)
+
+    /**
      * Delegate string set property
      * @param default string integer set value
      * @param key custom storage key
@@ -46,6 +56,16 @@ abstract class SettingsModel(
     ): StorageSetting<Boolean> = BoolSetting(this, default, key)
 
     /**
+     * Delegate bool property
+     * @param default default bool value
+     * @param key custom storage key
+     */
+    protected fun nullableBoolPref(
+            default: Boolean? = null,
+            key: String? = null
+    ): StorageSetting<Boolean?> = NullableBoolSetting(this, default, key)
+
+    /**
      * Delegate integer property
      * @param default default integer value
      * @param key custom storage key
@@ -54,6 +74,16 @@ abstract class SettingsModel(
             default: Int = 0,
             key: String? = null
     ): StorageSetting<Int> = IntSetting(this, default, key)
+
+    /**
+     * Delegate integer property
+     * @param default default integer value
+     * @param key custom storage key
+     */
+    protected fun nullableIntPref(
+            default: Int? = null,
+            key: String? = null
+    ): StorageSetting<Int?> = NullableIntSetting(this, default, key)
 
     /**
      * Delegate integer set property
@@ -76,6 +106,36 @@ abstract class SettingsModel(
     ): StorageSetting<Float> = FloatSetting(this, default, key)
 
     /**
+     * Delegate float property
+     * @param default default float value
+     * @param key custom storage key
+     */
+    protected fun nullableFloatPref(
+            default: Float? = null,
+            key: String? = null
+    ): StorageSetting<Float?> = NullableFloatSetting(this, default, key)
+
+    /**
+     * Delegate double property
+     * @param default default double value
+     * @param key custom storage key
+     */
+    protected fun doublePref(
+            default: Double = 0.0,
+            key: String? = null
+    ): StorageSetting<Double> = DoubleSetting(this, default, key)
+
+    /**
+     * Delegate double property
+     * @param default default doubles value
+     * @param key custom storage key
+     */
+    protected fun nullableDoublePref(
+            default: Double? = null,
+            key: String? = null
+    ): StorageSetting<Double?> = NullableDoubleSetting(this, default, key)
+
+    /**
      * Delegate long property
      * @param default default long value
      * @param key custom storage key
@@ -84,6 +144,16 @@ abstract class SettingsModel(
             default: Long = 0L,
             key: String? = null
     ): StorageSetting<Long> = LongSetting(this, default, key)
+
+    /**
+     * Delegate long property
+     * @param default default long value
+     * @param key custom storage key
+     */
+    protected fun nullableLongPref(
+            default: Long? = null,
+            key: String? = null
+    ): StorageSetting<Long?> = NullableLongSetting(this, default, key)
 
     /**
      * Delegate long property

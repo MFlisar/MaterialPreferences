@@ -34,6 +34,7 @@ object UserSettingsModel : SettingsModel(DataStoreStorage(name = "user")) {
   val age by intPref(40)
   val income by floatPref(50000f)
   val dayOfBirth by longPref(0L)
+  val doubleTest by doublePref(0L)
   
   // Sets
   val childrenAges by intSetPref(setOf(20, 18, 16))
@@ -45,6 +46,13 @@ object UserSettingsModel : SettingsModel(DataStoreStorage(name = "user")) {
   
   // custom class - provide a custom converter (String <=> Class)
   val testClass by anyPref(TestClass.CONVERTER, TestClass())
+  
+  // NULLABLE variants
+  val nullableString by nullableStringPref()
+  val nullableInt by nullableIntPref()
+  val nullableFloat by nullableFloatPref()
+  val nullableLong by nullableLongPref()
+  val nullableBool by nullableBoolPref()
 }
 ```
 

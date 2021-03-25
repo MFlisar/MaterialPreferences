@@ -5,18 +5,18 @@ import com.michaelflisar.materialpreferences.core.interfaces.StorageSetting
 import kotlinx.coroutines.flow.Flow
 import kotlin.reflect.KProperty
 
-internal abstract class BaseIntSetting<T : Int?>(
+internal abstract class BaseDoubleSetting<T : Double?>(
         private val model: SettingsModel
 ) : AbstractSetting<T>() {
     private var name: String? = null
     override val key: String by lazy { customKey ?: name!! }
 
     override val flow: Flow<T> by lazy {
-        model.storage.getInt(key, defaultValue)
+        model.storage.getDouble(key, defaultValue)
     }
 
     override suspend fun update(value: T) {
-        model.storage.setInt(key, value)
+        model.storage.setDouble(key, value)
         model.storage.onValueChanged(this, value)
     }
 
@@ -37,14 +37,14 @@ internal abstract class BaseIntSetting<T : Int?>(
     }
 }
 
-internal class IntSetting(
+internal class DoubleSetting(
         model: SettingsModel,
-        override val defaultValue: Int,
+        override val defaultValue: Double,
         override val customKey: String?
-) : BaseIntSetting<Int>(model)
+) : BaseDoubleSetting<Double>(model)
 
-internal class NullableIntSetting(
+internal class NullableDoubleSetting(
         model: SettingsModel,
-        override val defaultValue: Int?,
+        override val defaultValue: Double?,
         override val customKey: String?
-) : BaseIntSetting<Int?>(model)
+) : BaseDoubleSetting<Double?>(model)

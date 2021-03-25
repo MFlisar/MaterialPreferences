@@ -10,11 +10,14 @@ import com.michaelflisar.materialpreferences.preferencescreen.choice.R
 import com.michaelflisar.materialpreferences.preferencescreen.interfaces.PreferenceItem
 import com.michaelflisar.materialpreferences.preferencescreen.preferences.BasePreferenceItem
 import com.michaelflisar.materialpreferences.preferencescreen.recyclerview.PreferenceAdapter
+import com.michaelflisar.text.Text
+import com.michaelflisar.text.asText
 
 class SingleChoicePreference(
         override val setting: StorageSetting<Int>
 ) : BasePreferenceItem(), PreferenceItem.PreferenceWithData<Int> {
 
+    override var summary: Text = "%s".asText()
     override var canChange: (value: Int) -> Boolean = { true }
     override var onChanged: ((value: Int) -> Unit)? = null
     var choices: List<ChoiceItem> = emptyList()

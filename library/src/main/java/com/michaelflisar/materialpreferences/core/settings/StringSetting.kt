@@ -5,17 +5,17 @@ import com.michaelflisar.materialpreferences.core.interfaces.StorageSetting
 import kotlinx.coroutines.flow.Flow
 import kotlin.reflect.KProperty
 
-internal class StringSetting(
-        private val model: SettingsModel,
-        override val defaultValue: String,
-        override val customKey: String?
-) : AbstractSetting<String>() {
-
+internal abstract class BaseStringSetting<T : String?>(
+        private val model: SettingsModel
+) : AbstractSetting<T>() {
     private var name: String? = null
     override val key: String by lazy { customKey ?: name!! }
 
-    override val flow: Flow<String> by lazy { model.storage.getString(key, defaultValue) }
-    override suspend fun update(value: String)  {
+    override val flow: Flow<T> by lazy {
+        model.storage.getString(key, defaultValue)
+    }
+
+    override suspend fun update(value: T) {
         model.storage.setString(key, value)
         model.storage.onValueChanged(this, value)
     }
@@ -31,8 +31,20 @@ internal class StringSetting(
     override fun getValue(
             thisRef: SettingsModel,
             property: KProperty<*>
-    ): StorageSetting<String> {
+    ): StorageSetting<T> {
         init(property.name)
         return this
     }
 }
+
+internal class StringSetting(
+        model: SettingsModel,
+        override val defaultValue: String,
+        override val customKey: String?
+) : BaseStringSetting<String>(model)
+
+internal class NullableStringSetting(
+        model: SettingsModel,
+        override val defaultValue: String?,
+        override val customKey: String?
+) : BaseStringSetting<String?>(model)

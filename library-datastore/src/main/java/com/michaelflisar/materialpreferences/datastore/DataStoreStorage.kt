@@ -14,6 +14,7 @@ import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.map
 
+@Suppress("UNCHECKED_CAST")
 class DataStoreStorage(
         name: String = "settings"
 ) : Storage {
@@ -23,7 +24,7 @@ class DataStoreStorage(
     private val mutableChangeFlow: MutableSharedFlow<SettingsChangeEvent<*>> = MutableSharedFlow()
     override val changeFlow: Flow<SettingsChangeEvent<*>> = mutableChangeFlow
 
-    override suspend fun <T : Any> onValueChanged(setting: StorageSetting<T>, value: T) {
+    override suspend fun <T : Any?> onValueChanged(setting: StorageSetting<T>, value: T) {
         mutableChangeFlow.emit(SettingsChangeEvent(setting, value))
     }
 
@@ -35,13 +36,14 @@ class DataStoreStorage(
     // String
     // --------------
 
-    override fun getString(key: String, defaultValue: String) = ctx.dataStore.data.map { settings ->
+    override fun <T : String?> getString(key: String, defaultValue: T) = ctx.dataStore.data.map { settings ->
         settings[stringPreferencesKey(key)] ?: defaultValue
-    }.distinctUntilChanged()
+    }.map { it as T }.distinctUntilChanged()
 
-    override suspend fun setString(key: String, value: String) {
+    override suspend fun <T : String?> setString(key: String, value: T) {
         ctx.dataStore.edit { settings ->
-            settings[stringPreferencesKey(key)] = value
+            value?.let { settings[stringPreferencesKey(key)] = it }
+                    ?: settings.remove(stringPreferencesKey(key))
         }
     }
 
@@ -49,13 +51,14 @@ class DataStoreStorage(
     // Integer
     // --------------
 
-    override fun getInt(key: String, defaultValue: Int) = ctx.dataStore.data.map { settings ->
+    override fun <T : Int?> getInt(key: String, defaultValue: T) = ctx.dataStore.data.map { settings ->
         settings[intPreferencesKey(key)] ?: defaultValue
-    }.distinctUntilChanged()
+    }.map { it as T }.distinctUntilChanged()
 
-    override suspend fun setInt(key: String, value: Int) {
+    override suspend fun <T : Int?> setInt(key: String, value: T) {
         ctx.dataStore.edit { settings ->
-            settings[intPreferencesKey(key)] = value
+            value?.let { settings[intPreferencesKey(key)] = it }
+                    ?: settings.remove(intPreferencesKey(key))
         }
     }
 
@@ -63,13 +66,14 @@ class DataStoreStorage(
     // Boolean
     // --------------
 
-    override fun getBool(key: String, defaultValue: Boolean) = ctx.dataStore.data.map { settings ->
+    override fun <T : Boolean?> getBool(key: String, defaultValue: T) = ctx.dataStore.data.map { settings ->
         settings[booleanPreferencesKey(key)] ?: defaultValue
-    }.distinctUntilChanged()
+    }.map { it as T }.distinctUntilChanged()
 
-    override suspend fun setBool(key: String, value: Boolean) {
+    override suspend fun <T : Boolean?> setBool(key: String, value: T) {
         ctx.dataStore.edit { settings ->
-            settings[booleanPreferencesKey(key)] = value
+            value?.let { settings[booleanPreferencesKey(key)] = it }
+                    ?: settings.remove(booleanPreferencesKey(key))
         }
     }
 
@@ -77,13 +81,29 @@ class DataStoreStorage(
     // Float
     // --------------
 
-    override fun getFloat(key: String, defaultValue: Float) = ctx.dataStore.data.map { settings ->
+    override fun <T : Float?> getFloat(key: String, defaultValue: T) = ctx.dataStore.data.map { settings ->
         settings[floatPreferencesKey(key)] ?: defaultValue
-    }.distinctUntilChanged()
+    }.map { it as T }.distinctUntilChanged()
 
-    override suspend fun setFloat(key: String, value: Float) {
+    override suspend fun <T : Float?> setFloat(key: String, value: T) {
         ctx.dataStore.edit { settings ->
-            settings[floatPreferencesKey(key)] = value
+            value?.let { settings[floatPreferencesKey(key)] = it }
+                    ?: settings.remove(floatPreferencesKey(key))
+        }
+    }
+
+    // --------------
+    // Double
+    // --------------
+
+    override fun <T : Double?> getDouble(key: String, defaultValue: T) = ctx.dataStore.data.map { settings ->
+        settings[doublePreferencesKey(key)] ?: defaultValue
+    }.map { it as T }.distinctUntilChanged()
+
+    override suspend fun <T : Double?> setDouble(key: String, value: T) {
+        ctx.dataStore.edit { settings ->
+            value?.let { settings[doublePreferencesKey(key)] = it }
+                    ?: settings.remove(doublePreferencesKey(key))
         }
     }
 
@@ -91,13 +111,14 @@ class DataStoreStorage(
     // Long
     // --------------
 
-    override fun getLong(key: String, defaultValue: Long) = ctx.dataStore.data.map { settings ->
+    override fun <T : Long?> getLong(key: String, defaultValue: T) = ctx.dataStore.data.map { settings ->
         settings[longPreferencesKey(key)] ?: defaultValue
-    }.distinctUntilChanged()
+    }.map { it as T }.distinctUntilChanged()
 
-    override suspend fun setLong(key: String, value: Long) {
+    override suspend fun <T : Long?> setLong(key: String, value: T) {
         ctx.dataStore.edit { settings ->
-            settings[longPreferencesKey(key)] = value
+            value?.let { settings[longPreferencesKey(key)] = it }
+                    ?: settings.remove(longPreferencesKey(key))
         }
     }
 

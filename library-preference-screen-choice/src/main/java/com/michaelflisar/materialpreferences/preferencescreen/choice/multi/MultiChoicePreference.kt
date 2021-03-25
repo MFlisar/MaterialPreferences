@@ -21,6 +21,7 @@ class MultiChoicePreference(
         override val setting: StorageSetting<Set<Int>>,
 ) : BasePreferenceItem(), PreferenceItem.PreferenceWithData<Set<Int>> {
 
+    override var summary: Text = "%s".asText()
     override var canChange: (value: Set<Int>) -> Boolean = { true }
     override var onChanged: ((value: Set<Int>) -> Unit)? = null
     var choices: List<ChoiceItem> = emptyList()

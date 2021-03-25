@@ -44,4 +44,20 @@ object DemoSettingsModel : SettingsModel(DataStoreStorage(name = "demo_settings"
 
     // custom class
     val testClass by anyPref(TestClass.CONVERTER, TestClass())
+
+    // NULLABLE vs NON NULLABLE
+    val nonNullableString by stringPref()
+    val nullableString by nullableStringPref()
+    val nonNullableInt by intPref()
+    val nullableInt by nullableIntPref()
+    val nonNullableFloat by floatPref()
+    val nullableFloat by nullableFloatPref()
+    val nonNullableDouble by doublePref()
+    val nullableDouble by nullableDoublePref()
+    val nonNullableLong by longPref()
+    val nullableLong by nullableLongPref()
+    val nonNullableBool by boolPref()
+    val nullableBool by nullableBoolPref()
+
+
 }

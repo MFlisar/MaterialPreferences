@@ -2,7 +2,6 @@ package com.michaelflisar.materialpreferences.core.interfaces
 
 import com.michaelflisar.materialpreferences.core.SettingsChangeEvent
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.MutableSharedFlow
 
 interface Storage {
 
@@ -10,20 +9,23 @@ interface Storage {
 
     suspend fun clear()
 
-    fun getString(key: String, defaultValue: String): Flow<String>
-    suspend fun setString(key: String, value: String)
+    fun <T : String?> getString(key: String, defaultValue: T): Flow<T>
+    suspend fun <T : String?> setString(key: String, value: T)
 
-    fun getBool(key: String, defaultValue: Boolean): Flow<Boolean>
-    suspend fun setBool(key: String, value: Boolean)
+    fun <T : Boolean?> getBool(key: String, defaultValue: T): Flow<T>
+    suspend fun <T : Boolean?> setBool(key: String, value: T)
 
-    fun getInt(key: String, defaultValue: Int): Flow<Int>
-    suspend fun setInt(key: String, value: Int)
+    fun <T : Int?> getInt(key: String, defaultValue: T): Flow<T>
+    suspend fun <T : Int?> setInt(key: String, value: T)
 
-    fun getFloat(key: String, defaultValue: Float): Flow<Float>
-    suspend fun setFloat(key: String, value: Float)
+    fun <T : Float?> getFloat(key: String, defaultValue: T): Flow<T>
+    suspend fun <T : Float?> setFloat(key: String, value: T)
 
-    fun getLong(key: String, defaultValue: Long): Flow<Long>
-    suspend fun setLong(key: String, value: Long)
+    fun <T : Double?> getDouble(key: String, defaultValue: T): Flow<T>
+    suspend fun <T : Double?> setDouble(key: String, value: T)
+
+    fun <T : Long?> getLong(key: String, defaultValue: T): Flow<T>
+    suspend fun <T : Long?> setLong(key: String, value: T)
 
     fun getStringSet(key: String, defaultValue: Set<String>): Flow<Set<String>>
     suspend fun setStringSet(key: String, value: Set<String>)
@@ -34,5 +36,5 @@ interface Storage {
     fun getLongSet(key: String, defaultValue: Set<Long>): Flow<Set<Long>>
     suspend fun setLongSet(key: String, value: Set<Long>)
 
-    suspend fun <T : Any> onValueChanged(setting: StorageSetting<T>, value: T)
+    suspend fun <T : Any?> onValueChanged(setting: StorageSetting<T>, value: T)
 }

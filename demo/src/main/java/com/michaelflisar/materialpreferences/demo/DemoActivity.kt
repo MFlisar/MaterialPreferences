@@ -45,7 +45,7 @@ class DemoActivity : AppCompatActivity() {
         // -----------------------
 
         DemoSettingsModel.changes.onEach {
-            L.d { "[ALL SETTINGS OBSERVER] Setting '${it.setting.key}' changed its value to ${it.value}" }
+            L.d { "[ALL SETTINGS OBSERVER] Setting '${it.setting.key}' changed its value to '${it.value}'" }
         }.launchIn(lifecycleScope)
 
         DemoSettingsModel.changes
@@ -53,7 +53,7 @@ class DemoActivity : AppCompatActivity() {
                     it.setting == DemoSettingsModel.darkTheme ||
                             it.setting == DemoSettingsModel.testBool
                 }.onEach {
-                    L.d { "[SOME SETTINGS OBSERVER] Setting '${it.setting.key}' changed its value to ${it.value}" }
+                    L.d { "[SOME SETTINGS OBSERVER] Setting '${it.setting.key}' changed its value to '${it.value}'" }
                 }.launchIn(lifecycleScope)
 
         // -----------------------
@@ -92,6 +92,51 @@ class DemoActivity : AppCompatActivity() {
             withContext(Dispatchers.Main) {
                 binding.tvText1.text = binding.tvText1.text.toString() + "\n[SUSPENDED FLOW READ] Childrens: ${names.joinToString(", ")}"
             }
+        }
+
+        // -----------------------
+        // Test 5 - nullable / not nullable
+        // -----------------------
+
+        lifecycleScope.launch(Dispatchers.IO) {
+            DemoSettingsModel.nullableString.update("nullable value value 1")
+            DemoSettingsModel.nullableString.update(null)
+            DemoSettingsModel.nullableString.update("nullable value value 2")
+
+            // won't compile!
+            // DemoSettingsModel.nonNullableString.update(null)
+            DemoSettingsModel.nonNullableString.update("non nullable value 1")
+            DemoSettingsModel.nonNullableString.update("non nullable value 2")
+
+            DemoSettingsModel.nullableInt.update(1)
+            DemoSettingsModel.nullableInt.update(null)
+            DemoSettingsModel.nullableInt.update(2)
+            DemoSettingsModel.nonNullableInt.update(1)
+            DemoSettingsModel.nonNullableInt.update(2)
+
+            DemoSettingsModel.nullableFloat.update(1f)
+            DemoSettingsModel.nullableFloat.update(null)
+            DemoSettingsModel.nullableFloat.update(2f)
+            DemoSettingsModel.nonNullableFloat.update(1f)
+            DemoSettingsModel.nonNullableFloat.update(2f)
+
+            DemoSettingsModel.nullableDouble.update(1.0)
+            DemoSettingsModel.nullableDouble.update(null)
+            DemoSettingsModel.nullableDouble.update(2.0)
+            DemoSettingsModel.nonNullableDouble.update(1.0)
+            DemoSettingsModel.nonNullableDouble.update(2.0)
+
+            DemoSettingsModel.nullableLong.update(1L)
+            DemoSettingsModel.nullableLong.update(null)
+            DemoSettingsModel.nullableLong.update(2L)
+            DemoSettingsModel.nonNullableLong.update(1L)
+            DemoSettingsModel.nonNullableLong.update(2L)
+
+            DemoSettingsModel.nullableBool.update(true)
+            DemoSettingsModel.nullableBool.update(null)
+            DemoSettingsModel.nullableBool.update(false)
+            DemoSettingsModel.nonNullableBool.update(true)
+            DemoSettingsModel.nonNullableBool.update(false)
         }
 
         // -----------------------

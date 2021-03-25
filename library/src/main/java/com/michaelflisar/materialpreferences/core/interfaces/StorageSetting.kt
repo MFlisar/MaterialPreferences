@@ -9,7 +9,7 @@ import kotlinx.coroutines.withContext
 import kotlin.coroutines.CoroutineContext
 import kotlin.properties.ReadOnlyProperty
 
-interface StorageSetting<T : Any> : ReadOnlyProperty<SettingsModel, StorageSetting<T>> {
+interface StorageSetting<T : Any?> : ReadOnlyProperty<SettingsModel, StorageSetting<T>> {
 
     val key: String
     val defaultValue: T
