@@ -19,12 +19,12 @@ import com.michaelflisar.text.asText
 
 class MultiChoicePreference(
         override val setting: StorageSetting<Set<Int>>,
+        internal val choices: List<ChoiceItem>
 ) : BasePreferenceItem(), PreferenceItem.PreferenceWithData<Set<Int>> {
 
     override var summary: Text = "%s".asText()
     override var canChange: (value: Set<Int>) -> Boolean = { true }
     override var onChanged: ((value: Set<Int>) -> Unit)? = null
-    var choices: List<ChoiceItem> = emptyList()
     var allowEmptySelection: Boolean = true
     var bottomSheet: Boolean = PreferenceScreenConfig.bottomSheet
 

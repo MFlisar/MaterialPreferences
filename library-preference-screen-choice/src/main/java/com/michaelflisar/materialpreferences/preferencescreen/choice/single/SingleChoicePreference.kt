@@ -1,34 +1,24 @@
 package com.michaelflisar.materialpreferences.preferencescreen.choice.single
 
-import android.view.LayoutInflater
-import android.view.ViewGroup
+import android.content.Context
 import com.michaelflisar.materialpreferences.core.interfaces.StorageSetting
 import com.michaelflisar.materialpreferences.preferencescreen.PreferenceScreenConfig
-import com.michaelflisar.materialpreferences.preferencescreen.ViewHolderFactory
-import com.michaelflisar.materialpreferences.preferencescreen.choice.ChoiceItem
-import com.michaelflisar.materialpreferences.preferencescreen.choice.R
 import com.michaelflisar.materialpreferences.preferencescreen.interfaces.PreferenceItem
 import com.michaelflisar.materialpreferences.preferencescreen.preferences.BasePreferenceItem
-import com.michaelflisar.materialpreferences.preferencescreen.recyclerview.PreferenceAdapter
 import com.michaelflisar.text.Text
 import com.michaelflisar.text.asText
 
-class SingleChoicePreference(
-        override val setting: StorageSetting<Int>
-) : BasePreferenceItem(), PreferenceItem.PreferenceWithData<Int> {
+abstract class SingleChoicePreference<T : Any>(
+        override val setting: StorageSetting<T>
+) : BasePreferenceItem(), PreferenceItem.PreferenceWithData<T> {
 
     override var summary: Text = "%s".asText()
-    override var canChange: (value: Int) -> Boolean = { true }
-    override var onChanged: ((value: Int) -> Unit)? = null
-    var choices: List<ChoiceItem> = emptyList()
+    override var canChange: (value: T) -> Boolean = { true }
+    override var onChanged: ((value: T) -> Unit)? = null
     var showCheckBoxes: Boolean = false
     var bottomSheet: Boolean = PreferenceScreenConfig.bottomSheet
 
-    companion object : ViewHolderFactory.ViewHolderCreator {
-        val TYPE = R.id.pref_choice_single
-        override fun createViewHolder(adapter: PreferenceAdapter, layoutInflater: LayoutInflater, parent: ViewGroup) =
-                SingleChoiceViewHolder(layoutInflater, parent, adapter)
-    }
-
-    override val type = TYPE
+    abstract fun getChoiceLabels(context: Context): List<String>
+    abstract fun getChoiceValue(index: Int): T
+    abstract fun getChoiceDisplayValue(context: Context, item: T): String
 }

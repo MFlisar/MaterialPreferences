@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatDelegate
 import com.michaelflisar.lumberjack.L
 import com.michaelflisar.materialpreferences.demo.databinding.ActivitySettingsBinding
 import com.michaelflisar.materialpreferences.demo.settings.DemoSettingsModel
+import com.michaelflisar.materialpreferences.demo.settings.TestEnum
 import com.michaelflisar.materialpreferences.preferencescreen.*
 import com.michaelflisar.materialpreferences.preferencescreen.choice.asChoiceListString
 import com.michaelflisar.materialpreferences.preferencescreen.choice.multiChoice
@@ -378,6 +379,14 @@ class SettingsActivity : AppCompatActivity() {
             // 8) sub screen choices
             // -----------------
 
+            val demoChoices = listOf(
+                    "Value 1",
+                    "Value 2",
+                    "Value 3",
+                    "Value 4",
+                    "Value 5"
+            ).asChoiceListString()
+
             subScreen {
                 title = "Choices".asText()
                 summary = "Single / Multi Choices".asText()
@@ -385,28 +394,18 @@ class SettingsActivity : AppCompatActivity() {
                 category {
                     title = "Choices".asText()
                 }
-                singleChoice(DemoSettingsModel.choiceSingle) {
+                singleChoice(DemoSettingsModel.choiceSingle, demoChoices) {
                     title = "Single Choice".asText()
                     icon = R.drawable.ic_baseline_format_list_bulleted_24.asIcon()
-                    choices = listOf(
-                            "Value 1",
-                            "Value 2",
-                            "Value 3",
-                            "Value 4",
-                            "Value 5"
-                    ).asChoiceListString()
                 }
-                multiChoice(DemoSettingsModel.choiceMulti) {
+                multiChoice(DemoSettingsModel.choiceMulti, demoChoices) {
                     title = "Multi Choice".asText()
                     icon = R.drawable.ic_baseline_format_list_bulleted_24.asIcon()
-                    choices = listOf(
-                            "Value 1",
-                            "Value 2",
-                            "Value 3",
-                            "Value 4",
-                            "Value 5"
-                    ).asChoiceListString()
                     allowEmptySelection = true
+                }
+                singleChoice(DemoSettingsModel.testEnum, TestEnum.values(), { "Enum: ${it.name}" }) {
+                    title = "Single Choice Enum".asText()
+                    icon = R.drawable.ic_baseline_format_list_bulleted_24.asIcon()
                 }
             }
 

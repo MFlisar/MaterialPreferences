@@ -2,6 +2,7 @@
 <resources>
 
     <item type="id" name="pref_choice_single" />
+    <item type="id" name="pref_choice_single_enum" />
     <item type="id" name="pref_choice_multi" />
 
 </resources>

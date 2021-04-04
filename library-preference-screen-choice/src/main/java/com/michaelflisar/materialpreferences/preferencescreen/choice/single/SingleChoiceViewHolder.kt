@@ -12,36 +12,36 @@ import com.afollestad.materialdialogs.list.listItemsSingleChoice
 import com.michaelflisar.materialpreferences.preferencescreen.recyclerview.PreferenceAdapter
 import com.michaelflisar.materialpreferences.preferencescreen.recyclerview.viewholders.base.BaseDialogViewHolder
 
-class SingleChoiceViewHolder(
+class SingleChoiceViewHolder<T : Any>(
         inflater: LayoutInflater,
         parent: ViewGroup,
         override val adapter: PreferenceAdapter
-) : BaseDialogViewHolder<Int, SingleChoicePreference, ViewBinding?>(inflater, parent) {
+) : BaseDialogViewHolder<T, SingleChoicePreference<T>, ViewBinding?>(inflater, parent) {
 
     override fun createSubBinding(inflater: LayoutInflater, parent: ViewGroup, attachToParent: Boolean): ViewBinding? = null
 
-    override fun updateSummary(preference: SingleChoicePreference) {
-        val displayValue = preference.choices[value].label.get(itemView.context)
+    override fun updateSummary(preference: SingleChoicePreference<T>) {
+        val displayValue = preference.getChoiceDisplayValue(itemView.context, value)
         preference.summary.display(binding.summary, View.GONE, displayValue)
     }
 
-    override fun createDialog(preference: SingleChoicePreference): Dialog {
+    override fun createDialog(preference: SingleChoicePreference<T>): Dialog {
         val dialog = if (preference.bottomSheet) MaterialDialog(itemView.context, BottomSheet()) else MaterialDialog(itemView.context)
         dialog.show {
             title(text = preference.title.get(itemView.context))
             if (preference.showCheckBoxes) {
                 listItemsSingleChoice(
-                        items = preference.choices.map { it.label.get(context) },
+                        items = preference.getChoiceLabels(context),
                         waitForPositiveButton = false
                 ) { dialog, index, text ->
-                    update(preference.choices[index].id, preference)
+                    update(preference.getChoiceValue(index), preference)
                 }
             } else {
                 listItems(
-                        items = preference.choices.map { it.label.get(context) },
+                        items = preference.getChoiceLabels(context),
                         waitForPositiveButton = false
                 ) { dialog, index, text ->
-                    update(preference.choices[index].id, preference)
+                    update(preference.getChoiceValue(index), preference)
                     dialog.dismiss()
                 }
             }
