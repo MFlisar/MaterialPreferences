@@ -9,7 +9,7 @@ This is an activity with a toolbar and a back button and can be shown as followi
 ```kotlin
 
     fun showDefaultSettingsActivity(context: Context) {
-        SettingsActivity.start(context, true /* dark/light theme */, ScreenCreator)
+        SettingsActivity.start(context, ScreenCreator)
     }
 	
 	@Parcelize
