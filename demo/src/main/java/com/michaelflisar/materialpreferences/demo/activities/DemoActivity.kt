@@ -1,12 +1,14 @@
-package com.michaelflisar.materialpreferences.demo
+package com.michaelflisar.materialpreferences.demo.activities
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.lifecycle.lifecycleScope
 import com.michaelflisar.lumberjack.L
+import com.michaelflisar.materialpreferences.demo.DemoSettings
 import com.michaelflisar.materialpreferences.demo.databinding.ActivityDemoBinding
 import com.michaelflisar.materialpreferences.demo.settings.DemoSettingsModel
+import com.michaelflisar.materialpreferences.preferencescreen.activity.SettingsActivity
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
@@ -28,7 +30,12 @@ class DemoActivity : AppCompatActivity() {
         setContentView(view)
         setSupportActionBar(binding.toolbar)
 
-        binding.btSettings.setOnClickListener { SettingsActivity.start(this) }
+        binding.btSettingsDefault.setOnClickListener {
+            DemoSettings.showDefaultSettingsActivity(this)
+        }
+        binding.btSettingsCustom.setOnClickListener {
+            DemoSettings.showCustomSettingsActivity(this)
+        }
 
         // -----------------------
         // OBSERVE RELEVANT SETTINGS

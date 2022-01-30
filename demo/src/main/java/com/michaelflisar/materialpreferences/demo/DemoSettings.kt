@@ -1,7 +1,6 @@
 package com.michaelflisar.materialpreferences.demo
 
 import android.content.Context
-import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.text.InputType
@@ -9,10 +8,11 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import com.michaelflisar.lumberjack.L
-import com.michaelflisar.materialpreferences.demo.databinding.ActivitySettingsBinding
+import com.michaelflisar.materialpreferences.demo.activities.CustomSettingsActivity
 import com.michaelflisar.materialpreferences.demo.settings.DemoSettingsModel
 import com.michaelflisar.materialpreferences.demo.settings.TestEnum
 import com.michaelflisar.materialpreferences.preferencescreen.*
+import com.michaelflisar.materialpreferences.preferencescreen.activity.SettingsActivity
 import com.michaelflisar.materialpreferences.preferencescreen.choice.asChoiceListString
 import com.michaelflisar.materialpreferences.preferencescreen.choice.multiChoice
 import com.michaelflisar.materialpreferences.preferencescreen.choice.singleChoice
@@ -24,70 +24,62 @@ import com.michaelflisar.materialpreferences.preferencescreen.dependencies.Depen
 import com.michaelflisar.materialpreferences.preferencescreen.dependencies.asDependency
 import com.michaelflisar.materialpreferences.preferencescreen.enums.NoIconVisibility
 import com.michaelflisar.materialpreferences.preferencescreen.input.input
-import com.michaelflisar.materialpreferences.preferencescreen.preferences.*
 import com.michaelflisar.text.asText
 import kotlinx.coroutines.flow.first
+import kotlinx.parcelize.Parcelize
 
-class SettingsActivity : AppCompatActivity() {
+object DemoSettings {
 
-    companion object {
-        fun start(context: Context) {
-            context.startActivity(Intent(context, SettingsActivity::class.java))
-        }
+    fun showDefaultSettingsActivity(activity: AppCompatActivity) {
+        SettingsActivity.start(activity, ScreenCreator)
     }
 
-    lateinit var binding: ActivitySettingsBinding
-    lateinit var preferenceScreen: PreferenceScreen
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        AppCompatDelegate.setDefaultNightMode(if (DemoSettingsModel.darkTheme.value) AppCompatDelegate.MODE_NIGHT_YES else AppCompatDelegate.MODE_NIGHT_NO)
-
-        binding = ActivitySettingsBinding.inflate(layoutInflater)
-        val view = binding.root
-        setContentView(view)
-        setSupportActionBar(binding.toolbar)
-
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-
-        // ---------------
-        // set up settings
-        // ---------------
-
-        preferenceScreen = initSettings(savedInstanceState)
+    fun showCustomSettingsActivity(context: Context) {
+        CustomSettingsActivity.start(context)
     }
 
-    private fun initSettings(savedInstanceState: Bundle?): PreferenceScreen {
+    /*
+     * use an object here to make sure that the class does not break the parcelable limit!
+     * or use a custom activity...
+     */
+    @Parcelize
+    object ScreenCreator : SettingsActivity.IScreenCreator {
+        override fun createScreen(
+            activity: AppCompatActivity,
+            savedInstanceState: Bundle?,
+            updateTitle: (title: String) -> Unit
+        ): PreferenceScreen {
+            return screen {
 
-        // global settings to avoid
-        // INFO:
-        // some global settings can be overwritten per preference (e.g. bottomSheet yes/no)
-        // other global settings can only be changed globally
+                // set up screen
+                state = savedInstanceState
+                onScreenChanged = { subScreenStack, stateRestored ->
+                    val breadcrumbs =
+                        subScreenStack.joinToString(" > ") { it.title.get(activity) }
+                    L.d { "Preference Screen - level = ${subScreenStack.size} | $breadcrumbs | restored: $stateRestored" }
+                    updateTitle(breadcrumbs)
+                }
 
-        // following is optional!
-        PreferenceScreenConfig.apply {
-            bottomSheet = false                             // default: false
-            maxLinesTitle = 1                               // default: 1
-            maxLinesSummary = 3                             // default: 3
-            noIconVisibility = NoIconVisibility.Invisible   // default: Invisible
-            alignIconsWithBackArrow = false                 // default: false
-        }
+                // init theme - not necessary, its automatically derived from parent activity
+                //AppCompatDelegate.setDefaultNightMode(if (DemoSettingsModel.darkTheme.value) AppCompatDelegate.MODE_NIGHT_YES else AppCompatDelegate.MODE_NIGHT_NO)
 
-        // -----------------
-        // 1) create screen(s)
-        // -----------------
+                // -----------------
+                // create settings screen
+                // -----------------
 
-        val screen = screen {
-
-            // set up screen
-            state = savedInstanceState
-            onScreenChanged = { subScreenStack, stateRestored ->
-                val breadcrumbs = subScreenStack.joinToString(" > ") { it.title.get(this@SettingsActivity) }
-                L.d { "Preference Screen - level = ${subScreenStack.size} | $breadcrumbs | restored: $stateRestored" }
-                supportActionBar?.subtitle = breadcrumbs
+                createSettingsScreen(this, activity)
             }
 
-            // set up settings (and sub settings)
+        }
+    }
+
+    // --------------------
+    // Helper functions
+    // --------------------
+
+    fun createSettingsScreen(builder: Screen.Builder, activity: AppCompatActivity) {
+        builder.apply {
+
 
             // -----------------
             // 1) test app settings (root level)
@@ -302,21 +294,21 @@ class SettingsActivity : AppCompatActivity() {
                     title = "Button 1".asText()
                     icon = R.drawable.ic_baseline_touch_app_24.asIcon()
                     onClick = {
-                        showMessage("Button 1 clicked!")
+                        activity.showMessage("Button 1 clicked!")
                     }
                 }
                 button {
                     title = "Button 2".asText()
                     icon = R.drawable.ic_baseline_touch_app_24.asIcon()
                     onClick = {
-                        showMessage("Button 2 clicked!")
+                        activity.showMessage("Button 2 clicked!")
                     }
                 }
                 button {
                     title = "Button 3".asText()
                     icon = R.drawable.ic_baseline_touch_app_24.asIcon()
                     onClick = {
-                        showMessage("Button 3 clicked!")
+                        activity.showMessage("Button 3 clicked!")
                     }
                 }
             }
@@ -337,13 +329,13 @@ class SettingsActivity : AppCompatActivity() {
                     icon = R.drawable.ic_baseline_supervisor_account_24.asIcon()
                     summary = "Enables children below".asText()
                     onChanged = {
-                        showMessage("Enable children changed: $it")
+                        activity.showMessage("Enable children changed: $it")
                     }
                 }
                 listOf(
-                        DemoSettingsModel.childName1,
-                        DemoSettingsModel.childName2,
-                        DemoSettingsModel.childName3
+                    DemoSettingsModel.childName1,
+                    DemoSettingsModel.childName2,
+                    DemoSettingsModel.childName3
                 ).forEachIndexed { index, setting ->
                     input(setting) {
                         title = "Child ${index + 1}".asText()
@@ -357,13 +349,14 @@ class SettingsActivity : AppCompatActivity() {
                 input(DemoSettingsModel.parentOfCustomDependency) {
                     title = "Parent".asText()
                     icon = R.drawable.ic_baseline_supervisor_account_24.asIcon()
-                    summary = "Must contain a string that is a valid number between [0, 100] to enable the next setting".asText()
+                    summary =
+                        "Must contain a string that is a valid number between [0, 100] to enable the next setting".asText()
                 }
                 button {
                     title = "Button with custom dependency on the setting above".asText()
                     icon = R.drawable.ic_baseline_person_24.asIcon()
                     onClick = {
-                        showMessage("Button clicked - parent must contain a string representing a number between [0, 100] now")
+                        activity.showMessage("Button clicked - parent must contain a string representing a number between [0, 100] now")
                     }
                     dependsOn = object : Dependency<String> {
                         override val setting = DemoSettingsModel.parentOfCustomDependency
@@ -380,11 +373,11 @@ class SettingsActivity : AppCompatActivity() {
             // -----------------
 
             val demoChoices = listOf(
-                    "Value 1",
-                    "Value 2",
-                    "Value 3",
-                    "Value 4",
-                    "Value 5"
+                "Value 1",
+                "Value 2",
+                "Value 3",
+                "Value 4",
+                "Value 5"
             ).asChoiceListString()
 
             subScreen {
@@ -403,7 +396,10 @@ class SettingsActivity : AppCompatActivity() {
                     icon = R.drawable.ic_baseline_format_list_bulleted_24.asIcon()
                     allowEmptySelection = true
                 }
-                singleChoice(DemoSettingsModel.testEnum, TestEnum.values(), { "Enum: ${it.name}" }) {
+                singleChoice(
+                    DemoSettingsModel.testEnum,
+                    TestEnum.values(),
+                    { "Enum: ${it.name}" }) {
                     title = "Single Choice Enum".asText()
                     icon = R.drawable.ic_baseline_format_list_bulleted_24.asIcon()
                 }
@@ -449,11 +445,14 @@ class SettingsActivity : AppCompatActivity() {
                 badge = "PRO".asBatch()
                 canChange = {
                     // we can't change this settings, it's enabled but will only work in the pro version
-                    showMessage("Changing this setting is disabled via 'canChange' function!", Toast.LENGTH_LONG)
+                    activity.showMessage(
+                        "Changing this setting is disabled via 'canChange' function!",
+                        Toast.LENGTH_LONG
+                    )
                     false
                 }
                 onChanged = {
-                    showMessage("Pro feature changed (this should never be called!): $it")
+                    activity.showMessage("Pro feature changed (this should never be called!): $it")
                 }
             }
 
@@ -465,26 +464,5 @@ class SettingsActivity : AppCompatActivity() {
                 enabled = false
             }
         }
-        screen.bind(binding.rvSettings)
-        return screen
-    }
-
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-        preferenceScreen.onSaveInstanceState(outState)
-    }
-
-    override fun onBackPressed() {
-        if (preferenceScreen.onBackPressed()) {
-            return
-        }
-        super.onBackPressed()
-    }
-
-    override fun onSupportNavigateUp(): Boolean {
-        if (!preferenceScreen.onBackPressed()) {
-            finish()
-        }
-        return true
     }
 }

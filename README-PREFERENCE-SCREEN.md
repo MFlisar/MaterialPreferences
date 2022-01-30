@@ -2,7 +2,27 @@
 
 This module allows you to create `RecyclerView` based preference screens with a DSL.
 
-### Example
+### Example - Default Activity
+
+This is an activity with a toolbar and a back button and can be shown as following:
+
+```kotlin
+
+    fun showDefaultSettingsActivity(context: Context) {
+        SettingsActivity.start(context, true /* dark/light theme */, ScreenCreator)
+    }
+	
+	@Parcelize
+    object ScreenCreator : SettingsActivity.IScreenCreator {
+        override fun createScreen(activity: AppCompatActivity, savedInstanceState: Bundle?, updateTitle: (title: String) -> Unit): PreferenceScreen {
+            return screen {
+			    // ... set up your preference screen here
+			}
+		}
+	}
+```
+
+### Example - Custom Activity
 
 Here's an example and it's output.
 

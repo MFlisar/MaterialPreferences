@@ -3,6 +3,7 @@
     package="com.michaelflisar.materialpreferences.preferencescreen">
 
     <application>
+
         <provider
             android:name="androidx.startup.InitializationProvider"
             tools:node="merge"
@@ -13,6 +14,10 @@
                 android:name="com.michaelflisar.materialpreferences.preferencescreen.initialisation.Initialiser"
                 android:value="androidx.startup" />
         </provider>
+
+        <activity
+            android:name="com.michaelflisar.materialpreferences.preferencescreen.activity.SettingsActivity"
+            android:exported="true" />
 
     </application>
 

@@ -14,11 +14,18 @@
         android:theme="@style/ThemeOverlay.MaterialComponents.Dark.ActionBar" />
 
     <Button
-        android:id="@+id/btSettings"
+        android:id="@+id/btSettingsDefault"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:text="Settings" />
+        android:text="Settings (Default)" />
+
+    <Button
+        android:id="@+id/btSettingsCustom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="Settings (Custom)" />
 
     <TextView
         android:id="@+id/tvText1"

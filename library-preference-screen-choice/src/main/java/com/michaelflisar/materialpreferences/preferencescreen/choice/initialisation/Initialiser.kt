@@ -9,6 +9,7 @@ import com.michaelflisar.materialpreferences.preferencescreen.choice.single.Sing
 import com.michaelflisar.materialpreferences.preferencescreen.choice.single.SingleChoicePreferenceInt
 
 internal class Initialiser : Initializer<Unit> {
+
     override fun create(context: Context) {
         ViewHolderFactory.register(SingleChoicePreferenceInt.TYPE, SingleChoicePreferenceInt.Companion)
         ViewHolderFactory.register(SingleChoicePreferenceEnum.TYPE, SingleChoicePreferenceEnum.Companion)
