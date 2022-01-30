@@ -11,15 +11,15 @@ This is an activity with a toolbar and a back button and can be shown as followi
     fun showDefaultSettingsActivity(context: Context) {
         SettingsActivity.start(context, ScreenCreator)
     }
-	
-	@Parcelize
+    
+    @Parcelize
     object ScreenCreator : SettingsActivity.IScreenCreator {
         override fun createScreen(activity: AppCompatActivity, savedInstanceState: Bundle?, updateTitle: (title: String) -> Unit): PreferenceScreen {
             return screen {
-			    // ... set up your preference screen here
-			}
-		}
-	}
+        	    // ... set up your preference screen here
+        	}
+        }
+    }
 ```
 
 ### Example - Custom Activity
