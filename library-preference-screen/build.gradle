@@ -64,3 +64,5 @@ dependencies {
 
     implementation project(':core')
 }
+
+apply from: '../maven.gradle'

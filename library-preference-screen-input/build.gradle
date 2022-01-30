@@ -65,3 +65,5 @@ dependencies {
     implementation "com.afollestad.material-dialogs:input:${versions.materialDialogs}"
     implementation "com.afollestad.material-dialogs:bottomsheets:${versions.materialDialogs}"
 }
+
+apply from: '../maven.gradle'
