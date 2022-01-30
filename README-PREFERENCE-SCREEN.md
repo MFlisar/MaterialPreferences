@@ -8,8 +8,8 @@ This is an activity with a toolbar and a back button and can be shown as followi
 
 ```kotlin
 
-    fun showDefaultSettingsActivity(context: Context) {
-        SettingsActivity.start(context, ScreenCreator)
+    fun showDefaultSettingsActivity(activity: AppCompatActivity) {
+        SettingsActivity.start(activity, ScreenCreator)
     }
     
     @Parcelize
@@ -17,7 +17,7 @@ This is an activity with a toolbar and a back button and can be shown as followi
         override fun createScreen(activity: AppCompatActivity, savedInstanceState: Bundle?, updateTitle: (title: String) -> Unit): PreferenceScreen {
             return screen {
         	    // ... set up your preference screen here
-        	}
+            }
         }
     }
 ```
