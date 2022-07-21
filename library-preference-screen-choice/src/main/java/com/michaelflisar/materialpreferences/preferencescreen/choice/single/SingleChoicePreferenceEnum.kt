@@ -25,4 +25,5 @@ class SingleChoicePreferenceEnum<E : Enum<*>>(
     override fun getChoiceDisplayValue(context: Context, item: E): String = item.let { labelProvider.invoke(it) }
     override fun getChoiceLabels(context: Context): List<String> = values.map { labelProvider.invoke(it) }
     override fun getChoiceValue(index: Int): E = values[index]
+    override fun getSelectedIndex(): Int = values.indexOfFirst { it == setting.value }
 }

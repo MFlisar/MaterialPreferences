@@ -23,6 +23,8 @@ object DemoSettingsModel : SettingsModel(DataStoreStorage(name = "demo_settings"
     val childName3 by stringPref("Christian")
 
     val choiceSingle by intPref(0)
+    val choiceSingle2 by intPref(0)
+    val choiceSingle3 by intPref(0)
     val choiceMulti by intSetPref()
 
     val parentOfCustomDependency by stringPref("Data")

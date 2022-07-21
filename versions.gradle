@@ -12,20 +12,20 @@ ext {
             fragment           : "1.0.0",
             appcompat          : "1.2.0",
             recyclerview       : "1.2.1",
-            material           : "1.5.0",
+            material           : "1.6.1",
             constraintLayout   : "2.0.2",
             palette            : "1.0.0",
             preference         : "1.0.0",
-            core               : "1.7.0",
-            lifecycle          : "2.4.0",
-            datastorePrefs     : "1.0.0-alpha08",
-            startup            : "1.0.0",
+            core               : "1.8.0",
+            lifecycle          : "2.5.0",
+            datastorePrefs     : "1.0.0",
+            startup            : "1.1.1",
             kotlinSerialization: "1.1.0"
     ]
 
     versions = [
             kotlinVersion  : "1.6.10",
-            gradlePlugin   : "7.1.0",
+            gradlePlugin   : "7.2.1",
             mavenVersion   : "2.0",
 
             lumberjack     : "5.2.5",

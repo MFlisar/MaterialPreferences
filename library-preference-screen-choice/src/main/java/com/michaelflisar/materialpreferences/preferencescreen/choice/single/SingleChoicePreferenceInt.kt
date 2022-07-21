@@ -25,4 +25,5 @@ class SingleChoicePreferenceInt(
     override fun getChoiceDisplayValue(context: Context, item: Int): String = choices[item].label.get(context)
     override fun getChoiceLabels(context: Context) = choices.map { it.label.get(context) }
     override fun getChoiceValue(index: Int): Int = choices[index].id
+    override fun getSelectedIndex(): Int = choices.indexOfFirst { it.id == setting.value }
 }

@@ -21,4 +21,5 @@ abstract class SingleChoicePreference<T : Any>(
     abstract fun getChoiceLabels(context: Context): List<String>
     abstract fun getChoiceValue(index: Int): T
     abstract fun getChoiceDisplayValue(context: Context, item: T): String
+    abstract fun getSelectedIndex(): Int
 }

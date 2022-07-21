@@ -2,6 +2,7 @@ package com.michaelflisar.materialpreferences.datastore
 
 import android.content.Context
 import androidx.datastore.core.DataStore
+import androidx.datastore.dataStore
 import androidx.datastore.preferences.core.*
 import androidx.datastore.preferences.preferencesDataStore
 import com.michaelflisar.materialpreferences.core.SettingsChangeEvent

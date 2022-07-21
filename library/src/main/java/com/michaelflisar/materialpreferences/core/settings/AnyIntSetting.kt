@@ -2,6 +2,7 @@ package com.michaelflisar.materialpreferences.core.settings
 
 import com.michaelflisar.materialpreferences.core.SettingsConverter
 import com.michaelflisar.materialpreferences.core.SettingsModel
+import com.michaelflisar.materialpreferences.core.interfaces.Storage
 import com.michaelflisar.materialpreferences.core.interfaces.StorageSetting
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
@@ -18,6 +19,7 @@ class AnyIntSetting<T : Any>(
     override val key: String by lazy { customKey ?: name!! }
 
     override val flow: Flow<T> by lazy { model.storage.getInt(key, converter.to(defaultValue)).map { converter.from(it) } }
+
     override suspend fun update(value: T) {
         model.storage.setInt(key, converter.to(value))
         model.storage.onValueChanged(this, value)

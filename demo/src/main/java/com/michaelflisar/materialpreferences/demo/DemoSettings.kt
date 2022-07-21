@@ -390,6 +390,7 @@ object DemoSettings {
                 singleChoice(DemoSettingsModel.choiceSingle, demoChoices) {
                     title = "Single Choice".asText()
                     icon = R.drawable.ic_baseline_format_list_bulleted_24.asIcon()
+                    //showCheckBoxes = true
                 }
                 multiChoice(DemoSettingsModel.choiceMulti, demoChoices) {
                     title = "Multi Choice".asText()
@@ -402,6 +403,20 @@ object DemoSettings {
                     { "Enum: ${it.name}" }) {
                     title = "Single Choice Enum".asText()
                     icon = R.drawable.ic_baseline_format_list_bulleted_24.asIcon()
+                    //showCheckBoxes = true
+                }
+                category {
+                    title = "Dialog Styles".asText()
+                }
+                singleChoice(DemoSettingsModel.choiceSingle2, demoChoices) {
+                    title = "Single Choice - Checkbox".asText()
+                    icon = R.drawable.ic_baseline_format_list_bulleted_24.asIcon()
+                    showCheckBoxes = true
+                }
+                singleChoice(DemoSettingsModel.choiceSingle3, demoChoices) {
+                    title = "Single Choice - Highlighted".asText()
+                    icon = R.drawable.ic_baseline_format_list_bulleted_24.asIcon()
+                    showCheckBoxes = false
                 }
             }
 

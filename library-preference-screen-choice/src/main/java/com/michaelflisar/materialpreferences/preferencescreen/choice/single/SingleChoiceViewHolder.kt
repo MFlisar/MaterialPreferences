@@ -4,11 +4,15 @@ import android.app.Dialog
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewbinding.ViewBinding
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.bottomsheets.BottomSheet
+import com.afollestad.materialdialogs.list.customListAdapter
 import com.afollestad.materialdialogs.list.listItems
 import com.afollestad.materialdialogs.list.listItemsSingleChoice
+import com.michaelflisar.materialpreferences.preferencescreen.choice.ChoiceAdapter
+import com.michaelflisar.materialpreferences.preferencescreen.choice.ChoiceItem
 import com.michaelflisar.materialpreferences.preferencescreen.recyclerview.PreferenceAdapter
 import com.michaelflisar.materialpreferences.preferencescreen.recyclerview.viewholders.base.BaseDialogViewHolder
 
@@ -29,10 +33,21 @@ class SingleChoiceViewHolder<T : Any>(
         val dialog = if (preference.bottomSheet) MaterialDialog(itemView.context, BottomSheet()) else MaterialDialog(itemView.context)
         dialog.show {
             title(text = preference.title.get(itemView.context))
+
+            val selectedIndex = preference.getSelectedIndex()
+            val items = preference.getChoiceLabels(context).mapIndexed { index, label -> ChoiceAdapter.Item(label, index == selectedIndex) }
+
+            customListAdapter(ChoiceAdapter(if (preference.showCheckBoxes) ChoiceAdapter.Mode.SingleCheckbox else ChoiceAdapter.Mode.Single, items) { item, index ->
+                update(preference.getChoiceValue(index), preference)
+                dismiss()
+            })
+
+            /*
             if (preference.showCheckBoxes) {
                 listItemsSingleChoice(
                         items = preference.getChoiceLabels(context),
-                        waitForPositiveButton = false
+                        waitForPositiveButton = false,
+                        initialSelection = preference.getSelectedIndex()
                 ) { dialog, index, text ->
                     update(preference.getChoiceValue(index), preference)
                 }
@@ -44,7 +59,7 @@ class SingleChoiceViewHolder<T : Any>(
                     update(preference.getChoiceValue(index), preference)
                     dialog.dismiss()
                 }
-            }
+            }*/
             positiveButton(android.R.string.ok)
         }
         return dialog
