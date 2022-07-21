@@ -1,26 +1,19 @@
 package com.michaelflisar.materialpreferences.preferencescreen.choice
 
+import android.content.res.ColorStateList
 import android.graphics.Typeface
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.michaelflisar.materialpreferences.preferencescreen.choice.databinding.DialogChoiceItemBinding
+import com.michaelflisar.materialpreferences.preferencescreen.choice.single.SingleChoicePreference
 
-// currently unused... maybe choices will need to support icons on the right at some time...
-
-
-class ChoiceAdapter(
-    val mode: Mode,
+class SingleChoiceAdapter(
+    val mode: SingleChoicePreference.DisplayType,
     val items: List<Item>,
     val onItemClicked: (item: Item, index: Int) -> Unit
-) : RecyclerView.Adapter<ChoiceAdapter.ViewHolder>() {
-
-    enum class Mode {
-        Single,
-        SingleCheckbox,
-        MultiCheckbox
-    }
+) : RecyclerView.Adapter<SingleChoiceAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
         ViewHolder(
@@ -44,27 +37,36 @@ class ChoiceAdapter(
     override fun getItemCount() = items.size
 
     class ViewHolder(
-        val adapter: ChoiceAdapter,
+        val adapter: SingleChoiceAdapter,
         val binding: DialogChoiceItemBinding
     ) : RecyclerView.ViewHolder(binding.root) {
 
         init {
-            binding.mdControlCheckbox.visibility =
-                if (adapter.mode == Mode.MultiCheckbox) View.VISIBLE else View.GONE
             binding.mdControlRadio.visibility =
-                if (adapter.mode == Mode.SingleCheckbox) View.VISIBLE else View.GONE
+                if (adapter.mode == SingleChoicePreference.DisplayType.Checkbox) View.VISIBLE else View.GONE
         }
 
         fun bind(item: Item) {
             binding.text.text = item.label
-            if (adapter.mode == Mode.Single) {
-                binding.text.setTypeface(
-                    binding.text.typeface,
-                    if (item.selected) Typeface.BOLD else Typeface.NORMAL
-                )
+            when (adapter.mode) {
+                SingleChoicePreference.DisplayType.Checkbox -> {
+                    binding.mdControlRadio.isChecked = item.selected
+                }
+                is SingleChoicePreference.DisplayType.Highlighted -> {
+                    if (adapter.mode.bold) {
+                        binding.text.setTypeface(
+                            binding.text.typeface,
+                            if (item.selected) Typeface.BOLD else Typeface.NORMAL
+                        )
+                    }
+                    if (adapter.mode.primaryColor) {
+                        binding.text.setTextColor(if (item.selected) ColorStateList.valueOf(binding.text.context.colorAccent) else binding.text.context.textColor)
+                    }
+                }
+                SingleChoicePreference.DisplayType.None -> {
+                    // nothing to do
+                }
             }
-            binding.mdControlRadio.isChecked = item.selected
-            binding.mdControlCheckbox.isChecked = item.selected
             binding.root.setOnClickListener {
                 adapter.onItemClicked(item, absoluteAdapterPosition)
             }

@@ -2,6 +2,8 @@ package com.michaelflisar.materialpreferences.core.settings
 
 import com.michaelflisar.materialpreferences.core.SettingsConverter
 import com.michaelflisar.materialpreferences.core.SettingsModel
+import com.michaelflisar.materialpreferences.core.initialisation.SettingSetup
+import com.michaelflisar.materialpreferences.core.interfaces.Storage
 import com.michaelflisar.materialpreferences.core.interfaces.StorageSetting
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
@@ -11,16 +13,20 @@ internal class AnyStringSetting<T : Any>(
         private val model: SettingsModel,
         override val defaultValue: T,
         override val customKey: String?,
-        private val converter: SettingsConverter<T, String>
+        private val converter: SettingsConverter<T, String>,
+        override val cache: Boolean
 ) : AbstractSetting<T>() {
 
     private var name: String? = null
     override val key: String by lazy { customKey ?: name!! }
 
-    override val flow: Flow<T> by lazy { model.storage.getString(key, converter.to(defaultValue)).map { converter.from(it) } }
-    override suspend fun update(value: T) {
+    override val storage: Storage
+        get() = model.storage
+
+    override fun createFlow() = model.storage.getString(key, converter.to(defaultValue)).map { converter.from(it) }
+
+    override suspend fun persistValue(value: T) {
         model.storage.setString(key, converter.to(value))
-        model.storage.onValueChanged(this, value)
     }
 
     private fun init(name: String) {

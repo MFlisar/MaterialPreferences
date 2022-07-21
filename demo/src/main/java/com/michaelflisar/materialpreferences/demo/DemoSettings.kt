@@ -15,6 +15,7 @@ import com.michaelflisar.materialpreferences.preferencescreen.*
 import com.michaelflisar.materialpreferences.preferencescreen.activity.SettingsActivity
 import com.michaelflisar.materialpreferences.preferencescreen.choice.asChoiceListString
 import com.michaelflisar.materialpreferences.preferencescreen.choice.multiChoice
+import com.michaelflisar.materialpreferences.preferencescreen.choice.single.SingleChoicePreference
 import com.michaelflisar.materialpreferences.preferencescreen.choice.singleChoice
 import com.michaelflisar.materialpreferences.preferencescreen.classes.Badge
 import com.michaelflisar.materialpreferences.preferencescreen.classes.asBatch
@@ -411,12 +412,12 @@ object DemoSettings {
                 singleChoice(DemoSettingsModel.choiceSingle2, demoChoices) {
                     title = "Single Choice - Checkbox".asText()
                     icon = R.drawable.ic_baseline_format_list_bulleted_24.asIcon()
-                    showCheckBoxes = true
+                    displayType = SingleChoicePreference.DisplayType.Checkbox
                 }
                 singleChoice(DemoSettingsModel.choiceSingle3, demoChoices) {
                     title = "Single Choice - Highlighted".asText()
                     icon = R.drawable.ic_baseline_format_list_bulleted_24.asIcon()
-                    showCheckBoxes = false
+                    displayType = SingleChoicePreference.DisplayType.Highlighted(true, true)
                 }
             }
 

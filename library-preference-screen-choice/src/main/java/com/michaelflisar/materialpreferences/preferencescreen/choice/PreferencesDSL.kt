@@ -1,5 +1,6 @@
 package com.michaelflisar.materialpreferences.preferencescreen.choice
 
+import android.widget.TextView
 import com.michaelflisar.materialpreferences.core.interfaces.StorageSetting
 import com.michaelflisar.materialpreferences.preferencescreen.Screen
 import com.michaelflisar.materialpreferences.preferencescreen.choice.multi.MultiChoicePreference

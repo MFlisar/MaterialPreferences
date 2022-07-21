@@ -4,15 +4,11 @@ import android.app.Dialog
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewbinding.ViewBinding
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.bottomsheets.BottomSheet
 import com.afollestad.materialdialogs.list.customListAdapter
-import com.afollestad.materialdialogs.list.listItems
-import com.afollestad.materialdialogs.list.listItemsSingleChoice
-import com.michaelflisar.materialpreferences.preferencescreen.choice.ChoiceAdapter
-import com.michaelflisar.materialpreferences.preferencescreen.choice.ChoiceItem
+import com.michaelflisar.materialpreferences.preferencescreen.choice.SingleChoiceAdapter
 import com.michaelflisar.materialpreferences.preferencescreen.recyclerview.PreferenceAdapter
 import com.michaelflisar.materialpreferences.preferencescreen.recyclerview.viewholders.base.BaseDialogViewHolder
 
@@ -35,9 +31,9 @@ class SingleChoiceViewHolder<T : Any>(
             title(text = preference.title.get(itemView.context))
 
             val selectedIndex = preference.getSelectedIndex()
-            val items = preference.getChoiceLabels(context).mapIndexed { index, label -> ChoiceAdapter.Item(label, index == selectedIndex) }
+            val items = preference.getChoiceLabels(context).mapIndexed { index, label -> SingleChoiceAdapter.Item(label, index == selectedIndex) }
 
-            customListAdapter(ChoiceAdapter(if (preference.showCheckBoxes) ChoiceAdapter.Mode.SingleCheckbox else ChoiceAdapter.Mode.Single, items) { item, index ->
+            customListAdapter(SingleChoiceAdapter(preference.displayType, items) { item, index ->
                 update(preference.getChoiceValue(index), preference)
                 dismiss()
             })

@@ -2,9 +2,15 @@ package com.michaelflisar.materialpreferences.demo.settings
 
 import android.graphics.Color
 import com.michaelflisar.materialpreferences.core.SettingsModel
+import com.michaelflisar.materialpreferences.core.initialisation.SettingSetup
 import com.michaelflisar.materialpreferences.datastore.DataStoreStorage
 
-object DemoSettingsModel : SettingsModel(DataStoreStorage(name = "demo_settings")) {
+object DemoSettingsModel : SettingsModel(
+    DataStoreStorage(
+        name = "demo_settings",
+        cache = SettingSetup.ENABLE_CACHING // false by default, only relevant for blocking reads
+    )
+) {
 
     val darkTheme by boolPref(false)
     val color1 by intPref(Color.parseColor("#A52A2A"))

@@ -6,6 +6,7 @@ import kotlinx.coroutines.flow.Flow
 interface Storage {
 
     val changeFlow: Flow<SettingsChangeEvent<*>>
+    val cache: Boolean
 
     suspend fun clear()
 

@@ -3,15 +3,17 @@ package com.michaelflisar.materialpreferences.preferencescreen.choice.single
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.TextView
 import com.michaelflisar.materialpreferences.core.interfaces.StorageSetting
 import com.michaelflisar.materialpreferences.preferencescreen.ViewHolderFactory
 import com.michaelflisar.materialpreferences.preferencescreen.choice.R
 import com.michaelflisar.materialpreferences.preferencescreen.recyclerview.PreferenceAdapter
+import kotlinx.coroutines.withContext
 
 class SingleChoicePreferenceEnum<E : Enum<*>>(
-        setting: StorageSetting<E>,
-        private val values: Array<E>,
-        private val labelProvider: ((E) -> String) = { it.name }
+    setting: StorageSetting<E>,
+    private val values: Array<E>,
+    private val labelProvider: (E) -> String = { it.name }
 ) : SingleChoicePreference<E>(setting) {
 
     companion object : ViewHolderFactory.ViewHolderCreator {

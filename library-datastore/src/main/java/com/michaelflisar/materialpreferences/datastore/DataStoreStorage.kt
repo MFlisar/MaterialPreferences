@@ -17,7 +17,8 @@ import kotlinx.coroutines.flow.map
 
 @Suppress("UNCHECKED_CAST")
 class DataStoreStorage(
-        name: String = "settings"
+        name: String = "settings",
+        override val cache: Boolean = SettingSetup.ENABLE_CACHING
 ) : Storage {
 
     private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name)

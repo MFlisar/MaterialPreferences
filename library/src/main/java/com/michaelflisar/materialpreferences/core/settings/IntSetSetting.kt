@@ -1,6 +1,8 @@
 package com.michaelflisar.materialpreferences.core.settings
 
 import com.michaelflisar.materialpreferences.core.SettingsModel
+import com.michaelflisar.materialpreferences.core.initialisation.SettingSetup
+import com.michaelflisar.materialpreferences.core.interfaces.Storage
 import com.michaelflisar.materialpreferences.core.interfaces.StorageSetting
 import kotlinx.coroutines.flow.Flow
 import kotlin.reflect.KProperty
@@ -8,16 +10,20 @@ import kotlin.reflect.KProperty
 internal class IntSetSetting(
         private val model: SettingsModel,
         override val defaultValue: Set<Int>,
-        override val customKey: String?
+        override val customKey: String?,
+        override val cache: Boolean
 ) : AbstractSetting<Set<Int>>() {
 
     private var name: String? = null
     override val key: String by lazy { customKey ?: name!! }
 
-    override val flow: Flow<Set<Int>> by lazy { model.storage.getIntSet(key, defaultValue) }
-    override suspend fun update(value: Set<Int>) {
+    override val storage: Storage
+        get() = model.storage
+
+    override fun createFlow() = model.storage.getIntSet(key, defaultValue)
+
+    override suspend fun persistValue(value: Set<Int>) {
         model.storage.setIntSet(key, value)
-        model.storage.onValueChanged(this, value)
     }
 
     private fun init(name: String) {

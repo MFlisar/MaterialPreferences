@@ -12,4 +12,11 @@ object SettingSetup {
     fun init(context: Context) {
         SettingSetup.context = context
     }
+
+    /*
+     * caching can be enabled for a Storage and for each setting individually
+     *
+     * the provided value here is just the default value for each
+     */
+    var ENABLE_CACHING = false
 }

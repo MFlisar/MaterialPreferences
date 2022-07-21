@@ -16,15 +16,13 @@ interface StorageSetting<T : Any?> : ReadOnlyProperty<SettingsModel, StorageSett
 
     val flow: Flow<T>
 
-    suspend fun update(value: T)
-
-    suspend fun read() : T = flow.first()
-
     /*
-     * be careful with this - if possible, use a non blocking function instead
+     * returns a cached value or retrieves the value in a blocking way
      */
     val value: T
-        get() = runBlocking(Dispatchers.IO) { flow.first() }
+
+    suspend fun update(value: T)
+    suspend fun read() : T = flow.first()
 
     fun observeOnce(scope: CoroutineScope, transformer: ((Flow<T>) -> Flow<T>)? = null, context: CoroutineContext = Dispatchers.Main, callback: ((value: T) -> Unit)) = flow
             .take(1)
