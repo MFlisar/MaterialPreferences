@@ -22,9 +22,9 @@ class InputStringViewHolder(
     override fun createDialog(preference: InputStringPreference) : Dialog {
         val dialog = if (preference.bottomSheet) MaterialDialog(itemView.context, BottomSheet()) else MaterialDialog(itemView.context)
         dialog.show {
-            title(text = preference.title.get(itemView.context))
+            title(text = preference.title.getString(itemView.context))
             input(
-                    hint = preference.hint.get(context),
+                    hint = preference.hint.getString(context),
                     prefill = value,
                     inputType = preference.textInputType ?: InputType.TYPE_CLASS_TEXT,
                     allowEmpty = preference.allowEmpty

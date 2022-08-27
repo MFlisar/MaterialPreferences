@@ -32,7 +32,7 @@ class ColorViewHolder(
         val subColors = ColorPalette.PrimarySub
         val dialog = if (preference.bottomSheet) MaterialDialog(itemView.context, BottomSheet()) else MaterialDialog(itemView.context)
         dialog.show {
-            title(text = preference.title.get(itemView.context))
+            title(text = preference.title.getString(itemView.context))
             colorChooser(
                     initialSelection = value,
                     colors = colors,

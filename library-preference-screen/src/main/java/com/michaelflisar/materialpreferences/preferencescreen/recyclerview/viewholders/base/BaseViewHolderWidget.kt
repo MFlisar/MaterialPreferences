@@ -5,6 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.viewbinding.ViewBinding
 import com.michaelflisar.materialpreferences.preferencescreen.PreferenceScreenConfig
+import com.michaelflisar.materialpreferences.preferencescreen.ScreenUtil
 import com.michaelflisar.materialpreferences.preferencescreen.databinding.PreferenceBinding
 import com.michaelflisar.materialpreferences.preferencescreen.interfaces.PreferenceItem
 import kotlinx.coroutines.Dispatchers
@@ -77,7 +78,7 @@ abstract class BaseViewHolderWidget<D : Any, T, B : ViewBinding?>(
 
     open fun updateSummary(preference: T) {
         if (preference is PreferenceItem.PreferenceWithSummary) {
-            preference.summary.display(binding.summary, View.GONE, value)
+            ScreenUtil.display(preference.summary, binding.summary, View.GONE, value)
         }
     }
 

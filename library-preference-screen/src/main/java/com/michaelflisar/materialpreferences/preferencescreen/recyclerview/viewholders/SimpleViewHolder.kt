@@ -3,6 +3,7 @@ package com.michaelflisar.materialpreferences.preferencescreen.recyclerview.view
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.michaelflisar.materialpreferences.preferencescreen.ScreenUtil
 import com.michaelflisar.materialpreferences.preferencescreen.databinding.PreferenceBinding
 import com.michaelflisar.materialpreferences.preferencescreen.interfaces.PreferenceItem
 import com.michaelflisar.materialpreferences.preferencescreen.preferences.SubScreen
@@ -26,7 +27,7 @@ class SimpleViewHolder(
             preference.badge.display(binding.badge)
         }
         if (preference is PreferenceItem.PreferenceWithSummary) {
-            preference.summary.display(binding.summary, View.GONE)
+            ScreenUtil.display(preference.summary, binding.summary, View.GONE)
         }
         if (!rebind) {
             binding.root.setOnClickListener {

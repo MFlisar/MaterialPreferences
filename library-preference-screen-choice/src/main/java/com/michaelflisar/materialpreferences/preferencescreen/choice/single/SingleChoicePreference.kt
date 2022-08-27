@@ -6,13 +6,13 @@ import com.michaelflisar.materialpreferences.preferencescreen.PreferenceScreenCo
 import com.michaelflisar.materialpreferences.preferencescreen.interfaces.PreferenceItem
 import com.michaelflisar.materialpreferences.preferencescreen.preferences.BasePreferenceItem
 import com.michaelflisar.text.Text
-import com.michaelflisar.text.asText
+import com.michaelflisar.text.toText
 
 abstract class SingleChoicePreference<T : Any>(
     override val setting: StorageSetting<T>
 ) : BasePreferenceItem(), PreferenceItem.PreferenceWithData<T> {
 
-    override var summary: Text = "%s".asText()
+    override var summary: Text = "%s".toText()
     override var canChange: (value: T) -> Boolean = { true }
     override var onChanged: ((value: T) -> Unit)? = null
     var displayType: DisplayType = DisplayType.Highlighted(true, false)

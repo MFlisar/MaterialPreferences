@@ -8,6 +8,7 @@ import androidx.viewbinding.ViewBinding
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.bottomsheets.BottomSheet
 import com.afollestad.materialdialogs.list.customListAdapter
+import com.michaelflisar.materialpreferences.preferencescreen.ScreenUtil
 import com.michaelflisar.materialpreferences.preferencescreen.choice.SingleChoiceAdapter
 import com.michaelflisar.materialpreferences.preferencescreen.recyclerview.PreferenceAdapter
 import com.michaelflisar.materialpreferences.preferencescreen.recyclerview.viewholders.base.BaseDialogViewHolder
@@ -22,13 +23,13 @@ class SingleChoiceViewHolder<T : Any>(
 
     override fun updateSummary(preference: SingleChoicePreference<T>) {
         val displayValue = preference.getChoiceDisplayValue(itemView.context, value)
-        preference.summary.display(binding.summary, View.GONE, displayValue)
+        ScreenUtil.display(preference.summary, binding.summary, View.GONE, displayValue)
     }
 
     override fun createDialog(preference: SingleChoicePreference<T>): Dialog {
         val dialog = if (preference.bottomSheet) MaterialDialog(itemView.context, BottomSheet()) else MaterialDialog(itemView.context)
         dialog.show {
-            title(text = preference.title.get(itemView.context))
+            title(text = preference.title.getString(itemView.context))
 
             val selectedIndex = preference.getSelectedIndex()
             val items = preference.getChoiceLabels(context).mapIndexed { index, label -> SingleChoiceAdapter.Item(label, index == selectedIndex) }

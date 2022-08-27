@@ -16,14 +16,14 @@ import com.michaelflisar.materialpreferences.preferencescreen.interfaces.Prefere
 import com.michaelflisar.materialpreferences.preferencescreen.preferences.BasePreferenceItem
 import com.michaelflisar.materialpreferences.preferencescreen.recyclerview.PreferenceAdapter
 import com.michaelflisar.text.Text
-import com.michaelflisar.text.asText
+import com.michaelflisar.text.toText
 
 class MultiChoicePreference(
         override val setting: StorageSetting<Set<Int>>,
         internal val choices: List<ChoiceItem>
 ) : BasePreferenceItem(), PreferenceItem.PreferenceWithData<Set<Int>> {
 
-    override var summary: Text = "%s".asText()
+    override var summary: Text = "%s".toText()
     override var canChange: (value: Set<Int>) -> Boolean = { true }
     override var onChanged: ((value: Set<Int>) -> Unit)? = null
     var allowEmptySelection: Boolean = true

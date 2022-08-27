@@ -5,10 +5,12 @@ import android.content.res.ColorStateList
 import android.content.res.Resources
 import android.graphics.Color
 import android.util.TypedValue
+import android.view.View
 import android.widget.TextView
 import androidx.annotation.AttrRes
 import androidx.annotation.ColorInt
 import androidx.core.content.ContextCompat
+import com.michaelflisar.text.Text
 
 internal val Context.colorAccent: Int
     @ColorInt get() = resolve(R.attr.colorAccent)
