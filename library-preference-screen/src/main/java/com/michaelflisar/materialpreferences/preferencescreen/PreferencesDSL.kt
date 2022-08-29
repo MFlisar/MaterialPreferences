@@ -7,7 +7,7 @@ import com.michaelflisar.materialpreferences.preferencescreen.classes.Icon
 import com.michaelflisar.materialpreferences.preferencescreen.interfaces.PreferenceItem
 import com.michaelflisar.materialpreferences.preferencescreen.preferences.*
 import com.michaelflisar.text.Text
-import com.michaelflisar.text.toText
+import com.michaelflisar.text.asText
 
 @DslMarker
 @Retention(AnnotationRetention.SOURCE)
@@ -43,7 +43,7 @@ class Screen {
     @PreferenceMarker
     open class BaseBaseBuilder {
 
-        var title: Text = "".toText()
+        var title: Text = "".asText()
 
     }
 

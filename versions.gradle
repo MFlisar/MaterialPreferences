@@ -1,10 +1,10 @@
 ext {
 
     setup = [
-            compileSdk       : 31,
+            compileSdk       : 32,
             enableViewBinding: true,
             minSdk           : 21,
-            targetSdk        : 31
+            targetSdk        : 32
     ]
 
     androidx = [
@@ -12,8 +12,8 @@ ext {
             fragment           : "1.0.0",
             appcompat          : "1.2.0",
             recyclerview       : "1.2.1",
-            material           : "1.6.1",
-            constraintLayout   : "2.0.2",
+            material           : "1.7.0-beta01",
+            constraint         : "2.0.2",
             palette            : "1.0.0",
             preference         : "1.0.0",
             core               : "1.8.0",
@@ -29,7 +29,7 @@ ext {
             mavenVersion   : "2.0",
 
             lumberjack     : "5.2.5",
-            androidText    : "1.1.4",
+            androidText    : "1.2",
             materialDialogs: "3.3.0"
     ]
 

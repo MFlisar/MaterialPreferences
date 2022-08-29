@@ -7,7 +7,7 @@ import android.widget.TextView
 import androidx.annotation.ColorInt
 import com.michaelflisar.materialpreferences.preferencescreen.colorAccent
 import com.michaelflisar.materialpreferences.preferencescreen.dpToPx
-import com.michaelflisar.text.toText
+import com.michaelflisar.text.asText
 
 sealed class Badge {
 
@@ -33,9 +33,9 @@ sealed class Badge {
 }
 
 fun Int.asBatch(): Badge {
-    return Badge.Text(this.toText())
+    return Badge.Text(this.asText())
 }
 
 fun String.asBatch(): Badge {
-    return Badge.Text(this.toText())
+    return Badge.Text(this.asText())
 }

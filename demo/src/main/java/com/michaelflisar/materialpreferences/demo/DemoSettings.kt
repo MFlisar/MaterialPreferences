@@ -25,7 +25,7 @@ import com.michaelflisar.materialpreferences.preferencescreen.dependencies.Depen
 import com.michaelflisar.materialpreferences.preferencescreen.dependencies.asDependency
 import com.michaelflisar.materialpreferences.preferencescreen.enums.NoIconVisibility
 import com.michaelflisar.materialpreferences.preferencescreen.input.input
-import com.michaelflisar.text.toText
+import com.michaelflisar.text.asText
 import kotlinx.coroutines.flow.first
 import kotlinx.parcelize.Parcelize
 
@@ -87,13 +87,13 @@ object DemoSettings {
             // -----------------
 
             category {
-                title = "Test App Style".toText()
+                title = "Test App Style".asText()
             }
 
             switch(DemoSettingsModel.darkTheme) {
-                title = "Dark Theme".toText()
+                title = "Dark Theme".asText()
                 icon = R.drawable.ic_baseline_style_24.asIcon()
-                summary = "This setting is applied to this demo app\n(enabled: %b)".toText()
+                summary = "This setting is applied to this demo app\n(enabled: %b)".asText()
                 onChanged = {
                     L.d { "Dark Theme Settings Listener called: $it" }
                     //recreate()
@@ -102,7 +102,7 @@ object DemoSettings {
             }
 
             category {
-                title = "Demos".toText()
+                title = "Demos".asText()
             }
 
             // -----------------
@@ -110,71 +110,71 @@ object DemoSettings {
             // -----------------
 
             subScreen {
-                title = "Sub Screen Nesting".toText()
-                summary = "Test nested screens (with any nesting hierarchy)".toText()
+                title = "Sub Screen Nesting".asText()
+                summary = "Test nested screens (with any nesting hierarchy)".asText()
                 icon = R.drawable.ic_baseline_double_arrow_24.asIcon()
 
                 category {
-                    title = "Sub Screens".toText()
+                    title = "Sub Screens".asText()
                 }
 
                 subScreen {
-                    title = "Sub Screen 1".toText()
+                    title = "Sub Screen 1".asText()
                     icon = R.drawable.ic_baseline_double_arrow_24.asIcon()
                     category {
                         title = this@subScreen.title
                     }
                     button {
-                        title = "Button 1.1".toText()
+                        title = "Button 1.1".asText()
                         icon = R.drawable.ic_baseline_touch_app_24.asIcon()
                     }
                     button {
-                        title = "Button 1.2".toText()
+                        title = "Button 1.2".asText()
                         icon = R.drawable.ic_baseline_touch_app_24.asIcon()
                     }
                     subScreen {
-                        title = "Sub Sub Screen 1".toText()
+                        title = "Sub Sub Screen 1".asText()
                         icon = R.drawable.ic_baseline_double_arrow_24.asIcon()
                         category {
                             title = this@subScreen.title
                         }
                         button {
-                            title = "Button 1.3.1".toText()
+                            title = "Button 1.3.1".asText()
                             icon = R.drawable.ic_baseline_touch_app_24.asIcon()
                         }
                         button {
-                            title = "Button 1.3.2".toText()
+                            title = "Button 1.3.2".asText()
                             icon = R.drawable.ic_baseline_touch_app_24.asIcon()
                         }
                     }
                 }
 
                 subScreen {
-                    title = "Sub Screen 2".toText()
+                    title = "Sub Screen 2".asText()
                     icon = R.drawable.ic_baseline_double_arrow_24.asIcon()
                     category {
                         title = this@subScreen.title
                     }
                     button {
-                        title = "Button 2.1".toText()
+                        title = "Button 2.1".asText()
                         icon = R.drawable.ic_baseline_touch_app_24.asIcon()
                     }
                     button {
-                        title = "Button 2.2".toText()
+                        title = "Button 2.2".asText()
                         icon = R.drawable.ic_baseline_touch_app_24.asIcon()
                     }
                     subScreen {
-                        title = "Sub Sub Screen 2".toText()
+                        title = "Sub Sub Screen 2".asText()
                         icon = R.drawable.ic_baseline_double_arrow_24.asIcon()
                         category {
                             title = this@subScreen.title
                         }
                         button {
-                            title = "Button 2.3.1".toText()
+                            title = "Button 2.3.1".asText()
                             icon = R.drawable.ic_baseline_touch_app_24.asIcon()
                         }
                         button {
-                            title = "Button 2.3.2".toText()
+                            title = "Button 2.3.2".asText()
                             icon = R.drawable.ic_baseline_touch_app_24.asIcon()
                         }
                     }
@@ -186,29 +186,29 @@ object DemoSettings {
             // -----------------
 
             subScreen {
-                title = "Booleans".toText()
+                title = "Booleans".asText()
                 icon = R.drawable.ic_baseline_check_box_24.asIcon()
-                summary = "Switches / Checkboxes".toText()
+                summary = "Switches / Checkboxes".asText()
                 category {
-                    title = "Switches".toText()
+                    title = "Switches".asText()
                 }
                 switch(DemoSettingsModel.enableFeature1) {
-                    title = "Feature 1".toText()
+                    title = "Feature 1".asText()
                     icon = R.drawable.ic_baseline_keyboard_arrow_right_24.asIcon()
                 }
                 switch(DemoSettingsModel.enableFeature2) {
-                    title = "Feature 2".toText()
+                    title = "Feature 2".asText()
                     icon = R.drawable.ic_baseline_keyboard_arrow_right_24.asIcon()
                 }
                 category {
-                    title = "Checkboxes".toText()
+                    title = "Checkboxes".asText()
                 }
                 checkbox(DemoSettingsModel.enableFeature3) {
-                    title = "Feature 3".toText()
+                    title = "Feature 3".asText()
                     icon = R.drawable.ic_baseline_keyboard_arrow_right_24.asIcon()
                 }
                 checkbox(DemoSettingsModel.enableFeature4) {
-                    title = "Feature 4".toText()
+                    title = "Feature 4".asText()
                     icon = R.drawable.ic_baseline_keyboard_arrow_right_24.asIcon()
                 }
             }
@@ -218,37 +218,37 @@ object DemoSettings {
             // -----------------
 
             subScreen {
-                title = "Inputs".toText()
+                title = "Inputs".asText()
                 icon = R.drawable.ic_baseline_text_fields_24.asIcon()
-                summary = "Texts / Numbers".toText()
+                summary = "Texts / Numbers".asText()
                 category {
-                    title = "Inputs".toText()
-                    summary = "Worked with int and string preferences!".toText()
+                    title = "Inputs".asText()
+                    summary = "Worked with int and string preferences!".asText()
                 }
                 input(DemoSettingsModel.text1) {
-                    title = "Input 1".toText()
+                    title = "Input 1".asText()
                     icon = R.drawable.ic_baseline_text_fields_24.asIcon()
-                    summary = "Insert ANY text".toText()
-                    hint = "Insert a value...".toText()
+                    summary = "Insert ANY text".asText()
+                    hint = "Insert a value...".asText()
                 }
                 input(DemoSettingsModel.text2) {
-                    title = "Input 2".toText()
+                    title = "Input 2".asText()
                     icon = R.drawable.ic_baseline_text_fields_24.asIcon()
-                    summary = "Insert NUMBERS only\n(value = %s)".toText()
+                    summary = "Insert NUMBERS only\n(value = %s)".asText()
                     textInputType = InputType.TYPE_CLASS_NUMBER
-                    hint = "Insert a value...".toText()
+                    hint = "Insert a value...".asText()
                 }
                 input(DemoSettingsModel.number1) {
-                    title = "Euros".toText()
+                    title = "Euros".asText()
                     icon = R.drawable.ic_baseline_attach_money_24.asIcon()
-                    summary = "%d€".toText()
-                    hint = "Insert an amount in $".toText()
+                    summary = "%d€".asText()
+                    hint = "Insert an amount in $".asText()
                 }
                 input(DemoSettingsModel.number2) {
-                    title = "Dollars".toText()
+                    title = "Dollars".asText()
                     icon = R.drawable.ic_baseline_attach_money_24.asIcon()
-                    summary = "%d$".toText()
-                    hint = "Insert an amount in €".toText()
+                    summary = "%d$".asText()
+                    hint = "Insert an amount in €".asText()
                 }
             }
 
@@ -257,26 +257,26 @@ object DemoSettings {
             // -----------------
 
             subScreen {
-                title = "Colors".toText()
+                title = "Colors".asText()
                 icon = R.drawable.ic_baseline_color_lens_24.asIcon()
                 category {
-                    title = "Colors".toText()
+                    title = "Colors".asText()
                 }
                 color(DemoSettingsModel.color1) {
-                    title = "Color 1".toText()
+                    title = "Color 1".asText()
                     icon = R.drawable.ic_baseline_color_lens_24.asIcon()
-                    summary = "This color SUPPORTS alpha values".toText()
+                    summary = "This color SUPPORTS alpha values".asText()
                 }
                 color(DemoSettingsModel.color2) {
-                    title = "Color 2".toText()
+                    title = "Color 2".asText()
                     icon = R.drawable.ic_baseline_color_lens_24.asIcon()
-                    summary = "This color DOES NOT SUPPORT alpha values".toText()
+                    summary = "This color DOES NOT SUPPORT alpha values".asText()
                     supportsAlpha = false
                 }
                 color(DemoSettingsModel.color3) {
-                    title = "Color 3".toText()
+                    title = "Color 3".asText()
                     icon = R.drawable.ic_baseline_color_lens_24.asIcon()
-                    summary = "This color also has an alpha value by default".toText()
+                    summary = "This color also has an alpha value by default".asText()
                 }
             }
 
@@ -285,28 +285,28 @@ object DemoSettings {
             // -----------------
 
             subScreen {
-                title = "Buttons".toText()
+                title = "Buttons".asText()
                 icon = R.drawable.ic_baseline_touch_app_24.asIcon()
-                summary = "Show messages / dialogs / ...".toText()
+                summary = "Show messages / dialogs / ...".asText()
                 category {
-                    title = "Buttons".toText()
+                    title = "Buttons".asText()
                 }
                 button {
-                    title = "Button 1".toText()
+                    title = "Button 1".asText()
                     icon = R.drawable.ic_baseline_touch_app_24.asIcon()
                     onClick = {
                         activity.showMessage("Button 1 clicked!")
                     }
                 }
                 button {
-                    title = "Button 2".toText()
+                    title = "Button 2".asText()
                     icon = R.drawable.ic_baseline_touch_app_24.asIcon()
                     onClick = {
                         activity.showMessage("Button 2 clicked!")
                     }
                 }
                 button {
-                    title = "Button 3".toText()
+                    title = "Button 3".asText()
                     icon = R.drawable.ic_baseline_touch_app_24.asIcon()
                     onClick = {
                         activity.showMessage("Button 3 clicked!")
@@ -319,16 +319,16 @@ object DemoSettings {
             // -----------------
 
             subScreen {
-                title = "Dependencies".toText()
+                title = "Dependencies".asText()
                 icon = R.drawable.ic_baseline_supervisor_account_24.asIcon()
-                summary = "Enable settings based on another setting".toText()
+                summary = "Enable settings based on another setting".asText()
                 category {
                     title = this@subScreen.title
                 }
                 switch(DemoSettingsModel.enableChild) {
-                    title = "Enable children".toText()
+                    title = "Enable children".asText()
                     icon = R.drawable.ic_baseline_supervisor_account_24.asIcon()
-                    summary = "Enables children below".toText()
+                    summary = "Enables children below".asText()
                     onChanged = {
                         activity.showMessage("Enable children changed: $it")
                     }
@@ -339,22 +339,22 @@ object DemoSettings {
                     DemoSettingsModel.childName3
                 ).forEachIndexed { index, setting ->
                     input(setting) {
-                        title = "Child ${index + 1}".toText()
+                        title = "Child ${index + 1}".asText()
                         icon = R.drawable.ic_baseline_person_24.asIcon()
                         dependsOn = DemoSettingsModel.enableChild.asDependency()
                     }
                 }
                 category {
-                    title = "Custom Dependency".toText()
+                    title = "Custom Dependency".asText()
                 }
                 input(DemoSettingsModel.parentOfCustomDependency) {
-                    title = "Parent".toText()
+                    title = "Parent".asText()
                     icon = R.drawable.ic_baseline_supervisor_account_24.asIcon()
                     summary =
-                        "Must contain a string that is a valid number between [0, 100] to enable the next setting".toText()
+                        "Must contain a string that is a valid number between [0, 100] to enable the next setting".asText()
                 }
                 button {
-                    title = "Button with custom dependency on the setting above".toText()
+                    title = "Button with custom dependency on the setting above".asText()
                     icon = R.drawable.ic_baseline_person_24.asIcon()
                     onClick = {
                         activity.showMessage("Button clicked - parent must contain a string representing a number between [0, 100] now")
@@ -382,19 +382,19 @@ object DemoSettings {
             ).asChoiceListString()
 
             subScreen {
-                title = "Choices".toText()
-                summary = "Single / Multi Choices".toText()
+                title = "Choices".asText()
+                summary = "Single / Multi Choices".asText()
                 icon = R.drawable.ic_baseline_format_list_bulleted_24.asIcon()
                 category {
-                    title = "Choices".toText()
+                    title = "Choices".asText()
                 }
                 singleChoice(DemoSettingsModel.choiceSingle, demoChoices) {
-                    title = "Single Choice".toText()
+                    title = "Single Choice".asText()
                     icon = R.drawable.ic_baseline_format_list_bulleted_24.asIcon()
                     //showCheckBoxes = true
                 }
                 multiChoice(DemoSettingsModel.choiceMulti, demoChoices) {
-                    title = "Multi Choice".toText()
+                    title = "Multi Choice".asText()
                     icon = R.drawable.ic_baseline_format_list_bulleted_24.asIcon()
                     allowEmptySelection = true
                 }
@@ -402,20 +402,20 @@ object DemoSettings {
                     DemoSettingsModel.testEnum,
                     TestEnum.values(),
                     { "Enum: ${it.name}" }) {
-                    title = "Single Choice Enum".toText()
+                    title = "Single Choice Enum".asText()
                     icon = R.drawable.ic_baseline_format_list_bulleted_24.asIcon()
                     //showCheckBoxes = true
                 }
                 category {
-                    title = "Dialog Styles".toText()
+                    title = "Dialog Styles".asText()
                 }
                 singleChoice(DemoSettingsModel.choiceSingle2, demoChoices) {
-                    title = "Single Choice - Checkbox".toText()
+                    title = "Single Choice - Checkbox".asText()
                     icon = R.drawable.ic_baseline_format_list_bulleted_24.asIcon()
                     displayType = SingleChoicePreference.DisplayType.Checkbox
                 }
                 singleChoice(DemoSettingsModel.choiceSingle3, demoChoices) {
-                    title = "Single Choice - Highlighted".toText()
+                    title = "Single Choice - Highlighted".asText()
                     icon = R.drawable.ic_baseline_format_list_bulleted_24.asIcon()
                     displayType = SingleChoicePreference.DisplayType.Highlighted(true, true)
                 }
@@ -426,22 +426,22 @@ object DemoSettings {
             // -----------------
 
             subScreen {
-                title = "Various".toText()
+                title = "Various".asText()
                 icon = R.drawable.ic_baseline_format_list_bulleted_24.asIcon()
                 button {
-                    title = "Button".toText()
-                    summary = "Custom Badge Colors".toText()
+                    title = "Button".asText()
+                    summary = "Custom Badge Colors".asText()
                     icon = R.drawable.ic_baseline_touch_app_24.asIcon()
-                    badge = Badge.Text("Test".toText(), Color.GREEN)
+                    badge = Badge.Text("Test".asText(), Color.GREEN)
                 }
                 button {
-                    title = "Button".toText()
-                    summary = "No Icon Visibility INVISIBLE".toText()
+                    title = "Button".asText()
+                    summary = "No Icon Visibility INVISIBLE".asText()
                     noIconVisibility = NoIconVisibility.Invisible
                 }
                 button {
-                    title = "Button".toText()
-                    summary = "No Icon Visibility GONE".toText()
+                    title = "Button".asText()
+                    summary = "No Icon Visibility GONE".asText()
                     noIconVisibility = NoIconVisibility.Gone
                 }
             }
@@ -451,13 +451,13 @@ object DemoSettings {
             // -----------------
 
             category {
-                title = "Root Level Preferences".toText()
+                title = "Root Level Preferences".asText()
             }
 
             switch(DemoSettingsModel.proFeature1) {
-                title = "Pro Feature 1".toText()
+                title = "Pro Feature 1".asText()
                 icon = R.drawable.ic_baseline_phone_android_24.asIcon()
-                summary = "Enable a fancy pro feature".toText()
+                summary = "Enable a fancy pro feature".asText()
                 badge = "PRO".asBatch()
                 canChange = {
                     // we can't change this settings, it's enabled but will only work in the pro version
@@ -473,9 +473,9 @@ object DemoSettings {
             }
 
             switch(DemoSettingsModel.proFeature2) {
-                title = "Pro Feature 2".toText()
+                title = "Pro Feature 2".asText()
                 icon = R.drawable.ic_baseline_phone_android_24.asIcon()
-                summary = "This setting is always disabled".toText()
+                summary = "This setting is always disabled".asText()
                 badge = "PRO".asBatch()
                 enabled = false
             }

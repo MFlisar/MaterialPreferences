@@ -10,15 +10,15 @@ import com.michaelflisar.materialpreferences.preferencescreen.interfaces.Prefere
 import com.michaelflisar.materialpreferences.preferencescreen.preferences.BasePreferenceItem
 import com.michaelflisar.materialpreferences.preferencescreen.recyclerview.PreferenceAdapter
 import com.michaelflisar.text.Text
-import com.michaelflisar.text.toText
+import com.michaelflisar.text.asText
 
 class InputStringPreference(
         override val setting: StorageSetting<String>
 ) : BasePreferenceItem(), PreferenceItem.PreferenceWithData<String> {
 
-    override var summary: Text = "%s".toText()
+    override var summary: Text = "%s".asText()
     var textInputType: Int? = null
-    var hint: Text = "".toText()
+    var hint: Text = "".asText()
     var allowEmpty: Boolean = true
     var bottomSheet: Boolean = PreferenceScreenConfig.bottomSheet
     override var canChange: (value: String) -> Boolean = { true }

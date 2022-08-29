@@ -10,14 +10,14 @@ import com.michaelflisar.materialpreferences.preferencescreen.interfaces.Prefere
 import com.michaelflisar.materialpreferences.preferencescreen.preferences.BasePreferenceItem
 import com.michaelflisar.materialpreferences.preferencescreen.recyclerview.PreferenceAdapter
 import com.michaelflisar.text.Text
-import com.michaelflisar.text.toText
+import com.michaelflisar.text.asText
 
 class InputIntPreference(
         override val setting: StorageSetting<Int>,
 ) : BasePreferenceItem(), PreferenceItem.PreferenceWithData<Int> {
 
-    override var summary: Text = "%s".toText()
-    var hint: Text = "".toText()
+    override var summary: Text = "%s".asText()
+    var hint: Text = "".asText()
     var defaultValue: Int = 0
     var bottomSheet: Boolean = PreferenceScreenConfig.bottomSheet
     override var canChange: (value: Int) -> Boolean = { true }
