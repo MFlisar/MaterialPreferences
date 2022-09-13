@@ -10,7 +10,7 @@
             android:exported="false">
 
             <meta-data
-                android:name="com.michaelflisar.materialpreferences.preferencescreen.bool.initialisation.Initialiser"
+                android:name="com.michaelflisar.materialpreferences.preferencescreen.input.initialisation.Initialiser"
                 android:value="androidx.startup" />
         </provider>
 
