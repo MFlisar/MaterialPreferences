@@ -12,16 +12,22 @@ interface PreferenceItem {
     val type: Int
     var title: Text
 
-    interface SubScreen : PreferenceItem, PreferenceWithIcon, PreferenceWithSummary, PreferenceWithBadge
+    interface SubScreen : PreferenceItem, PreferenceWithIcon, PreferenceWithSummary,
+        PreferenceWithBadge
+
     interface Category : PreferenceItem
-    interface Preference : PreferenceItem, PreferenceWithIcon, PreferenceWithSummary, PreferenceWithBadge {
+    interface Preference : PreferenceItem, PreferenceWithIcon, PreferenceWithSummary,
+        PreferenceWithBadge {
         var enabled: Boolean
-        var dependsOn: Dependency<*>?
+        var visible: Boolean
+        var enabledDependsOn: Dependency<*>?
+        var visibilityDependsOn: Dependency<*>?
     }
 
     interface ClickablePreference {
         var onClick: (() -> Unit)?
     }
+
     interface PreferenceWithData<T : Any> {
         val setting: StorageSetting<T>
         var canChange: ((value: T) -> Boolean)

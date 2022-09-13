@@ -16,8 +16,6 @@ object ViewHolderFactory {
         register(SubScreen.TYPE, SubScreen.Companion)
         register(CategoryHeaderPreference.TYPE, CategoryHeaderPreference.Companion)
         register(ButtonPreference.TYPE, ButtonPreference.Companion)
-        register(CheckboxPreference.TYPE, CheckboxPreference.Companion)
-        register(SwitchPreference.TYPE, SwitchPreference.Companion)
 
     }
 

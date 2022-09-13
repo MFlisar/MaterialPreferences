@@ -11,10 +11,16 @@ import com.michaelflisar.materialpreferences.preferencescreen.recyclerview.Prefe
 import com.michaelflisar.materialpreferences.preferencescreen.recyclerview.viewholders.base.BaseViewHolder
 
 class SimpleViewHolder(
-        inflater: LayoutInflater,
-        parent: ViewGroup,
-        override val adapter: PreferenceAdapter
-) : BaseViewHolder<PreferenceBinding, PreferenceItem>(PreferenceBinding.inflate(inflater, parent, false)) {
+    inflater: LayoutInflater,
+    parent: ViewGroup,
+    override val adapter: PreferenceAdapter
+) : BaseViewHolder<PreferenceBinding, PreferenceItem>(
+    PreferenceBinding.inflate(
+        inflater,
+        parent,
+        false
+    )
+) {
 
     override fun bind(preference: PreferenceItem, rebind: Boolean) {
         super.bind(preference, rebind)
@@ -36,9 +42,9 @@ class SimpleViewHolder(
         }
     }
 
-    fun onClick(preference: PreferenceItem) {
+    private fun onClick(preference: PreferenceItem) {
         (preference as? PreferenceItem.ClickablePreference)?.onClick?.invoke()
-        if (preference is SubScreen)  {
+        if (preference is SubScreen) {
             adapter.onSubScreenClicked(preference)
         }
     }

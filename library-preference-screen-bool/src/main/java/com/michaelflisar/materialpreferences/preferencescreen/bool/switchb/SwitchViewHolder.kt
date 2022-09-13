@@ -1,9 +1,8 @@
-package com.michaelflisar.materialpreferences.preferencescreen.recyclerview.viewholders
+package com.michaelflisar.materialpreferences.preferencescreen.bool.switchb
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import com.michaelflisar.materialpreferences.preferencescreen.databinding.WidgetSwitchBinding
-import com.michaelflisar.materialpreferences.preferencescreen.preferences.SwitchPreference
+import com.michaelflisar.materialpreferences.preferencescreen.bool.databinding.WidgetSwitchBinding
 import com.michaelflisar.materialpreferences.preferencescreen.recyclerview.PreferenceAdapter
 import com.michaelflisar.materialpreferences.preferencescreen.recyclerview.viewholders.base.BaseViewHolderWidget
 import kotlinx.coroutines.Dispatchers
@@ -11,13 +10,17 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 class SwitchViewHolder(
-        inflater: LayoutInflater,
-        parent: ViewGroup,
-        override val adapter: PreferenceAdapter
+    inflater: LayoutInflater,
+    parent: ViewGroup,
+    override val adapter: PreferenceAdapter
 ) : BaseViewHolderWidget<Boolean, SwitchPreference, WidgetSwitchBinding>(inflater, parent) {
 
-    override fun createSubBinding(inflater: LayoutInflater, parent: ViewGroup, attachToParent: Boolean) =
-            WidgetSwitchBinding.inflate(inflater, parent, attachToParent)
+    override fun createSubBinding(
+        inflater: LayoutInflater,
+        parent: ViewGroup,
+        attachToParent: Boolean
+    ) =
+        WidgetSwitchBinding.inflate(inflater, parent, attachToParent)
 
     override fun bindWidget(preference: SwitchPreference, rebind: Boolean) {
         subBinding.switchWidget.isChecked = value

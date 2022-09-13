@@ -14,8 +14,8 @@ import com.michaelflisar.materialpreferences.preferencescreen.recyclerview.viewh
 import com.michaelflisar.text.Text
 
 class SubScreen(
-        override var title: Text,
-        val preferences: List<PreferenceItem>
+    override var title: Text,
+    val preferences: List<PreferenceItem>
 ) : PreferenceItem.SubScreen {
 
     override var icon: Icon = Icon.Empty
@@ -25,8 +25,12 @@ class SubScreen(
 
     companion object : ViewHolderFactory.ViewHolderCreator {
         val TYPE = R.id.pref_screen
-        override fun createViewHolder(adapter: PreferenceAdapter, layoutInflater: LayoutInflater, parent: ViewGroup) =
-                SimpleViewHolder(layoutInflater, parent, adapter)
+        override fun createViewHolder(
+            adapter: PreferenceAdapter,
+            layoutInflater: LayoutInflater,
+            parent: ViewGroup
+        ) =
+            SimpleViewHolder(layoutInflater, parent, adapter)
     }
 
     override val type = TYPE

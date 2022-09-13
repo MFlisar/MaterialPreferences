@@ -1,38 +1,93 @@
 package com.michaelflisar.materialpreferences.preferencescreen.recyclerview
 
+import android.content.Context
 import android.os.Parcelable
 import android.view.ViewGroup
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewbinding.ViewBinding
 import com.michaelflisar.materialpreferences.preferencescreen.ScreenChangedListener
+import com.michaelflisar.materialpreferences.preferencescreen.ScreenUtil
 import com.michaelflisar.materialpreferences.preferencescreen.ViewHolderFactory
 import com.michaelflisar.materialpreferences.preferencescreen.interfaces.PreferenceItem
 import com.michaelflisar.materialpreferences.preferencescreen.preferences.SubScreen
 import com.michaelflisar.materialpreferences.preferencescreen.recyclerview.viewholders.base.BaseViewHolder
 import kotlinx.parcelize.Parcelize
 import java.util.*
-import kotlin.collections.ArrayList
 
 class PreferenceAdapter(
-        private val preferences: List<PreferenceItem>,
-        private val onScreenChanged: ScreenChangedListener?
-) : RecyclerView.Adapter<BaseViewHolder<ViewBinding, PreferenceItem>>() {
+    context: Context,
+    private val preferences: List<PreferenceItem>,
+    private val onScreenChanged: ScreenChangedListener?
+) : ListAdapter<PreferenceItem, BaseViewHolder<ViewBinding, PreferenceItem>>(PreferenceDiff) {
 
-    private var prefs: List<PreferenceItem> = preferences
+    //private var currentFilteredPrefs: List<PreferenceItem> = preferences
+    private var currentUnfilteredPrefs: List<PreferenceItem> = preferences
+    private var hiddenPrefs: MutableSet<PreferenceItem> = HashSet()
+
     private var stack: Stack<StackEntry> = Stack()
     var dialogInfo: DialogInfo? = null
     var recyclerView: RecyclerView? = null
 
-    override fun getItemViewType(position: Int) = prefs[position].type
+    protected val scope = (context as LifecycleOwner).lifecycleScope
 
-    @Suppress("UNCHECKED_CAST")
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder<ViewBinding, PreferenceItem> {
-        return ViewHolderFactory.create(this, parent, viewType) as BaseViewHolder<ViewBinding, PreferenceItem>
+    init {
+
+        //submitList(currentUnfilteredPrefs)
+
+        val allPreferences = ScreenUtil.flatten(preferences)
+        allPreferences
+            .filterIsInstance<PreferenceItem.Preference>()
+            .forEach { p ->
+                p.visibilityDependsOn?.let {
+                    it.observe(scope) {
+                        if (it) {
+                            hiddenPrefs.remove(p)
+                            updateCurrentFilteredItems(true)
+                        } else {
+                            hiddenPrefs.add(p)
+                            updateCurrentFilteredItems(true)
+                        }
+                    }
+                }
+            }
     }
 
-    override fun onBindViewHolder(holder: BaseViewHolder<ViewBinding, PreferenceItem>, position: Int) {
-        val pref = prefs[position]
+    private fun updateCurrentFilteredItems(submit: Boolean): List<PreferenceItem> {
+        val currentFilteredPrefs = currentUnfilteredPrefs.filter { !hiddenPrefs.contains(it) }
+        if (submit)
+            submitList(currentFilteredPrefs)
+        return currentFilteredPrefs
+    }
+
+    fun notifyItemChanged(item: PreferenceItem) {
+        val index = currentList.indexOf(item)
+        if (index >= 0)
+            notifyItemChanged(index)
+    }
+
+    override fun getItemViewType(position: Int) = currentList[position].type
+
+    @Suppress("UNCHECKED_CAST")
+    override fun onCreateViewHolder(
+        parent: ViewGroup,
+        viewType: Int
+    ): BaseViewHolder<ViewBinding, PreferenceItem> {
+        return ViewHolderFactory.create(
+            this,
+            parent,
+            viewType
+        ) as BaseViewHolder<ViewBinding, PreferenceItem>
+    }
+
+    override fun onBindViewHolder(
+        holder: BaseViewHolder<ViewBinding, PreferenceItem>,
+        position: Int
+    ) {
+        val pref = currentList[position]
         holder.bind(pref, false)
     }
 
@@ -41,29 +96,30 @@ class PreferenceAdapter(
         holder.unbind()
     }
 
-    override fun getItemCount() = prefs.size
-
     fun onSubScreenClicked(subScreen: SubScreen) {
-        val index = prefs.indexOf(subScreen)
+        val index = currentList.indexOf(subScreen)
         stack.push(StackEntry.create(index, recyclerView))
-        prefs = subScreen.preferences
-        onScreenChanged(stack.peek())
+        currentUnfilteredPrefs = subScreen.preferences
+        val filtered = updateCurrentFilteredItems(false)
+        onScreenChanged(stack.peek(), filtered, true)
     }
 
     internal fun onBackPressed(): Boolean {
         return if (stack.size > 0) {
             val stackEntry = stack.pop()
-            prefs = getCurrentSubScreenPreferences()
-            onScreenChanged(stackEntry)
+            currentUnfilteredPrefs = getCurrentSubScreenPreferencesUnfiltered()
+            val filtered = updateCurrentFilteredItems(false)
+            onScreenChanged(stackEntry, filtered, false)
             true
         } else false
     }
 
-    private fun onScreenChanged(stackEntry: StackEntry) {
+    private fun onScreenChanged(stackEntry: StackEntry, filtered: List<PreferenceItem>, forward: Boolean) {
         // rerun view animation
         recyclerView?.scheduleLayoutAnimation()
-        notifyDataSetChanged()
-        restoreView(stackEntry)
+        submitList(filtered)
+        if (!forward)
+            restoreView(stackEntry)
         notifyScreenChangedListener(false)
     }
 
@@ -85,7 +141,7 @@ class PreferenceAdapter(
         return screens
     }
 
-    private fun getCurrentSubScreenPreferences(): List<PreferenceItem> {
+    private fun getCurrentSubScreenPreferencesUnfiltered(): List<PreferenceItem> {
         if (stack.size == 0) {
             return preferences
         } else {
@@ -103,8 +159,8 @@ class PreferenceAdapter(
             state.stack.forEach {
                 stack.push(it)
             }
-            prefs = getCurrentSubScreenPreferences()
-            notifyDataSetChanged()
+            currentUnfilteredPrefs = getCurrentSubScreenPreferencesUnfiltered()
+            updateCurrentFilteredItems(true)
         }
         notifyScreenChangedListener(true)
         dialogInfo = state.dialogShown?.let { DialogInfo(it, null) }
@@ -112,11 +168,16 @@ class PreferenceAdapter(
 
     fun restoreView(state: StackEntry) {
         dialogInfo?.let {
-            it.preference = prefs[it.index]
+            it.preference = currentList[it.index]
             // the rv will scroll to this item and it will check and reset the showDialog variable itself, nothing more to do here
         }
         if (state.firstVisibleItem != 0 || state.firstVisibleItemOffset != 0) {
-            (recyclerView?.layoutManager as? LinearLayoutManager)?.scrollToPositionWithOffset(state.firstVisibleItem, state.firstVisibleItemOffset)
+            recyclerView?.post {
+                (recyclerView?.layoutManager as? LinearLayoutManager)?.scrollToPositionWithOffset(
+                    state.firstVisibleItem,
+                    state.firstVisibleItemOffset
+                )
+            }
         }
     }
 
@@ -128,15 +189,15 @@ class PreferenceAdapter(
 
     @Parcelize
     data class SavedState(
-            val stack: ArrayList<StackEntry>,
-            val dialogShown: Int?
+        val stack: ArrayList<StackEntry>,
+        val dialogShown: Int?
     ) : Parcelable
 
     @Parcelize
     data class StackEntry(
-            val index: Int,
-            val firstVisibleItem: Int,
-            val firstVisibleItemOffset: Int
+        val index: Int,
+        val firstVisibleItem: Int,
+        val firstVisibleItemOffset: Int
     ) : Parcelable {
 
         companion object {
@@ -145,8 +206,9 @@ class PreferenceAdapter(
                 var offset = 0
                 (recyclerView?.layoutManager as? LinearLayoutManager)?.let {
                     position = it.findFirstCompletelyVisibleItemPosition()
-                    offset = recyclerView?.findViewHolderForAdapterPosition(position)?.run { itemView.top }
-                            ?: 0
+                    offset = recyclerView.findViewHolderForAdapterPosition(position)
+                        ?.run { itemView.top }
+                        ?: 0
                 }
                 return StackEntry(index, position, offset)
             }
@@ -154,7 +216,7 @@ class PreferenceAdapter(
     }
 
     class DialogInfo(
-            val index: Int,
-            var preference: PreferenceItem? = null
+        val index: Int,
+        var preference: PreferenceItem? = null
     )
 }

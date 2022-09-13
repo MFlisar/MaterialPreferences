@@ -2,6 +2,8 @@ package com.michaelflisar.materialpreferences.preferencescreen
 
 import android.view.View
 import android.widget.TextView
+import com.michaelflisar.materialpreferences.preferencescreen.interfaces.PreferenceItem
+import com.michaelflisar.materialpreferences.preferencescreen.preferences.SubScreen
 import com.michaelflisar.text.Text
 
 object ScreenUtil {
@@ -14,5 +16,17 @@ object ScreenUtil {
             textView.visibility = visibilityEmpty
         else
             textView.visibility = View.VISIBLE
+    }
+
+    internal fun flatten(preferences: List<PreferenceItem>): List<PreferenceItem> {
+        val flattened = ArrayList<PreferenceItem>()
+        preferences.forEach {
+            if (it is SubScreen) {
+                flattened += flatten(it.preferences)
+            } else {
+                flattened += it
+            }
+        }
+        return flattened
     }
 }

@@ -13,6 +13,8 @@ import com.michaelflisar.materialpreferences.demo.settings.DemoSettingsModel
 import com.michaelflisar.materialpreferences.demo.settings.TestEnum
 import com.michaelflisar.materialpreferences.preferencescreen.*
 import com.michaelflisar.materialpreferences.preferencescreen.activity.SettingsActivity
+import com.michaelflisar.materialpreferences.preferencescreen.bool.checkbox
+import com.michaelflisar.materialpreferences.preferencescreen.bool.switch
 import com.michaelflisar.materialpreferences.preferencescreen.choice.asChoiceListString
 import com.michaelflisar.materialpreferences.preferencescreen.choice.multiChoice
 import com.michaelflisar.materialpreferences.preferencescreen.choice.single.SingleChoicePreference
@@ -80,7 +82,6 @@ object DemoSettings {
 
     fun createSettingsScreen(builder: Screen.Builder, activity: AppCompatActivity) {
         builder.apply {
-
 
             // -----------------
             // 1) test app settings (root level)
@@ -284,6 +285,8 @@ object DemoSettings {
             // 6) sub screen buttons
             // -----------------
 
+            var buttonIconIndex = 0
+
             subScreen {
                 title = "Buttons".asText()
                 icon = R.drawable.ic_baseline_touch_app_24.asIcon()
@@ -296,6 +299,7 @@ object DemoSettings {
                     icon = R.drawable.ic_baseline_touch_app_24.asIcon()
                     onClick = {
                         activity.showMessage("Button 1 clicked!")
+                        false
                     }
                 }
                 button {
@@ -303,13 +307,27 @@ object DemoSettings {
                     icon = R.drawable.ic_baseline_touch_app_24.asIcon()
                     onClick = {
                         activity.showMessage("Button 2 clicked!")
+                        false
                     }
                 }
                 button {
                     title = "Button 3".asText()
-                    icon = R.drawable.ic_baseline_touch_app_24.asIcon()
+                    summary = "Button with a value".asText()
+                    icon = arrayOf(
+                        R.drawable.ic_baseline_touch_app_24.asIcon(),
+                        R.drawable.ic_baseline_attach_money_24.asIcon(),
+                        R.drawable.ic_baseline_check_box_24.asIcon(),
+                    )[buttonIconIndex % 3]
                     onClick = {
-                        activity.showMessage("Button 3 clicked!")
+                        buttonIconIndex++
+                        icon = arrayOf(
+                            R.drawable.ic_baseline_touch_app_24.asIcon(),
+                            R.drawable.ic_baseline_attach_money_24.asIcon(),
+                            R.drawable.ic_baseline_check_box_24.asIcon(),
+                        )[buttonIconIndex % 3]
+                        summary = "Button with a value (clicked: $buttonIconIndex)".asText()
+                        // this items needs to be updated, as we have just changed its icon
+                        this@apply.notifyItemChanged(this)
                     }
                 }
             }
@@ -321,9 +339,10 @@ object DemoSettings {
             subScreen {
                 title = "Dependencies".asText()
                 icon = R.drawable.ic_baseline_supervisor_account_24.asIcon()
-                summary = "Enable settings based on another setting".asText()
+                summary = "Enable/Show settings based on another setting".asText()
+
                 category {
-                    title = this@subScreen.title
+                    title = "Dependencies - Enabled/Disabled".asText()
                 }
                 switch(DemoSettingsModel.enableChild) {
                     title = "Enable children".asText()
@@ -341,9 +360,33 @@ object DemoSettings {
                     input(setting) {
                         title = "Child ${index + 1}".asText()
                         icon = R.drawable.ic_baseline_person_24.asIcon()
-                        dependsOn = DemoSettingsModel.enableChild.asDependency()
+                        enabledDependsOn = DemoSettingsModel.enableChild.asDependency()
                     }
                 }
+
+                category {
+                    title = "Dependencies - Show/Hide".asText()
+                }
+                switch(DemoSettingsModel.showChild) {
+                    title = "Show children".asText()
+                    icon = R.drawable.ic_baseline_supervisor_account_24.asIcon()
+                    summary = "Show children below".asText()
+                    onChanged = {
+                        activity.showMessage("Show children changed: $it")
+                    }
+                }
+                listOf(
+                    DemoSettingsModel.showChildName1,
+                    DemoSettingsModel.showChildName2,
+                    DemoSettingsModel.showChildName3
+                ).forEachIndexed { index, setting ->
+                    input(setting) {
+                        title = "Child ${index + 1}".asText()
+                        icon = R.drawable.ic_baseline_person_24.asIcon()
+                        visibilityDependsOn = DemoSettingsModel.showChild.asDependency()
+                    }
+                }
+
                 category {
                     title = "Custom Dependency".asText()
                 }
@@ -354,14 +397,30 @@ object DemoSettings {
                         "Must contain a string that is a valid number between [0, 100] to enable the next setting".asText()
                 }
                 button {
-                    title = "Button with custom dependency on the setting above".asText()
+                    title = "Button with custom enable dependency on the setting above".asText()
                     icon = R.drawable.ic_baseline_person_24.asIcon()
                     onClick = {
                         activity.showMessage("Button clicked - parent must contain a string representing a number between [0, 100] now")
+                        false
                     }
-                    dependsOn = object : Dependency<String> {
+                    enabledDependsOn = object : Dependency<String> {
                         override val setting = DemoSettingsModel.parentOfCustomDependency
-                        override suspend fun isEnabled(): Boolean {
+                        override suspend fun state(): Boolean {
+                            val value = setting.flow.first().toIntOrNull()
+                            return value != null && value >= 0 && value <= 100
+                        }
+                    }
+                }
+                button {
+                    title = "Button with custom visibility dependency on the setting above".asText()
+                    icon = R.drawable.ic_baseline_person_24.asIcon()
+                    onClick = {
+                        activity.showMessage("Button clicked - parent must contain a string representing a number between [0, 100] now")
+                        false
+                    }
+                    visibilityDependsOn = object : Dependency<String> {
+                        override val setting = DemoSettingsModel.parentOfCustomDependency
+                        override suspend fun state(): Boolean {
                             val value = setting.flow.first().toIntOrNull()
                             return value != null && value >= 0 && value <= 100
                         }

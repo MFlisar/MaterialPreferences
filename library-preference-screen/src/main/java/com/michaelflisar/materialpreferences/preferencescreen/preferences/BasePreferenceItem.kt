@@ -14,5 +14,9 @@ abstract class BasePreferenceItem : PreferenceItem.Preference, PreferenceItem.Pr
     override var badge: Badge = Badge.Empty
     override var summary: Text = Text.Empty
     override var enabled: Boolean = true
-    override var dependsOn: Dependency<*>? = null
+    override var visible: Boolean = true
+    override var enabledDependsOn: Dependency<*>? = null
+    override var visibilityDependsOn: Dependency<*>? = null
+
+
 }

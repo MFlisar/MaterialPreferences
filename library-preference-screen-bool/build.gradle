@@ -1,9 +1,10 @@
 plugins {
-    id 'com.android.application'
+    id 'com.android.library'
     id 'kotlin-android'
-    id 'kotlin-parcelize'
-    id 'kotlinx-serialization'
+    id 'maven-publish'
 }
+
+group = 'com.github.MFlisar'
 
 android {
 
@@ -44,15 +45,13 @@ dependencies {
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:${versions.kotlinVersion}"
 
-    implementation "org.jetbrains.kotlinx:kotlinx-serialization-json:${androidx.kotlinSerialization}"
-
     // ------------------------
     // AndroidX
     // ------------------------
 
     implementation "com.google.android.material:material:${androidx.material}"
     implementation "androidx.recyclerview:recyclerview:${androidx.recyclerview}"
-
+    implementation "androidx.startup:startup-runtime:${androidx.startup}"
     implementation "androidx.core:core-ktx:${androidx.core}"
     implementation "androidx.lifecycle:lifecycle-runtime-ktx:${androidx.lifecycle}"
 
@@ -61,12 +60,7 @@ dependencies {
     // ------------------------
 
     implementation project(':core')
-    implementation project(':datastore')
     implementation project(':screen')
-    implementation project(':screen-bool')
-    implementation project(':screen-input')
-    implementation project(':screen-choice')
-    implementation project(':screen-color')
-
-    implementation "com.github.MFlisar.Lumberjack:lumberjack-library:${versions.lumberjack}"
 }
+
+apply from: '../maven.gradle'

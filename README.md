@@ -152,6 +152,7 @@ dependencies {
     
   // screen modules
   implementation "com.github.MFlisar.MaterialPreferences:screen:<LATEST-VERSION>"
+  implementation "com.github.MFlisar.MaterialPreferences:screen-bool:<LATEST-VERSION>"
   implementation "com.github.MFlisar.MaterialPreferences:screen-input:<LATEST-VERSION>"
   implementation "com.github.MFlisar.MaterialPreferences:screen-choice:<LATEST-VERSION>"
   implementation "com.github.MFlisar.MaterialPreferences:screen-color:<LATEST-VERSION>"

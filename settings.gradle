@@ -11,6 +11,8 @@ project(':screen').projectDir = new File(settingsDir, 'library-preference-screen
 // Extensions
 // ------------
 
+include ':screen-bool'
+project(':screen-bool').projectDir = new File(settingsDir, 'library-preference-screen-bool')
 include ':screen-input'
 project(':screen-input').projectDir = new File(settingsDir, 'library-preference-screen-input')
 include ':screen-choice'

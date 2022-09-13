@@ -28,6 +28,11 @@ object DemoSettingsModel : SettingsModel(
     val childName2 by stringPref("Thomas")
     val childName3 by stringPref("Christian")
 
+    val showChild by boolPref(true)
+    val showChildName1 by stringPref("Michael")
+    val showChildName2 by stringPref("Thomas")
+    val showChildName3 by stringPref("Christian")
+
     val choiceSingle by intPref(0)
     val choiceSingle2 by intPref(0)
     val choiceSingle3 by intPref(0)

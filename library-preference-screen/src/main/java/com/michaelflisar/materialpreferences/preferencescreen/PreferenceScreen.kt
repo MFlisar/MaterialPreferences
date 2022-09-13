@@ -9,32 +9,35 @@ import com.michaelflisar.materialpreferences.preferencescreen.interfaces.Prefere
 import com.michaelflisar.materialpreferences.preferencescreen.recyclerview.PreferenceAdapter
 
 typealias ScreenChangedListener = (subScreenStack: List<PreferenceItem.SubScreen>, stateRestored: Boolean) -> Unit
+
 class PreferenceScreen(
-        val preferences: List<PreferenceItem>,
-        savedInstanceState: Bundle?,
-        onScreenChanged: ScreenChangedListener? = null
+    val preferences: List<PreferenceItem>,
+    val savedInstanceState: Bundle?,
+    val onScreenChanged: ScreenChangedListener? = null
 ) {
 
     companion object {
         val KEY_ADAPTER_STATE = PreferenceScreen::class.java.name
     }
 
-    private val adapter: PreferenceAdapter = PreferenceAdapter(preferences, onScreenChanged)
+    private lateinit var adapter: PreferenceAdapter
     private var stateToRestore: PreferenceAdapter.StackEntry? = null
 
-    init {
-        savedInstanceState?.getParcelable<PreferenceAdapter.SavedState>(KEY_ADAPTER_STATE)?.let(::loadAdapterState)
-    }
-
     fun bind(recyclerView: RecyclerView) {
+
+        adapter = PreferenceAdapter(recyclerView.context, preferences, onScreenChanged)
+        savedInstanceState?.getParcelable<PreferenceAdapter.SavedState>(KEY_ADAPTER_STATE)
+            ?.let(::loadAdapterState)
+
         recyclerView.apply {
             layoutManager = LinearLayoutManager(recyclerView.context, RecyclerView.VERTICAL, false)
             adapter = this@PreferenceScreen.adapter
-            layoutAnimation = AnimationUtils.loadLayoutAnimation(context, R.anim.preference_layout_fall_down)
+            layoutAnimation =
+                AnimationUtils.loadLayoutAnimation(context, R.anim.preference_layout_fall_down)
         }
         adapter.recyclerView = recyclerView
         stateToRestore?.let {
-           adapter.restoreView(it)
+            adapter.restoreView(it)
         }
         stateToRestore = null
     }
@@ -49,5 +52,9 @@ class PreferenceScreen(
 
     fun onSaveInstanceState(outState: Bundle) {
         outState.putParcelable(KEY_ADAPTER_STATE, adapter.getSavedState())
+    }
+
+    fun notifyItemChanged(item: PreferenceItem) {
+        adapter.notifyItemChanged(item)
     }
 }
