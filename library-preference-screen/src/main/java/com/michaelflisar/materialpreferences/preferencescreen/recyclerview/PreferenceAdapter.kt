@@ -114,7 +114,11 @@ class PreferenceAdapter(
         } else false
     }
 
-    private fun onScreenChanged(stackEntry: StackEntry, filtered: List<PreferenceItem>, forward: Boolean) {
+    private fun onScreenChanged(
+        stackEntry: StackEntry,
+        filtered: List<PreferenceItem>,
+        forward: Boolean
+    ) {
         // rerun view animation
         recyclerView?.scheduleLayoutAnimation()
         submitList(filtered) {
@@ -173,12 +177,10 @@ class PreferenceAdapter(
             // the rv will scroll to this item and it will check and reset the showDialog variable itself, nothing more to do here
         }
         if (state.firstVisibleItem != 0 || state.firstVisibleItemOffset != 0) {
-            recyclerView?.post {
-                (recyclerView?.layoutManager as? LinearLayoutManager)?.scrollToPositionWithOffset(
-                    state.firstVisibleItem,
-                    state.firstVisibleItemOffset
-                )
-            }
+            (recyclerView?.layoutManager as? LinearLayoutManager)?.scrollToPositionWithOffset(
+                state.firstVisibleItem,
+                state.firstVisibleItemOffset
+            )
         }
     }
 
