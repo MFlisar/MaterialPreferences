@@ -117,10 +117,11 @@ class PreferenceAdapter(
     private fun onScreenChanged(stackEntry: StackEntry, filtered: List<PreferenceItem>, forward: Boolean) {
         // rerun view animation
         recyclerView?.scheduleLayoutAnimation()
-        submitList(filtered)
-        if (!forward)
-            restoreView(stackEntry)
-        notifyScreenChangedListener(false)
+        submitList(filtered) {
+            if (!forward)
+                restoreView(stackEntry)
+            notifyScreenChangedListener(false)
+        }
     }
 
     private fun notifyScreenChangedListener(stateRestored: Boolean) {
