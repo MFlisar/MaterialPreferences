@@ -31,7 +31,7 @@ Of course, you can simple place the settings screen inside any layout manually a
 
 # Example - Screen
 
-Here's an example and it's output.
+Here's an example:
 
 ```kotlin
 val screen = screen {
