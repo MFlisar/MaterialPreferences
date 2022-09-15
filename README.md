@@ -143,7 +143,7 @@ lifecycleScope.launch(Dispatchers.IO)  {
 
 Readmes are split up for each module and can be found inside the `doc` folder, here are the links:
 
-* [Storage](doc/storage.md)
+* [DataStore Storage](doc/storage-datastore.md)
 * [Screen (all modules)](doc/screen.md)
 
 # TODO
