@@ -4,6 +4,7 @@ import android.os.Bundle
 import com.michaelflisar.materialpreferences.core.interfaces.StorageSetting
 import com.michaelflisar.materialpreferences.preferencescreen.classes.Badge
 import com.michaelflisar.materialpreferences.preferencescreen.classes.Icon
+import com.michaelflisar.materialpreferences.preferencescreen.dependencies.Dependency
 import com.michaelflisar.materialpreferences.preferencescreen.interfaces.PreferenceItem
 import com.michaelflisar.materialpreferences.preferencescreen.preferences.*
 import com.michaelflisar.text.Text
@@ -47,6 +48,8 @@ class Screen {
         var icon: Icon = Icon.Empty
         var summary: Text = Text.Empty
         var badge: Badge = Badge.Empty
+        var enabledDependsOn: Dependency<*>? = null
+        var visibilityDependsOn: Dependency<*>? = null
 
         protected val preferences: MutableList<PreferenceItem> = ArrayList()
 
@@ -85,6 +88,8 @@ class Screen {
                 icon = this@SubBuilder.icon
                 badge = this@SubBuilder.badge
                 summary = this@SubBuilder.summary
+                enabledDependsOn = this@SubBuilder.enabledDependsOn
+                visibilityDependsOn = this@SubBuilder.visibilityDependsOn
             }
         }
     }
