@@ -25,6 +25,10 @@ object ScreenCreator : SettingsActivity.IScreenCreator {
 }
 ```
 
+Alternatively you can simple extend `BaseSettingsActivity` and implement the single abstract `createScreen` function there - whatever you prefer.
+
+Of course, you can simple place the settings screen inside any layout manually as well, check out the [CustomSettingsActivity](../demo/src/main/java/com/michaelflisar/materialpreferences/demo/activities/CustomSettingsActivity.kt) for an example.
+
 # Example - Screen
 
 Here's an example and it's output.
