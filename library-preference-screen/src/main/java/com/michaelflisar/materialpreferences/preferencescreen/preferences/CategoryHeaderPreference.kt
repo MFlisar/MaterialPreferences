@@ -17,6 +17,9 @@ class CategoryHeaderPreference : PreferenceItem.Category {
 
     override var title: Text = Text.Empty
 
+    override var enabledDependsOn: Dependency<*>? = null
+    override var visibilityDependsOn: Dependency<*>? = null
+
     companion object : ViewHolderFactory.ViewHolderCreator {
         val TYPE = R.id.pref_category
         override fun createViewHolder(adapter: PreferenceAdapter, layoutInflater: LayoutInflater, parent: ViewGroup) =

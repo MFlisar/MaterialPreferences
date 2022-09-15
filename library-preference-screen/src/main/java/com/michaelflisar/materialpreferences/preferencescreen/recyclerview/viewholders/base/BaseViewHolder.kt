@@ -29,7 +29,7 @@ abstract class BaseViewHolder<T : ViewBinding, P : PreferenceItem>(
     @CallSuper
     open fun bind(preference: P, rebind: Boolean) {
         val enabled = (preference as? PreferenceItem.Preference)?.enabled ?: true
-        (preference as? PreferenceItem.Preference)?.enabledDependsOn?.let {
+        (preference as? PreferenceItem.PreferenceWithDependencies)?.enabledDependsOn?.let {
             job = it.observe(scope) {
                 setState(it && enabled)
             }

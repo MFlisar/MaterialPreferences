@@ -13,9 +13,9 @@ interface PreferenceItem {
     var title: Text
 
     interface SubScreen : PreferenceItem, PreferenceWithIcon, PreferenceWithSummary,
-        PreferenceWithBadge
+        PreferenceWithBadge, PreferenceWithDependencies
 
-    interface Category : PreferenceItem
+    interface Category : PreferenceItem, PreferenceWithDependencies
     interface Preference : PreferenceItem, PreferenceWithIcon, PreferenceWithSummary,
         PreferenceWithBadge {
         var enabled: Boolean
@@ -39,6 +39,11 @@ interface PreferenceItem {
     }
 
     // "internal" interface
+
+    interface PreferenceWithDependencies: PreferenceItem {
+        var enabledDependsOn: Dependency<*>?
+        var visibilityDependsOn: Dependency<*>?
+    }
 
     interface PreferenceWithIcon : PreferenceItem {
         var icon: Icon

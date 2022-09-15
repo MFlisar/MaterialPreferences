@@ -37,7 +37,6 @@ class PreferenceAdapter(
     private var hiddenPrefs: MutableSet<PreferenceItem> = HashSet()
 
     private var stack: Stack<StackEntry> = Stack()
-    var dialogInfo: DialogInfo? = null
     var recyclerView: RecyclerView? = null
 
     protected val scope = (context as LifecycleOwner).lifecycleScope
@@ -48,7 +47,7 @@ class PreferenceAdapter(
 
         val allPreferences = ScreenUtil.flatten(preferences)
         allPreferences
-            .filterIsInstance<PreferenceItem.Preference>()
+            .filterIsInstance<PreferenceItem.PreferenceWithDependencies>()
             .forEach { p ->
                 p.visibilityDependsOn?.let {
                     it.observe(scope) {
@@ -194,14 +193,9 @@ class PreferenceAdapter(
             updateCurrentFilteredItems(true)
         }
         notifyScreenChangedListener(true)
-        dialogInfo = state.dialogShown?.let { DialogInfo(it, null) }
     }
 
     fun restoreView(state: StackEntry) {
-        dialogInfo?.let {
-            it.preference = currentList[it.index]
-            // the rv will scroll to this item and it will check and reset the showDialog variable itself, nothing more to do here
-        }
         if (state.firstVisibleItem != 0 || state.firstVisibleItemOffset != 0) {
             (recyclerView?.layoutManager as? LinearLayoutManager)?.scrollToPositionWithOffset(
                 state.firstVisibleItem,
@@ -213,7 +207,7 @@ class PreferenceAdapter(
     fun getSavedState(): SavedState {
         val fullStack = stack.clone() as Stack<StackEntry>
         fullStack.push(StackEntry.create(-1, recyclerView))
-        return SavedState(ArrayList(fullStack.toList()), dialogInfo?.index)
+        return SavedState(ArrayList(fullStack.toList()))
     }
 
     fun <S : MaterialDialogSetup<S, B, E>, B : ViewBinding, E : IMaterialDialogEvent> showDialog(
@@ -228,8 +222,7 @@ class PreferenceAdapter(
 
     @Parcelize
     data class SavedState(
-        val stack: ArrayList<StackEntry>,
-        val dialogShown: Int?
+        val stack: ArrayList<StackEntry>
     ) : Parcelable
 
     @Parcelize
@@ -253,9 +246,4 @@ class PreferenceAdapter(
             }
         }
     }
-
-    class DialogInfo(
-        val index: Int,
-        var preference: PreferenceItem? = null
-    )
 }

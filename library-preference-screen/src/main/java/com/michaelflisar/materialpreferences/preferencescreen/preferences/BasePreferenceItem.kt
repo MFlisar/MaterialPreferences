@@ -7,7 +7,7 @@ import com.michaelflisar.materialpreferences.preferencescreen.dependencies.Depen
 import com.michaelflisar.materialpreferences.preferencescreen.interfaces.PreferenceItem
 import com.michaelflisar.text.Text
 
-abstract class BasePreferenceItem : PreferenceItem.Preference, PreferenceItem.PreferenceWithIcon, PreferenceItem.PreferenceWithBadge, PreferenceItem.PreferenceWithSummary {
+abstract class BasePreferenceItem : PreferenceItem.Preference, PreferenceItem.PreferenceWithIcon, PreferenceItem.PreferenceWithBadge, PreferenceItem.PreferenceWithSummary, PreferenceItem.PreferenceWithDependencies {
     override var title: Text = Text.Empty
     override var icon: Icon = Icon.Empty
     override var noIconVisibility = PreferenceScreenConfig.noIconVisibility
@@ -17,6 +17,4 @@ abstract class BasePreferenceItem : PreferenceItem.Preference, PreferenceItem.Pr
     override var visible: Boolean = true
     override var enabledDependsOn: Dependency<*>? = null
     override var visibilityDependsOn: Dependency<*>? = null
-
-
 }

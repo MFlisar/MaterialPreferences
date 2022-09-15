@@ -7,6 +7,7 @@ import com.michaelflisar.materialpreferences.preferencescreen.R
 import com.michaelflisar.materialpreferences.preferencescreen.ViewHolderFactory
 import com.michaelflisar.materialpreferences.preferencescreen.classes.Badge
 import com.michaelflisar.materialpreferences.preferencescreen.classes.Icon
+import com.michaelflisar.materialpreferences.preferencescreen.dependencies.Dependency
 import com.michaelflisar.materialpreferences.preferencescreen.enums.NoIconVisibility
 import com.michaelflisar.materialpreferences.preferencescreen.interfaces.PreferenceItem
 import com.michaelflisar.materialpreferences.preferencescreen.recyclerview.PreferenceAdapter
@@ -22,6 +23,9 @@ class SubScreen(
     override var noIconVisibility: NoIconVisibility = PreferenceScreenConfig.noIconVisibility
     override var summary: Text = Text.Empty
     override var badge: Badge = Badge.Empty
+
+    override var enabledDependsOn: Dependency<*>? = null
+    override var visibilityDependsOn: Dependency<*>? = null
 
     companion object : ViewHolderFactory.ViewHolderCreator {
         val TYPE = R.id.pref_screen
