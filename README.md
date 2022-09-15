@@ -37,7 +37,7 @@ dependencies {
 }
 ```
 
-### Core
+# Example
 
 With this library you can declare preferences via kotlin `delegates`,and observe and update them via kotlin `Flows`. This works with any storage implementation, an implementation for JetPack DataStore is provided already.
 
@@ -133,52 +133,20 @@ lifecycleScope.launch(Dispatchers.IO)  {
 }
 ```
 
-### Storage
+# Screenshots
 
-The `Storage` is an abstraction to support any storage implementation. The `datastore` module provides an implementation based on the [Android JetPack DataStore](https://developer.android.com/topic/libraries/architecture/datastore).
+| | | | |
+| :---: | :---: | :---: | :---: |
+| ![Demo](screenshots/preference-screen-1.jpg?raw=true "Demo") | ![Demo](screenshots/preference-screen-2.jpg?raw=true "Demo") | ![Demo](screenshots/preference-screen-3.jpg?raw=true "Demo") | ![Demo](screenshots/preference-screen-4.jpg?raw=true "Demo") |
 
-Check out the corresponding readme here: [DataStore Module README](README-DATASTORE.md)
+# Modules
 
-### Preference Screen
+Readmes are split up for each module and can be found inside the `doc` folder, here are the links:
 
-The *preference-screen&ast;* modules allow you to create preference screens like following easily via DSL.
+* [Storage](doc/storage.md)
+* [Screen (all modules)](doc/screen.md)
 
-![Demo 1](screenshots/preference-screen-1.jpg)
-![Demo 2](screenshots/preference-screen-2.jpg)
-![Demo 3](screenshots/preference-screen-3.jpg)
-![Demo 4](screenshots/preference-screen-4.jpg)
-
-Explanations, code examples and more be found here: [Preference Screen Modules README](README-PREFERENCE-SCREEN.md)
-
-
-### Gradle (via [JitPack.io](https://jitpack.io/))
-
-1. add jitpack to your project's `build.gradle`:
-```groovy
-repositories {
-    maven { url "https://jitpack.io" }
-}
-```
-2. add the compile statement to your module's `build.gradle`:
-```groovy
-dependencies {
-
-  // core module
-  implementation "com.github.MFlisar.MaterialPreferences:core:<LATEST-VERSION>"
-
-  // data store module
-  implementation "com.github.MFlisar.MaterialPreferences:datastore:<LATEST-VERSION>"
-    
-  // screen modules
-  implementation "com.github.MFlisar.MaterialPreferences:screen:<LATEST-VERSION>"
-  implementation "com.github.MFlisar.MaterialPreferences:screen-bool:<LATEST-VERSION>"
-  implementation "com.github.MFlisar.MaterialPreferences:screen-input:<LATEST-VERSION>"
-  implementation "com.github.MFlisar.MaterialPreferences:screen-choice:<LATEST-VERSION>"
-  implementation "com.github.MFlisar.MaterialPreferences:screen-color:<LATEST-VERSION>"
-}
-```
-
-TODO
+# TODO
 
 - [ ] Preference Types
 	- [ ] SeekBar Preference
@@ -187,4 +155,3 @@ TODO
 	- [ ] Spacer Preference
 - [ ] Others
   - [ ] Global Setting - enable title numbering (Count numbers of categories yes/no)
-  - [ ] use [MaterialDialogFragments](https://github.com/MFlisar/MaterialDialogFragments) dialog fragments so that even the dialogs restore their state and remember temporary user changes inside the dialogs
