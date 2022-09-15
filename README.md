@@ -1,7 +1,4 @@
-### About
-
-[![Release](https://jitpack.io/v/MFlisar/MaterialPreferences.svg)](https://jitpack.io/#MFlisar/MaterialPreferences)
-![License](https://img.shields.io/github/license/MFlisar/MaterialPreferences)
+# MaterialPreferences  [![Release](https://jitpack.io/v/MFlisar/MaterialPreferences.svg)](https://jitpack.io/#MFlisar/MaterialPreferences) ![License](https://img.shields.io/github/license/MFlisar/MaterialPreferences)
 
 ### Introduction
 
