@@ -46,33 +46,41 @@ With this library you can declare preferences via kotlin `delegates`,and observe
 ```kotlin
 object UserSettingsModel : SettingsModel(DataStoreStorage(name = "user")) {
 
-  // Basic
-  val name by stringPref("User")
-  val alive by boolPref(true)
-  val hairColor by intPref(Color.parseColor("#A52A2A"))
-  val age by intPref(40)
-  val income by floatPref(50000f)
-  val dayOfBirth by longPref(0L)
-  val doubleTest by doublePref(0.0)
-  
-  // Sets
-  val childrenAges by intSetPref(setOf(20, 18, 16))
-  val childrenIncomes by floatSetPref(setOf(30000f, 10000f, 0f))
-  val childrenDaysOfBirth by longSetPref(setOf(0L, 0L, 0L))
-  
-  // Enum
-  val car by enumPref(Car.Tesla)
-  
-  // custom class - provide a custom converter (String <=> Class)
-  val testClass by anyPref(TestClass.CONVERTER, TestClass())
-  
-  // NULLABLE variants
-  val nullableString by nullableStringPref()
-  val nullableInt by nullableIntPref()
-  val nullableFloat by nullableFloatPref()
-  val nullableDouble by nullableDoublePref()
-  val nullableLong by nullableLongPref()
-  val nullableBool by nullableBoolPref()
+    // main data types
+    val someString by stringPref("value")
+    val someBool by boolPref(false)
+    val someInt by intPref(123)
+    val someLong by intPref(123L)
+    val someFloat by intPref(123f)
+    val someDouble by intPref(123.0)
+    
+    // enum
+    val someEnum by enumPref(Enum.Value1)
+    
+    // custom
+    val someCustomClass by anyPref(TestClass.CONVERTER, TestClass())
+    
+    // sets
+    val someStringSet by stringSetPref(setOf("a"))
+    val someIntSet by intSetPref(setOf(1))
+    val someLongSet by longSetPref(setOf(1L))
+    val someFloatSet by floatSetPref(setOf(1f))
+    val someDoubleSet by doubleSetPref(setOf(1.0))
+    
+    // NULLABLE vs NON NULLABLE
+    val nonNullableString by stringPref()
+    val nullableString by nullableStringPref()
+    val nonNullableInt by intPref()
+    val nullableInt by nullableIntPref()
+    val nonNullableFloat by floatPref()
+    val nullableFloat by nullableFloatPref()
+    val nonNullableDouble by doublePref()
+    val nullableDouble by nullableDoublePref()
+    val nonNullableLong by longPref()
+    val nullableLong by nullableLongPref()
+    val nonNullableBool by boolPref()
+    val nullableBool by nullableBoolPref()
+
 }
 ```
 
