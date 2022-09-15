@@ -13,6 +13,8 @@ class InputDoublePreference(
 ) : InputNumberPreference<Double>(setting) {
 
     override var defaultValue = 0.0
+    override var min = Double.MIN_VALUE
+    override var max = Double.MAX_VALUE
 
     companion object : ViewHolderFactory.ViewHolderCreator {
         val TYPE = R.id.pref_input_double

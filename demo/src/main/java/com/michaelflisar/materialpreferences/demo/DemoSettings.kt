@@ -246,10 +246,13 @@ object DemoSettings {
                     hint = "Insert an amount in $".asText()
                 }
                 input(DemoSettingsModel.number2) {
-                    title = "Dollars (Int)".asText()
+                    title = "Dollars (Int + Range [0, 100000] + show as bottom sheet)".asText()
                     icon = R.drawable.ic_baseline_attach_money_24.asIcon()
                     summary = "%d$".asText()
-                    hint = "Insert an amount in €".asText()
+                    hint = "Insert an amount in $".asText()
+                    min = 0
+                    max = 100000
+                    bottomSheet = true
                 }
                 category {
                     title = "Number Types".asText()

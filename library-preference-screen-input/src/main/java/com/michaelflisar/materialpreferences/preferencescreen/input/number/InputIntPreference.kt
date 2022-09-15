@@ -13,6 +13,8 @@ class InputIntPreference(
 ) : InputNumberPreference<Int>(setting) {
 
     override var defaultValue = 0
+    override var min = Int.MIN_VALUE
+    override var max = Int.MAX_VALUE
 
     companion object : ViewHolderFactory.ViewHolderCreator {
         val TYPE = R.id.pref_input_int

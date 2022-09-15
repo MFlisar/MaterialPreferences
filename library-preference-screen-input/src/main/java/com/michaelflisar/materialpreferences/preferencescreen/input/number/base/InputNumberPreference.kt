@@ -13,6 +13,8 @@ abstract class InputNumberPreference<T : Number>(
     override var summary: Text = "%s".asText()
     var hint: Text = "".asText()
     abstract var defaultValue: T
+    abstract var min: T
+    abstract var max: T
     override var bottomSheet: Boolean = PreferenceScreenConfig.bottomSheet
     override var canChange: (value: T) -> Boolean = { true }
     override var onChanged: ((value: T) -> Unit)? = null

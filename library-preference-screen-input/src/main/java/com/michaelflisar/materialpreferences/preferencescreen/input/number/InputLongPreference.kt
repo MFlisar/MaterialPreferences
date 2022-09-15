@@ -13,6 +13,8 @@ class InputLongPreference(
 ) : InputNumberPreference<Long>(setting) {
 
     override var defaultValue = 0L
+    override var min = Long.MIN_VALUE
+    override var max = Long.MAX_VALUE
 
     companion object : ViewHolderFactory.ViewHolderCreator {
         val TYPE = R.id.pref_input_long

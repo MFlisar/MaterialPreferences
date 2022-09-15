@@ -13,6 +13,8 @@ class InputFloatPreference(
 ) : InputNumberPreference<Float>(setting) {
 
     override var defaultValue = 0f
+    override var min = Float.MIN_VALUE
+    override var max = Float.MAX_VALUE
 
     companion object : ViewHolderFactory.ViewHolderCreator {
         val TYPE = R.id.pref_input_float
