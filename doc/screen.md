@@ -6,26 +6,26 @@
 
 This modules are placed inside the `screen-*` artifacts.
 
-# Example - Default Activity
+# Example - Settings Activity
 
 This is an activity with a toolbar and a back button and can be shown as following:
 
 ```kotlin
 fun showDefaultSettingsActivity(activity: AppCompatActivity) {
-	SettingsActivity.start(activity, ScreenCreator)
+    SettingsActivity.start(activity, ScreenCreator)
 }
 
 @Parcelize
 object ScreenCreator : SettingsActivity.IScreenCreator {
-	override fun createScreen(activity: AppCompatActivity, savedInstanceState: Bundle?, updateTitle: (title: String) -> Unit): PreferenceScreen {
-		return screen {
-			// ... set up your preference screen here
-		}
-	}
+    override fun createScreen(activity: AppCompatActivity, savedInstanceState: Bundle?, updateTitle: (title: String) -> Unit): PreferenceScreen {
+        return screen {
+             // ... set up your preference screen here
+        }
+    }
 }
 ```
 
-# Example - Custom Activity
+# Example - Screen
 
 Here's an example and it's output.
 
@@ -73,10 +73,6 @@ And following features are supported:
 * dependency on other preference (even with custom dependency evaluator)
 * badges to display a badge next to a settings title
 * restores list state automatically even in nested preferences
-
-# Example
-
-TODO
 
 # Default Settings
 
