@@ -22,6 +22,7 @@ object ScreenUtil {
         val flattened = ArrayList<PreferenceItem>()
         preferences.forEach {
             if (it is SubScreen) {
+                flattened += it
                 flattened += flatten(it.preferences)
             } else {
                 flattened += it
