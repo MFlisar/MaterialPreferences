@@ -62,8 +62,12 @@ dependencies {
     implementation project(':core')
     implementation project(':screen')
 
-    implementation "com.afollestad.material-dialogs:color:${versions.materialDialogs}"
-    implementation "com.afollestad.material-dialogs:bottomsheets:${versions.materialDialogs}"
+    // ------------------------
+    // Dialogs
+    // ------------------------
+
+    implementation "com.github.MFlisar.MaterialDialogs:core:${versions.materialDialogs}"
+    implementation "com.github.MFlisar.MaterialDialogs:dialogs-color:${versions.materialDialogs}"
 }
 
 apply from: '../maven.gradle'

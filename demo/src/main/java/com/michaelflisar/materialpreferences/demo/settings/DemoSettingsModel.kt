@@ -22,6 +22,9 @@ object DemoSettingsModel : SettingsModel(
     val text2 by stringPref("1234")
     val number1 by intPref(1234)
     val number2 by intPref(500)
+    val numberLong by longPref(100L)
+    val numberFloat by floatPref(200.5f)
+    val numberDouble by doublePref(300.5)
 
     val enableChild by boolPref(false)
     val childName1 by stringPref("Michael")

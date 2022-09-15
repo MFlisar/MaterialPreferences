@@ -10,22 +10,16 @@ import com.michaelflisar.text.asText
 
 abstract class SingleChoicePreference<T : Any>(
     override val setting: StorageSetting<T>
-) : BasePreferenceItem(), PreferenceItem.PreferenceWithData<T> {
+) : BasePreferenceItem(), PreferenceItem.PreferenceWithData<T>, PreferenceItem.PreferenceDialog<T>{
 
     override var summary: Text = "%s".asText()
     override var canChange: (value: T) -> Boolean = { true }
     override var onChanged: ((value: T) -> Unit)? = null
-    var displayType: DisplayType = DisplayType.Highlighted(true, false)
-    var bottomSheet: Boolean = PreferenceScreenConfig.bottomSheet
+    var closeOnSelect: Boolean = false
+    override var bottomSheet: Boolean = PreferenceScreenConfig.bottomSheet
 
     abstract fun getChoiceLabels(context: Context): List<String>
     abstract fun getChoiceValue(index: Int): T
     abstract fun getChoiceDisplayValue(context: Context, item: T): String
     abstract fun getSelectedIndex(): Int
-
-    sealed class DisplayType {
-        object None : DisplayType()
-        class Highlighted(val bold: Boolean, val primaryColor: Boolean) : DisplayType()
-        object Checkbox : DisplayType()
-    }
 }

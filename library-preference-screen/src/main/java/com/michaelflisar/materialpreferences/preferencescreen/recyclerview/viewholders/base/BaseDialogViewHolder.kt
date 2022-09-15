@@ -1,15 +1,15 @@
 package com.michaelflisar.materialpreferences.preferencescreen.recyclerview.viewholders.base
 
-import android.app.Dialog
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.viewbinding.ViewBinding
+import com.michaelflisar.dialogs.interfaces.IMaterialDialogEvent
 import com.michaelflisar.materialpreferences.preferencescreen.interfaces.PreferenceItem
 import com.michaelflisar.materialpreferences.preferencescreen.recyclerview.PreferenceAdapter
 
 abstract class BaseDialogViewHolder<D : Any, T, B : ViewBinding?>(
-        inflater: LayoutInflater,
-        parent: ViewGroup
+    inflater: LayoutInflater,
+    parent: ViewGroup
 ) : BaseViewHolderWidget<D, T, B>(inflater, parent)
         where T : PreferenceItem.PreferenceWithData<D>, T : PreferenceItem.Preference {
 
@@ -21,15 +21,18 @@ abstract class BaseDialogViewHolder<D : Any, T, B : ViewBinding?>(
     }
 
     override fun onClick(preference: T) {
-        val dialog = createDialog(preference)
-        dialog.setOnDismissListener {
-            adapter.dialogInfo = null
-        }
-        dialog.show()
+        createDialog(preference)
+        //val dialog =
+        //dialog.setOnDismissListener {
+        //    adapter.dialogInfo = null
+        //}
+        //dialog.show()
         adapter.dialogInfo = PreferenceAdapter.DialogInfo(adapterPosition)
     }
 
-    fun showDialog(preference: PreferenceItem) = onClick(preference as T)
+    abstract fun onDialogResultAvailable(preference: PreferenceItem.Preference, event: IMaterialDialogEvent)
 
-    abstract fun createDialog(preference: T): Dialog
+    fun showDialog(preference: T) = onClick(preference)
+
+    abstract fun createDialog(preference: T)
 }

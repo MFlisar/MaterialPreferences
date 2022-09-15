@@ -13,8 +13,8 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 abstract class BaseViewHolderWidget<D : Any, T, B : ViewBinding?>(
-        inflater: LayoutInflater,
-        parent: ViewGroup
+    inflater: LayoutInflater,
+    parent: ViewGroup
 ) : BaseViewHolder<PreferenceBinding, T>(PreferenceBinding.inflate(inflater, parent, false))
         where T : PreferenceItem.PreferenceWithData<D>, T : PreferenceItem.Preference {
 
@@ -64,6 +64,7 @@ abstract class BaseViewHolderWidget<D : Any, T, B : ViewBinding?>(
 
     override fun unbind() {
         super.unbind()
+        unbindWidget()
         binding.root.setOnClickListener(null)
         binding.title.text = null
         binding.icon.setImageDrawable(null)
@@ -82,9 +83,14 @@ abstract class BaseViewHolderWidget<D : Any, T, B : ViewBinding?>(
         }
     }
 
-    abstract fun createSubBinding(inflater: LayoutInflater, parent: ViewGroup, attachToParent: Boolean): B
+    abstract fun createSubBinding(
+        inflater: LayoutInflater,
+        parent: ViewGroup,
+        attachToParent: Boolean
+    ): B
 
     abstract fun bindWidget(preference: T, rebind: Boolean)
+    fun unbindWidget() {}
 
     abstract fun onClick(preference: T)
 }

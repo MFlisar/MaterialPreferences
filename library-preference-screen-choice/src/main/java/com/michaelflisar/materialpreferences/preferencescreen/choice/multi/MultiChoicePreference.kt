@@ -21,13 +21,13 @@ import com.michaelflisar.text.asText
 class MultiChoicePreference(
         override val setting: StorageSetting<Set<Int>>,
         internal val choices: List<ChoiceItem>
-) : BasePreferenceItem(), PreferenceItem.PreferenceWithData<Set<Int>> {
+) : BasePreferenceItem(), PreferenceItem.PreferenceWithData<Set<Int>>, PreferenceItem.PreferenceDialog<Set<Int>> {
 
     override var summary: Text = "%s".asText()
     override var canChange: (value: Set<Int>) -> Boolean = { true }
     override var onChanged: ((value: Set<Int>) -> Unit)? = null
     var allowEmptySelection: Boolean = true
-    var bottomSheet: Boolean = PreferenceScreenConfig.bottomSheet
+    override var bottomSheet: Boolean = PreferenceScreenConfig.bottomSheet
 
     companion object : ViewHolderFactory.ViewHolderCreator {
         val TYPE = R.id.pref_choice_multi

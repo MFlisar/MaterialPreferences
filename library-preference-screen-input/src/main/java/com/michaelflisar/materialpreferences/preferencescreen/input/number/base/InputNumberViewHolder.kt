@@ -1,22 +1,21 @@
-package com.michaelflisar.materialpreferences.preferencescreen.input.string
+package com.michaelflisar.materialpreferences.preferencescreen.input.number.base
 
-import android.text.InputType
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.viewbinding.ViewBinding
 import com.michaelflisar.dialogs.DialogInput
-import com.michaelflisar.dialogs.interfaces.IMaterialDialogEvent
 import com.michaelflisar.materialpreferences.preferencescreen.DialogExtra
-import com.michaelflisar.materialpreferences.preferencescreen.interfaces.PreferenceItem
 import com.michaelflisar.materialpreferences.preferencescreen.recyclerview.PreferenceAdapter
 import com.michaelflisar.materialpreferences.preferencescreen.recyclerview.viewholders.base.BaseDialogViewHolder
 import com.michaelflisar.text.asText
 
-class InputStringViewHolder(
+abstract class InputNumberViewHolder<T : Number, P : InputNumberPreference<T>>(
     inflater: LayoutInflater,
     parent: ViewGroup,
     override val adapter: PreferenceAdapter
-) : BaseDialogViewHolder<String, InputStringPreference, ViewBinding?>(inflater, parent) {
+) : BaseDialogViewHolder<T, P, ViewBinding?>(inflater, parent) {
+
+    abstract val dialogInputType: Int
 
     override fun createSubBinding(
         inflater: LayoutInflater,
@@ -24,25 +23,14 @@ class InputStringViewHolder(
         attachToParent: Boolean
     ): ViewBinding? = null
 
-    override fun onDialogResultAvailable(
-        preference: PreferenceItem.Preference,
-        event: IMaterialDialogEvent
-    ) {
-        event as DialogInput.Event
-        preference as InputStringPreference
-        if (event is DialogInput.Event.Result) {
-            update(event.input, preference)
-        }
-    }
-
-    override fun createDialog(preference: InputStringPreference) {
+    override fun createDialog(preference: P) {
         val dlg = DialogInput(
             -1,
             title = preference.title,
-            initialValue = value.asText(),
+            initialValue = value.toString().asText(),
             hint = preference.hint,
-            inputType = preference.textInputType ?: InputType.TYPE_CLASS_TEXT,
-            validator = DialogInput.createSimpleValidator(if (preference.allowEmpty) null else 1),
+            inputType = dialogInputType,
+            validator = DialogInput.createSimpleValidator(1),
             buttonPositive = android.R.string.ok.asText(),
             extra = DialogExtra(preference.setting.key)
         )

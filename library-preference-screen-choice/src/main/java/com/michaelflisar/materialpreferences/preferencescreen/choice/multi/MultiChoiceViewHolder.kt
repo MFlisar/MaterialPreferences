@@ -1,47 +1,63 @@
 package com.michaelflisar.materialpreferences.preferencescreen.choice.multi
 
-import android.app.Dialog
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.viewbinding.ViewBinding
-import com.afollestad.materialdialogs.MaterialDialog
-import com.afollestad.materialdialogs.bottomsheets.BottomSheet
-import com.afollestad.materialdialogs.list.listItemsMultiChoice
+import com.michaelflisar.dialogs.DialogList
+import com.michaelflisar.dialogs.classes.SimpleListItem
+import com.michaelflisar.dialogs.interfaces.IMaterialDialogEvent
+import com.michaelflisar.materialpreferences.preferencescreen.DialogExtra
 import com.michaelflisar.materialpreferences.preferencescreen.ScreenUtil
-import com.michaelflisar.materialpreferences.preferencescreen.choice.single.SingleChoicePreference
+import com.michaelflisar.materialpreferences.preferencescreen.interfaces.PreferenceItem
 import com.michaelflisar.materialpreferences.preferencescreen.recyclerview.PreferenceAdapter
 import com.michaelflisar.materialpreferences.preferencescreen.recyclerview.viewholders.base.BaseDialogViewHolder
+import com.michaelflisar.text.asText
 
 class MultiChoiceViewHolder(
-        inflater: LayoutInflater,
-        parent: ViewGroup,
-        override val adapter: PreferenceAdapter
+    inflater: LayoutInflater,
+    parent: ViewGroup,
+    override val adapter: PreferenceAdapter
 ) : BaseDialogViewHolder<Set<Int>, MultiChoicePreference, ViewBinding?>(inflater, parent) {
 
-    override fun createSubBinding(inflater: LayoutInflater, parent: ViewGroup, attachToParent: Boolean): ViewBinding? = null
+    override fun createSubBinding(
+        inflater: LayoutInflater,
+        parent: ViewGroup,
+        attachToParent: Boolean
+    ): ViewBinding? = null
 
     override fun updateSummary(preference: MultiChoicePreference) {
         val displayValue = value
-                .map { preference.choices[it] }
-                .sortedBy { it.order }
-                .joinToString(", ") { it.label.getString(itemView.context) }
+            .map { preference.choices[it] }
+            .sortedBy { it.order }
+            .joinToString(", ") { it.label.getString(itemView.context) }
         ScreenUtil.display(preference.summary, binding.summary, View.GONE, displayValue)
     }
 
-    override fun createDialog(preference: MultiChoicePreference): Dialog {
-        val dialog = if (preference.bottomSheet) MaterialDialog(itemView.context, BottomSheet()) else MaterialDialog(itemView.context)
-        dialog.show {
-            title(text = preference.title.getString(itemView.context))
-            listItemsMultiChoice(
-                    allowEmptySelection = preference.allowEmptySelection,
-                    items = preference.choices.map { it.label.get(context) },
-                    initialSelection = value.toIntArray()
-            ) { dialog, indices, items ->
-                update(indices.toSet(), preference)
-            }
-            positiveButton(android.R.string.ok)
+    override fun onDialogResultAvailable(
+        preference: PreferenceItem.Preference,
+        event: IMaterialDialogEvent
+    ) {
+        event as DialogList.Event
+        preference as MultiChoicePreference
+        if (event is DialogList.Event.Result) {
+            val items = event.selectedItems as List<SimpleListItem>
+            val indizes = items.map { it.id.toInt() }
+            update(indizes.toSet(), preference)
         }
-        return dialog
+    }
+
+    override fun createDialog(preference: MultiChoicePreference) {
+        val dlg = DialogList(
+            -1,
+            title = preference.title,
+            itemsProvider = DialogList.createItemProviderFromTexts(preference.choices.map { it.label }),
+            selectionMode = DialogList.SelectionMode.MultiSelect(
+                value.toIntArray().map { it.toLong() }.toSortedSet()
+            ),
+            buttonPositive = android.R.string.ok.asText(),
+            extra = DialogExtra(preference.setting.key)
+        )
+        adapter.showDialog(preference, dlg)
     }
 }

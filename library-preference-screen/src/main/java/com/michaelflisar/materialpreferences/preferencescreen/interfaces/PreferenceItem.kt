@@ -24,14 +24,18 @@ interface PreferenceItem {
         var visibilityDependsOn: Dependency<*>?
     }
 
-    interface ClickablePreference {
+    interface ClickablePreference : Preference {
         var onClick: (() -> Unit)?
     }
 
-    interface PreferenceWithData<T : Any> {
+    interface PreferenceWithData<T : Any> : Preference {
         val setting: StorageSetting<T>
         var canChange: ((value: T) -> Boolean)
         var onChanged: ((value: T) -> Unit)?
+    }
+
+    interface PreferenceDialog<T : Any> : PreferenceWithData<T> {
+        var bottomSheet: Boolean
     }
 
     // "internal" interface

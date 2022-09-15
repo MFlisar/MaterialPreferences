@@ -3,6 +3,10 @@ package com.michaelflisar.materialpreferences.preferencescreen
 import android.os.Bundle
 import android.view.animation.AnimationUtils
 import androidx.annotation.MainThread
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
+import androidx.fragment.app.FragmentManager
+import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.michaelflisar.materialpreferences.preferencescreen.interfaces.PreferenceItem
@@ -23,9 +27,17 @@ class PreferenceScreen(
     private lateinit var adapter: PreferenceAdapter
     private var stateToRestore: PreferenceAdapter.StackEntry? = null
 
-    fun bind(recyclerView: RecyclerView) {
+    fun bind(recyclerView: RecyclerView, fragment: Fragment) {
+        bind(recyclerView, fragment.childFragmentManager, fragment)
+    }
 
-        adapter = PreferenceAdapter(recyclerView.context, preferences, onScreenChanged)
+    fun bind(recyclerView: RecyclerView, activity: FragmentActivity) {
+        bind(recyclerView, activity.supportFragmentManager, activity)
+    }
+
+    fun bind(recyclerView: RecyclerView, fragmentManager: FragmentManager, lifecycleOwner: LifecycleOwner) {
+
+        adapter = PreferenceAdapter(recyclerView.context, fragmentManager, lifecycleOwner, preferences, onScreenChanged)
         savedInstanceState?.getParcelable<PreferenceAdapter.SavedState>(KEY_ADAPTER_STATE)
             ?.let(::loadAdapterState)
 

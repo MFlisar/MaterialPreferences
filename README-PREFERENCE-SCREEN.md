@@ -7,19 +7,18 @@ This module allows you to create `RecyclerView` based preference screens with a 
 This is an activity with a toolbar and a back button and can be shown as following:
 
 ```kotlin
+fun showDefaultSettingsActivity(activity: AppCompatActivity) {
+	SettingsActivity.start(activity, ScreenCreator)
+}
 
-    fun showDefaultSettingsActivity(activity: AppCompatActivity) {
-        SettingsActivity.start(activity, ScreenCreator)
-    }
-    
-    @Parcelize
-    object ScreenCreator : SettingsActivity.IScreenCreator {
-        override fun createScreen(activity: AppCompatActivity, savedInstanceState: Bundle?, updateTitle: (title: String) -> Unit): PreferenceScreen {
-            return screen {
-        	    // ... set up your preference screen here
-            }
-        }
-    }
+@Parcelize
+object ScreenCreator : SettingsActivity.IScreenCreator {
+	override fun createScreen(activity: AppCompatActivity, savedInstanceState: Bundle?, updateTitle: (title: String) -> Unit): PreferenceScreen {
+		return screen {
+			// ... set up your preference screen here
+		}
+	}
+}
 ```
 
 ### Example - Custom Activity
@@ -87,10 +86,6 @@ PreferenceScreenConfig.apply {
     maxLinesSummary = 3 // default: 3
 }
 ```
-
-### Dependencies
-
-The preferences with dialogs do depend on [Material Dialogs](https://github.com/afollestad/material-dialogs)
 
 ### Credits
 

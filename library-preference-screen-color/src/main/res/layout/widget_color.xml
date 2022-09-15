@@ -4,24 +4,24 @@
     android:layout_width="32dp"
     android:layout_height="32dp">
 
-    <com.google.android.material.imageview.ShapeableImageView
+    <com.google.android.material.card.MaterialCardView
         android:layout_width="24dp"
         android:layout_height="24dp"
         android:layout_gravity="center"
-        app:shapeAppearanceOverlay="@style/ColorPreferenceImage"
-        app:srcCompat="@drawable/checker_background" />
+        app:cardCornerRadius="12dp"
+        app:cardElevation="0dp"
+        app:cardPreventCornerOverlap="false">
 
-    <ImageView
-        android:id="@+id/color"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
-        android:layout_gravity="center"
-        app:srcCompat="@drawable/pref_circle_color_fill" />
+        <View
+            android:id="@+id/vCheckerBackground"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
 
-    <ImageView
-        android:layout_width="24dp"
-        android:layout_height="24dp"
-        android:layout_gravity="center"
-        app:srcCompat="@drawable/pref_circle_color_border" />
+        <View
+            android:id="@+id/vSelectedColor"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </com.google.android.material.card.MaterialCardView>
 
 </FrameLayout>

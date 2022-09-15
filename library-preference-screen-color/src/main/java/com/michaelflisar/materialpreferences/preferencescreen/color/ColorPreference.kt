@@ -11,12 +11,12 @@ import com.michaelflisar.materialpreferences.preferencescreen.recyclerview.Prefe
 
 class ColorPreference(
         override val setting: StorageSetting<Int>
-) : BasePreferenceItem(), PreferenceItem.PreferenceWithData<Int> {
+) : BasePreferenceItem(), PreferenceItem.PreferenceWithData<Int>, PreferenceItem.PreferenceDialog<Int> {
 
     override var canChange: (value: Int) -> Boolean = { true }
     override var onChanged: ((value: Int) -> Unit)? = null
     var supportsAlpha: Boolean = true
-    var bottomSheet: Boolean = PreferenceScreenConfig.bottomSheet
+    override var bottomSheet: Boolean = PreferenceScreenConfig.bottomSheet
 
     companion object : ViewHolderFactory.ViewHolderCreator {
         val TYPE = R.id.pref_color

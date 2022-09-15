@@ -215,21 +215,20 @@ object DemoSettings {
             }
 
             // -----------------
-            // 4) sub screen inputs (text, int)
+            // 4) sub screen inputs (text + numbers)
             // -----------------
 
             subScreen {
                 title = "Inputs".asText()
                 icon = R.drawable.ic_baseline_text_fields_24.asIcon()
-                summary = "Texts / Numbers".asText()
+                summary = "Works with int/long/float/double and string preferences!".asText()
                 category {
                     title = "Inputs".asText()
-                    summary = "Worked with int and string preferences!".asText()
                 }
                 input(DemoSettingsModel.text1) {
                     title = "Input 1".asText()
                     icon = R.drawable.ic_baseline_text_fields_24.asIcon()
-                    summary = "Insert ANY text".asText()
+                    summary = "Insert ANY text\n(value = %s)".asText()
                     hint = "Insert a value...".asText()
                 }
                 input(DemoSettingsModel.text2) {
@@ -240,16 +239,37 @@ object DemoSettings {
                     hint = "Insert a value...".asText()
                 }
                 input(DemoSettingsModel.number1) {
-                    title = "Euros".asText()
+                    title = "Euros (Int)".asText()
                     icon = R.drawable.ic_baseline_attach_money_24.asIcon()
                     summary = "%d€".asText()
                     hint = "Insert an amount in $".asText()
                 }
                 input(DemoSettingsModel.number2) {
-                    title = "Dollars".asText()
+                    title = "Dollars (Int)".asText()
                     icon = R.drawable.ic_baseline_attach_money_24.asIcon()
                     summary = "%d$".asText()
                     hint = "Insert an amount in €".asText()
+                }
+                category {
+                    title = "Number Types".asText()
+                }
+                input(DemoSettingsModel.numberFloat) {
+                    title = "Float".asText()
+                    icon = R.drawable.ic_baseline_keyboard_arrow_right_24.asIcon()
+                    summary = "%s".asText()
+                    hint = "Float".asText()
+                }
+                input(DemoSettingsModel.numberDouble) {
+                    title = "Double".asText()
+                    icon = R.drawable.ic_baseline_keyboard_arrow_right_24.asIcon()
+                    summary = "%s".asText()
+                    hint = "Double".asText()
+                }
+                input(DemoSettingsModel.numberLong) {
+                    title = "Long".asText()
+                    icon = R.drawable.ic_baseline_keyboard_arrow_right_24.asIcon()
+                    summary = "%d".asText()
+                    hint = "Long".asText()
                 }
             }
 
@@ -260,6 +280,7 @@ object DemoSettings {
             subScreen {
                 title = "Colors".asText()
                 icon = R.drawable.ic_baseline_color_lens_24.asIcon()
+                summary = "Alpha support is optional".asText()
                 category {
                     title = "Colors".asText()
                 }
@@ -463,20 +484,11 @@ object DemoSettings {
                     { "Enum: ${it.name}" }) {
                     title = "Single Choice Enum".asText()
                     icon = R.drawable.ic_baseline_format_list_bulleted_24.asIcon()
-                    //showCheckBoxes = true
-                }
-                category {
-                    title = "Dialog Styles".asText()
-                }
-                singleChoice(DemoSettingsModel.choiceSingle2, demoChoices) {
-                    title = "Single Choice - Checkbox".asText()
-                    icon = R.drawable.ic_baseline_format_list_bulleted_24.asIcon()
-                    displayType = SingleChoicePreference.DisplayType.Checkbox
                 }
                 singleChoice(DemoSettingsModel.choiceSingle3, demoChoices) {
-                    title = "Single Choice - Highlighted".asText()
+                    title = "Single Choice + Close on click".asText()
                     icon = R.drawable.ic_baseline_format_list_bulleted_24.asIcon()
-                    displayType = SingleChoicePreference.DisplayType.Highlighted(true, true)
+                    closeOnSelect = true
                 }
             }
 

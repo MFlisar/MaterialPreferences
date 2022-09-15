@@ -44,7 +44,7 @@ class SettingsActivity : AppCompatActivity() {
         preferenceScreen = data.screenProvider.createScreen(this, savedInstanceState) {
             supportActionBar?.subtitle = it
         }
-        preferenceScreen.bind(binding.rvSettings)
+        preferenceScreen.bind(binding.rvSettings, this)
     }
 
     override fun onSaveInstanceState(outState: Bundle) {

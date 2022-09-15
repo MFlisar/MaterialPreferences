@@ -3,23 +3,31 @@ package com.michaelflisar.materialpreferences.preferencescreen.recyclerview
 import android.content.Context
 import android.os.Parcelable
 import android.view.ViewGroup
+import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewbinding.ViewBinding
-import com.michaelflisar.materialpreferences.preferencescreen.ScreenChangedListener
-import com.michaelflisar.materialpreferences.preferencescreen.ScreenUtil
-import com.michaelflisar.materialpreferences.preferencescreen.ViewHolderFactory
+import com.michaelflisar.dialogs.MaterialDialogSetup
+import com.michaelflisar.dialogs.interfaces.IMaterialDialogEvent
+import com.michaelflisar.dialogs.onMaterialDialogEvent
+import com.michaelflisar.dialogs.showBottomSheetDialogFragment
+import com.michaelflisar.dialogs.showDialogFragment
+import com.michaelflisar.materialpreferences.preferencescreen.*
 import com.michaelflisar.materialpreferences.preferencescreen.interfaces.PreferenceItem
 import com.michaelflisar.materialpreferences.preferencescreen.preferences.SubScreen
+import com.michaelflisar.materialpreferences.preferencescreen.recyclerview.viewholders.base.BaseDialogViewHolder
 import com.michaelflisar.materialpreferences.preferencescreen.recyclerview.viewholders.base.BaseViewHolder
+import kotlinx.coroutines.launch
 import kotlinx.parcelize.Parcelize
 import java.util.*
 
 class PreferenceAdapter(
     context: Context,
+    private val fragmentManager: FragmentManager,
+    lifecycleOwner: LifecycleOwner,
     private val preferences: List<PreferenceItem>,
     private val onScreenChanged: ScreenChangedListener?
 ) : ListAdapter<PreferenceItem, BaseViewHolder<ViewBinding, PreferenceItem>>(PreferenceDiff) {
@@ -54,6 +62,24 @@ class PreferenceAdapter(
                     }
                 }
             }
+
+        // handle dialog events centrally here
+        lifecycleOwner.onMaterialDialogEvent<IMaterialDialogEvent> {
+            if (it.extra is DialogExtra) {
+                val extra = it.extra as DialogExtra
+                val item = currentList.filterIsInstance<PreferenceItem.PreferenceDialog<*>>()
+                    .find { it.setting.key == extra.key }
+                if (item != null) {
+                    val index = currentList.indexOf(item)
+                    //Log.d("INDEX", "index = $index")
+                    lifecycleOwner.lifecycleScope.launch {
+                        val vh = recyclerView?.awaitViewHolder(index)
+                        //Log.d("INDEX", "index visible...")
+                        (vh as BaseDialogViewHolder<*, *, *>).onDialogResultAvailable(item, it)
+                    }
+                }
+            }
+        }
     }
 
     private fun updateCurrentFilteredItems(submit: Boolean): List<PreferenceItem> {
@@ -188,6 +214,16 @@ class PreferenceAdapter(
         val fullStack = stack.clone() as Stack<StackEntry>
         fullStack.push(StackEntry.create(-1, recyclerView))
         return SavedState(ArrayList(fullStack.toList()), dialogInfo?.index)
+    }
+
+    fun <S : MaterialDialogSetup<S, B, E>, B : ViewBinding, E : IMaterialDialogEvent> showDialog(
+        preference: PreferenceItem.PreferenceDialog<*>,
+        dialog: MaterialDialogSetup<S, B, E>
+    ) {
+        if (preference.bottomSheet)
+            dialog.showBottomSheetDialogFragment(fragmentManager)
+        else
+            dialog.showDialogFragment(fragmentManager)
     }
 
     @Parcelize

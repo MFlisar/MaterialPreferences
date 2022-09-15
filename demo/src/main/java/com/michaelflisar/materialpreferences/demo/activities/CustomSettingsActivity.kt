@@ -82,7 +82,7 @@ class CustomSettingsActivity : AppCompatActivity() {
             DemoSettings.createSettingsScreen(this, this@CustomSettingsActivity)
 
         }
-        screen.bind(binding.rvSettings)
+        screen.bind(binding.rvSettings, this)
         return screen
     }
 

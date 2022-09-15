@@ -57,6 +57,14 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-runtime-ktx:${androidx.lifecycle}"
 
     // ------------------------
+    // Dialogs
+    // ------------------------
+
+    implementation "com.github.MFlisar.MaterialDialogs:core:${versions.materialDialogs}"
+    implementation "com.github.MFlisar.MaterialDialogs:extensions-fragment-dialog:${versions.materialDialogs}"
+    implementation "com.github.MFlisar.MaterialDialogs:extensions-fragment-bottomsheet:${versions.materialDialogs}"
+
+    // ------------------------
     // Library
     // ------------------------
 
