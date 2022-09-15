@@ -53,7 +53,7 @@ val screen = screen {
 }
 ```
 
-Check out the demo activities code for more details.
+Check out the [demo app](demo/src/main/java/com/michaelflisar/materialpreferences/demo) code for more details.
 
 # Supported Settings
 
