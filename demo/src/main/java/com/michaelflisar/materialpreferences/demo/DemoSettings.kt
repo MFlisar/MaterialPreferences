@@ -27,6 +27,7 @@ import com.michaelflisar.materialpreferences.preferencescreen.dependencies.Depen
 import com.michaelflisar.materialpreferences.preferencescreen.dependencies.asDependency
 import com.michaelflisar.materialpreferences.preferencescreen.enums.NoIconVisibility
 import com.michaelflisar.materialpreferences.preferencescreen.input.input
+import com.michaelflisar.materialpreferences.preferencescreen.interfaces.IScreenCreator
 import com.michaelflisar.text.asText
 import kotlinx.coroutines.flow.first
 import kotlinx.parcelize.Parcelize
@@ -46,7 +47,7 @@ object DemoSettings {
      * or use a custom activity...
      */
     @Parcelize
-    object ScreenCreator : SettingsActivity.IScreenCreator {
+    object ScreenCreator : IScreenCreator {
         override fun createScreen(
             activity: AppCompatActivity,
             savedInstanceState: Bundle?,

@@ -3,13 +3,10 @@ package com.michaelflisar.materialpreferences.preferencescreen.activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.os.Parcelable
-import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.app.AppCompatDelegate
 import com.michaelflisar.materialpreferences.preferencescreen.PreferenceScreen
-import com.michaelflisar.materialpreferences.preferencescreen.databinding.PreferenceActivitySettingsBinding
+import com.michaelflisar.materialpreferences.preferencescreen.interfaces.IScreenCreator
 
-class SettingsActivity : AppCompatActivity() {
+class SettingsActivity : BaseSettingsActivity() {
 
     companion object {
 
@@ -25,45 +22,14 @@ class SettingsActivity : AppCompatActivity() {
         }
     }
 
-    lateinit var binding: PreferenceActivitySettingsBinding
-    lateinit var preferenceScreen: PreferenceScreen
     lateinit var data: Data
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    override fun createScreen(
+        savedInstanceState: Bundle?,
+        updateTitle: (title: String) -> Unit
+    ): PreferenceScreen {
         data = Data.create(intent)
-        //AppCompatDelegate.setDefaultNightMode(if (data.dark) AppCompatDelegate.MODE_NIGHT_YES else AppCompatDelegate.MODE_NIGHT_NO)
-
-        binding = PreferenceActivitySettingsBinding.inflate(layoutInflater)
-        val view = binding.root
-        setContentView(view)
-        setSupportActionBar(binding.toolbar)
-
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-
-        preferenceScreen = data.screenProvider.createScreen(this, savedInstanceState) {
-            supportActionBar?.subtitle = it
-        }
-        preferenceScreen.bind(binding.rvSettings, this)
-    }
-
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-        preferenceScreen.onSaveInstanceState(outState)
-    }
-
-    override fun onBackPressed() {
-        if (preferenceScreen.onBackPressed()) {
-            return
-        }
-        super.onBackPressed()
-    }
-
-    override fun onSupportNavigateUp(): Boolean {
-        if (!preferenceScreen.onBackPressed()) {
-            finish()
-        }
-        return true
+        return data.screenProvider.createScreen(this, savedInstanceState, updateTitle)
     }
 
     // ----------------
@@ -89,13 +55,5 @@ class SettingsActivity : AppCompatActivity() {
                 putExtra(KEY_SCREEN_PROVIDER, screenProvider)
             }
         }
-    }
-
-    interface IScreenCreator : Parcelable {
-        fun createScreen(
-            activity: AppCompatActivity,
-            savedInstanceState: Bundle?,
-            updateTitle: (title: String) -> Unit
-        ): PreferenceScreen
     }
 }
