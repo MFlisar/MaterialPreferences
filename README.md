@@ -1,6 +1,4 @@
-# MaterialPreferences  [![Release](https://jitpack.io/v/MFlisar/MaterialPreferences.svg)](https://jitpack.io/#MFlisar/MaterialPreferences) ![License](https://img.shields.io/github/license/MFlisar/MaterialPreferences)
-
-### Introduction
+# Material Preferences  [![Release](https://jitpack.io/v/MFlisar/MaterialPreferences.svg)](https://jitpack.io/#MFlisar/MaterialPreferences) ![License](https://img.shields.io/github/license/MFlisar/MaterialPreferences)
 
 This library is based on `Flows` and `Coroutines` and works with the provided *DataStore Storage* or even with a custom storage implementation.
 It supports `LiveData` by default as `Flows` can easily be converted to `LiveData`. Preferences are elegantly declared via `delegates`.
@@ -14,6 +12,30 @@ Following are the key features:
 * allows to observe single / some / all preferences
 * provides suspending update functions
 * provides a DSL for a `RecyclerView` based setting screen
+
+# Gradle (via [JitPack.io](https://jitpack.io/))
+
+1. add jitpack to your project's `build.gradle`:
+```
+repositories {
+    maven { url "https://jitpack.io" }
+}
+```
+2. add the compile statement to your module's `build.gradle`:
+```
+dependencies {
+    // core module
+    implementation "com.github.MFlisar.MaterialPreferences:core:<LATEST-VERSION>"
+    // data store module
+    implementation "com.github.MFlisar.MaterialPreferences:datastore:<LATEST-VERSION>" 
+    // screen modules
+    implementation "com.github.MFlisar.MaterialPreferences:screen:<LATEST-VERSION>"
+    implementation "com.github.MFlisar.MaterialPreferences:screen-bool:<LATEST-VERSION>"
+    implementation "com.github.MFlisar.MaterialPreferences:screen-input:<LATEST-VERSION>"
+    implementation "com.github.MFlisar.MaterialPreferences:screen-choice:<LATEST-VERSION>"
+    implementation "com.github.MFlisar.MaterialPreferences:screen-color:<LATEST-VERSION>"
+}
+```
 
 ### Core
 
