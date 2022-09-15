@@ -57,7 +57,9 @@ val screen = screen {
 }
 ```
 
-Check out the [demo app](demo/src/main/java/com/michaelflisar/materialpreferences/demo) code for more details.
+Check out the [demo app](../demo/src/main/java/com/michaelflisar/materialpreferences/demo) code for more details and especially the screen definitions in the demo here:
+
+https://github.com/MFlisar/MaterialPreferences/blob/dad0db4565464905da10d4dd17f0ba6a3d92ee0e/demo/src/main/java/com/michaelflisar/materialpreferences/demo/DemoSettings.kt#L83-L555
 
 # Supported Settings
 
