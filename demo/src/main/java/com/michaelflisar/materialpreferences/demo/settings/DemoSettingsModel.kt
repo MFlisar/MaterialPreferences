@@ -75,5 +75,5 @@ object DemoSettingsModel : SettingsModel(
     val nonNullableBool by boolPref()
     val nullableBool by nullableBoolPref()
 
-
+    val x by stringSetPref(setOf("a"))
 }

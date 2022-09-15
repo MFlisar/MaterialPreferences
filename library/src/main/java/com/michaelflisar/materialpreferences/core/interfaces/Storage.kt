@@ -19,14 +19,14 @@ interface Storage {
     fun <T : Int?> getInt(key: String, defaultValue: T): Flow<T>
     suspend fun <T : Int?> setInt(key: String, value: T)
 
+    fun <T : Long?> getLong(key: String, defaultValue: T): Flow<T>
+    suspend fun <T : Long?> setLong(key: String, value: T)
+
     fun <T : Float?> getFloat(key: String, defaultValue: T): Flow<T>
     suspend fun <T : Float?> setFloat(key: String, value: T)
 
     fun <T : Double?> getDouble(key: String, defaultValue: T): Flow<T>
     suspend fun <T : Double?> setDouble(key: String, value: T)
-
-    fun <T : Long?> getLong(key: String, defaultValue: T): Flow<T>
-    suspend fun <T : Long?> setLong(key: String, value: T)
 
     fun getStringSet(key: String, defaultValue: Set<String>): Flow<Set<String>>
     suspend fun setStringSet(key: String, value: Set<String>)
@@ -36,6 +36,12 @@ interface Storage {
 
     fun getLongSet(key: String, defaultValue: Set<Long>): Flow<Set<Long>>
     suspend fun setLongSet(key: String, value: Set<Long>)
+
+    fun getFloatSet(key: String, defaultValue: Set<Float>): Flow<Set<Float>>
+    suspend fun setFloatSet(key: String, value: Set<Float>)
+
+    fun getDoubleSet(key: String, defaultValue: Set<Double>): Flow<Set<Double>>
+    suspend fun setDoubleSet(key: String, value: Set<Double>)
 
     suspend fun <T : Any?> onValueChanged(setting: StorageSetting<T>, value: T)
 }
