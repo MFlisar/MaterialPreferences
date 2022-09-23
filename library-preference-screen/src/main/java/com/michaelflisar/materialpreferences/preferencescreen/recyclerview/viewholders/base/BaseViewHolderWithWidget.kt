@@ -61,6 +61,7 @@ abstract class BaseViewHolderWithWidget<D : Any, T, B : ViewBinding?, B2 : ViewB
         if (preference is PreferenceItem.PreferenceWithBadge) {
             preference.badge.display(badge)
         }
+        binding.root.setOnClickListener(null)
         scope.launch(Dispatchers.IO) {
             value = preference.setting.read()
             withContext(Dispatchers.Main) {
