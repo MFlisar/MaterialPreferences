@@ -47,6 +47,8 @@ abstract class BaseSliderViewHolder<T : Number, P : BaseSliderPreference<T>>(
             if (!fromUser)
                 return@OnChangeListener
             val newValue = convertValueFromSlider(value)
+            if (newValue == slider.value)
+                return@OnChangeListener
             if (!preference.canChange(newValue)) {
                 slider.value = this@BaseSliderViewHolder.value.toFloat()
                 return@OnChangeListener
