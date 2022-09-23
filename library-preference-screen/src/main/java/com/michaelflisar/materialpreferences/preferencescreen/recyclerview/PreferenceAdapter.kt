@@ -1,6 +1,5 @@
 package com.michaelflisar.materialpreferences.preferencescreen.recyclerview
 
-import android.content.Context
 import android.os.Parcelable
 import android.view.ViewGroup
 import androidx.fragment.app.FragmentManager
@@ -28,21 +27,17 @@ import kotlinx.parcelize.Parcelize
 import java.util.*
 
 class PreferenceAdapter(
-    context: Context,
     private val fragmentManager: FragmentManager,
     lifecycleOwner: LifecycleOwner,
     private val preferences: List<PreferenceItem>,
     private val onScreenChanged: ScreenChangedListener?
 ) : ListAdapter<PreferenceItem, BaseViewHolder<ViewBinding, PreferenceItem>>(PreferenceDiff) {
 
-    //private var currentFilteredPrefs: List<PreferenceItem> = preferences
     private var currentUnfilteredPrefs: List<PreferenceItem> = preferences
     private var hiddenPrefs: MutableSet<PreferenceItem> = HashSet()
 
     private var stack: Stack<StackEntry> = Stack()
     var recyclerView: RecyclerView? = null
-
-    protected val scope = (context as LifecycleOwner).lifecycleScope
 
     init {
 
@@ -66,7 +61,7 @@ class PreferenceAdapter(
                 preferencesWithDependency
                     .forEach { p ->
                         p.visibilityDependsOn?.let { dependency ->
-                            dependency.observe(scope) { visible ->
+                            dependency.observe(lifecycleOwner.lifecycleScope) { visible ->
                                 if (visible) {
                                     if (hiddenPrefs.remove(p)) {
                                         updateCurrentFilteredItems(true)

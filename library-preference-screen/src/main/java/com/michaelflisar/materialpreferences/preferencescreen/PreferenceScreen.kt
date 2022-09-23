@@ -38,7 +38,7 @@ class PreferenceScreen(
 
     fun bind(recyclerView: RecyclerView, fragmentManager: FragmentManager, lifecycleOwner: LifecycleOwner) {
 
-        adapter = PreferenceAdapter(recyclerView.context, fragmentManager, lifecycleOwner, preferences, onScreenChanged)
+        adapter = PreferenceAdapter(fragmentManager, lifecycleOwner, preferences, onScreenChanged)
         savedInstanceState?.getParcelable<PreferenceAdapter.SavedState>(KEY_ADAPTER_STATE)
             ?.let(::loadAdapterState)
 
