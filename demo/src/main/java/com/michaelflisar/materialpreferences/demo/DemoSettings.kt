@@ -7,7 +7,9 @@ import android.text.InputType
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.lifecycle.lifecycleScope
 import com.michaelflisar.lumberjack.L
+import com.michaelflisar.materialpreferences.core.interfaces.StorageSetting
 import com.michaelflisar.materialpreferences.demo.activities.CustomSettingsActivity
 import com.michaelflisar.materialpreferences.demo.settings.DemoSettingsModel
 import com.michaelflisar.materialpreferences.demo.settings.TestEnum
@@ -29,7 +31,10 @@ import com.michaelflisar.materialpreferences.preferencescreen.input.input
 import com.michaelflisar.materialpreferences.preferencescreen.interfaces.IScreenCreator
 import com.michaelflisar.materialpreferences.preferencescreen.slider.slider
 import com.michaelflisar.text.asText
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import kotlinx.parcelize.Parcelize
 
 object DemoSettings {

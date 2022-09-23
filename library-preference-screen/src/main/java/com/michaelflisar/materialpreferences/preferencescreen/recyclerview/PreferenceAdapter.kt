@@ -131,7 +131,7 @@ class PreferenceAdapter(
 
     fun onSubScreenClicked(subScreen: SubScreen) {
         //val index = currentList.indexOf(subScreen)
-        val unfilteredIndex = preferences.indexOf(subScreen)
+        val unfilteredIndex = currentUnfilteredPrefs.indexOf(subScreen)
         stack.push(StackEntry.create(unfilteredIndex, recyclerView))
         currentUnfilteredPrefs = subScreen.preferences
         val filtered = updateCurrentFilteredItems(false)
