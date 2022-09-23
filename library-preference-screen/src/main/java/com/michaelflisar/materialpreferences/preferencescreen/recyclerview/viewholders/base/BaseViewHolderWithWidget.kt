@@ -108,6 +108,5 @@ abstract class BaseViewHolderWithWidget<D : Any, T, B : ViewBinding?, B2 : ViewB
     fun unbindWidget() {}
 
     open fun onClick(preference: T) {
-        var x = 0
     }
 }
