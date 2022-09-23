@@ -7,7 +7,7 @@
 
 This modules are placed inside the `screen-*` artifacts.
 
-# Example - Settings Activity
+# Usage with build in settings activity (PREFFERED)
 
 This is an activity with a toolbar and a back button and can be shown as following:
 
@@ -26,94 +26,21 @@ object ScreenCreator : SettingsActivity.IScreenCreator {
 }
 ```
 
-Alternatively you can simple extend `BaseSettingsActivity` and implement the single abstract `createScreen` function there - whatever you prefer.
+This uses a "trick" to provide a small and efficient parcelable setup via an `object` to avoid any problems (either memory nor speed wise) with the parcel size limit and still provides a convenient and simple way to use this library without having to write your own settings activity.
 
-Of course, you can simple place the settings screen inside any layout manually as well, check out the [CustomSettingsActivity](../demo/src/main/java/com/michaelflisar/materialpreferences/demo/activities/CustomSettingsActivity.kt) for an example. This is quite simple as well, simple do following:
+# Usage with a custom activity (ALTERNATIVE)
+
+Alternatively you can simple extend `BaseSettingsActivity` and implement the single abstract `createScreen` function there s shown inside the [CustomSettingsActivity](../demo/src/main/java/com/michaelflisar/materialpreferences/demo/activities/CustomSettingsActivity.kt) and with this method you can of course also embed the settings screen inside any bigger layout.
+
+Generally the manual approach works as simple as following:
 
 * create the screen
 * bind it to a `RecyclerView`
 * forward the back press event to the screen so that it can handle its internal backstack
 
-```kotlin
-class CustomSettingsActivity : AppCompatActivity() {
+Here's an example:
 
-    companion object {
-        fun start(context: Context) {
-            val intent = Intent(context, CustomSettingsActivity::class.java).apply {
-                addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-            }
-            context.startActivity(intent)
-        }
-    }
-
-    lateinit var binding: PreferenceActivitySettingsBinding
-    lateinit var preferenceScreen: PreferenceScreen
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        AppCompatDelegate.setDefaultNightMode(if (DemoSettingsModel.darkTheme.value) AppCompatDelegate.MODE_NIGHT_YES else AppCompatDelegate.MODE_NIGHT_NO)
-
-        binding = PreferenceActivitySettingsBinding.inflate(layoutInflater)
-        val view = binding.root
-        setContentView(view)
-        setSupportActionBar(binding.toolbar)
-
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-
-        // ---------------
-        // set up settings
-        // ---------------
-
-        preferenceScreen = initSettings(savedInstanceState)
-    }
-
-    private fun initSettings(savedInstanceState: Bundle?): PreferenceScreen {
-
-        val screen = screen {
-
-            // set up screen
-            state = savedInstanceState
-            onScreenChanged = { subScreenStack, stateRestored ->
-                val breadcrumbs =
-                    subScreenStack.joinToString(" > ") { it.title.get(this@CustomSettingsActivity) }
-                L.d { "Preference Screen - level = ${subScreenStack.size} | $breadcrumbs | restored: $stateRestored" }
-                supportActionBar?.subtitle = breadcrumbs
-            }
-
-            // -----------------
-            // create settings screen
-            // -----------------
-			
-			// ... create all your settings here ...
-			// ...
-        }
-		
-		// bind the screen to the RecyclerView
-        screen.bind(binding.rvSettings, this)
-		
-        return screen
-    }
-
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-        preferenceScreen.onSaveInstanceState(outState)
-    }
-
-    override fun onBackPressed() {
-        if (preferenceScreen.onBackPressed()) {
-            return
-        }
-        super.onBackPressed()
-    }
-
-    override fun onSupportNavigateUp(): Boolean {
-        if (!preferenceScreen.onBackPressed()) {
-            finish()
-        }
-        return true
-    }
-}
-```
+https://github.com/MFlisar/MaterialPreferences/blob/dad0db4565464905da10d4dd17f0ba6a3d92ee0e/demo/src/main/java/com/michaelflisar/materialpreferences/demo/activities/CustomSettingsActivity.kt#L15-105
 
 # Example - Screen
 
