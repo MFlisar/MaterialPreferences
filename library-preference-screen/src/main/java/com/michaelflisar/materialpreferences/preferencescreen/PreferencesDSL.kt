@@ -71,6 +71,10 @@ class Screen {
             screen?.notifyItemChanged(item)
         }
 
+        fun notifyItemChanged(item: StorageSetting<*>) {
+            screen?.notifyItemChanged(item)
+        }
+
         fun build(): PreferenceScreen {
             screen = PreferenceScreen(preferences, state, onScreenChanged)
             return screen!!
