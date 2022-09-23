@@ -51,6 +51,7 @@ class PreferenceAdapter(
             .filterIsInstance<PreferenceItem.PreferenceWithDependencies>()
 
         // load initial visibility state + set initial filtered adapter items
+        // afterwards observe changes of visibility
         lifecycleOwner.lifecycleScope.launch(Dispatchers.IO) {
             preferencesWithDependency
                 .forEach {
@@ -58,7 +59,6 @@ class PreferenceAdapter(
                         hiddenPrefs.add(it)
                     }
                 }
-            // this sets the initial filtered list
             withContext(Dispatchers.Main) {
                 // set initial list
                 updateCurrentFilteredItems(true)
