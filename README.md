@@ -90,7 +90,7 @@ object UserSettingsModel : SettingsModel(DataStoreStorage(name = "user")) {
 ```kotlin
 // 1) simply observe a setting
 UserSettingsModel.name.observe(lifecycleScope) {
-	L.d { "name = $it"}
+    L.d { "name = $it"}
 }
 
 // 2) direct read (not recommended if not necessary but may be useful in many cases => simply returns flow.first() in a blocking way)
@@ -98,32 +98,32 @@ val name = UserSettingsModel.name.value
 
 // 3) observe a setting once
 UserSettingsModel.name.observeOnce(lifecycleScope) {
-	L.d { "name = $it"}
+    L.d { "name = $it"}
 }
 
 // 4) observe ALL settings
 UserSettingsModel.changes.onEach {
-	L.d { "[ALL SETTINGS OBSERVER] Setting '${it.setting.key}' changed its value to ${it.value}" }
+    L.d { "[ALL SETTINGS OBSERVER] Setting '${it.setting.key}' changed its value to ${it.value}" }
 }.launchIn(lifecycleScope)
 
 // 5) observe SOME settings
-UserSettingsModel.changes´
-	.filter {
-		it.setting == UserSettingsModel.name ||
-		it.setting == UserSettingsModel.age
-	}.onEach {
-		// we know that either the name or the age changes
-		L.d { "[SOME SETTINGS OBSERVER] Setting '${it.setting.key}' changed its value to ${it.value}" }
-	}.launchIn(lifecycleScope)
-	
+UserSettingsModel.changes
+    .filter {
+        it.setting == UserSettingsModel.name ||
+        it.setting == UserSettingsModel.age
+    }.onEach {
+        // we know that either the name or the age changes
+        L.d { "[SOME SETTINGS OBSERVER] Setting '${it.setting.key}' changed its value to ${it.value}" }
+    }.launchIn(lifecycleScope)
+    
 // 6) read multiple settings in a suspending way
 lifecycleScope.launch(Dispatchers.IO) {
-  val name = UserSettingsModel.childName1.flow.first()
-  val alive = DemoSettingsModel.alive.flow.first()
-  val hairColor = DemoSettingsModel.hairColor.flow.first()
-  withContext(Dispatchers.Main) {
-	textView.text = "Informations: $name, $alive, $hairColor"
-  }
+    val name = UserSettingsModel.childName1.flow.first()
+    val alive = DemoSettingsModel.alive.flow.first()
+    val hairColor = DemoSettingsModel.hairColor.flow.first()
+    withContext(Dispatchers.Main) {
+        textView.text = "Informations: $name, $alive, $hairColor"
+    }
 }
 ```
 
@@ -137,8 +137,8 @@ val lifedata = UserSettingsModel.name.flow.asLiveData()
 
 ```kotlin
 lifecycleScope.launch(Dispatchers.IO)  {
-  UserSettingsModel.name.update("Some new name")
-  UserSettingsModel.age.update(30)
+    UserSettingsModel.name.update("Some new name")
+    UserSettingsModel.age.update(30)
 }
 ```
 
@@ -163,8 +163,8 @@ Check the [demo app](demo/src/main/java/com/michaelflisar/materialpreferences/de
 # TODO
 
 - [ ] Preference Types
-	- [ ] Collapse Preference - add sub items ONCE on click
-	- [ ] Dropdown Preference - can be achieved with visibility dependencies actually...
-	- [ ] Spacer Preference
+    - [ ] Collapse Preference - add sub items ONCE on click
+    - [ ] Dropdown Preference - can be achieved with visibility dependencies actually...
+    - [ ] Spacer Preference
 - [ ] Others
   - [ ] Global Setting - enable title numbering (Count numbers of categories yes/no)
