@@ -32,10 +32,7 @@ import com.michaelflisar.materialpreferences.preferencescreen.input.input
 import com.michaelflisar.materialpreferences.preferencescreen.interfaces.IScreenCreator
 import com.michaelflisar.materialpreferences.preferencescreen.slider.slider
 import com.michaelflisar.text.asText
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import kotlinx.parcelize.Parcelize
 
 object DemoSettings {
@@ -319,7 +316,7 @@ object DemoSettings {
                 slider(DemoSettingsModel.numberSeekbarFloat) {
                     title = "Seekbar Float".asText()
                     icon = R.drawable.ic_baseline_numbers_24.asIcon()
-                    summary = "Selected: %f".asText()
+                    summary = "Selected: %.1f".asText()
                     min = 0f
                     max = 100f
                     stepSize = 0.5f
@@ -328,7 +325,7 @@ object DemoSettings {
                 slider(DemoSettingsModel.numberSeekbarDouble) {
                     title = "Seekbar Double".asText()
                     icon = R.drawable.ic_baseline_numbers_24.asIcon()
-                    summary = "Selected: %f".asText()
+                    summary = "Selected: %.1f".asText()
                     min = 0.0
                     max = 100.0
                     stepSize = 0.5
