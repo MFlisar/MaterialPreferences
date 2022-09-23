@@ -56,6 +56,8 @@ object DemoSettingsModel : SettingsModel(
     val enableFeature2 by boolPref(false)
     val enableFeature3 by boolPref(false)
     val enableFeature4 by boolPref(false)
+    val enableFeature5 by boolPref(false)
+    val enableFeature6 by boolPref(false)
 
     // simple types
     val test by stringPref("initial value")

@@ -17,6 +17,8 @@ class SliderDoublePreference(
     override var max = Double.MAX_VALUE
     override var stepSize: Double? = null
 
+    override val defaultStepSize: Double? = null
+
     companion object : ViewHolderFactory.ViewHolderCreator {
         val TYPE = R.id.pref_seekbar_double
         override fun createViewHolder(

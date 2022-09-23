@@ -4,6 +4,7 @@
     <item type="id" name="pref_screen" />
     <item type="id" name="pref_category" />
     <item type="id" name="pref_switch" />
+    <item type="id" name="pref_switch_compact" />
     <item type="id" name="pref_checkbox" />
     <item type="id" name="pref_button" />
 

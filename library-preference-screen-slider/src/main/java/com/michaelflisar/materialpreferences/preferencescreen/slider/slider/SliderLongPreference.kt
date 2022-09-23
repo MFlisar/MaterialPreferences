@@ -16,6 +16,8 @@ class SliderLongPreference(
     override var max = Long.MAX_VALUE
     override var stepSize: Long? = null
 
+    override val defaultStepSize = 1L
+
     companion object : ViewHolderFactory.ViewHolderCreator {
         val TYPE = R.id.pref_seekbar_long
         override fun createViewHolder(

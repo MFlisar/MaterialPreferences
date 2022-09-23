@@ -1,4 +1,4 @@
-package com.michaelflisar.materialpreferences.preferencescreen.bool.switchpref
+package com.michaelflisar.materialpreferences.preferencescreen.bool.switches
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

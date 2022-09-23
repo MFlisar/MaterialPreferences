@@ -16,6 +16,8 @@ class SliderFloatPreference(
     override var max = Float.MAX_VALUE
     override var stepSize: Float? = null
 
+    override val defaultStepSize: Float? = null
+
     companion object : ViewHolderFactory.ViewHolderCreator {
         val TYPE = R.id.pref_seekbar_float
         override fun createViewHolder(

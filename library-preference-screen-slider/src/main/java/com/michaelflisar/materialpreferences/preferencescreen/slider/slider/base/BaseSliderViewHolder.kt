@@ -42,7 +42,10 @@ abstract class BaseSliderViewHolder<T : Number, P : BaseSliderPreference<T>>(
         } else {
             subBinding.slider.setLabelFormatter(null)
         }
-        subBinding.slider.stepSize = preference.stepSize?.let { convertValueToSlider(it) } ?: 0f
+        subBinding.slider.stepSize = preference.stepSize?.let { convertValueToSlider(it) } ?:
+                preference.defaultStepSize?.let { convertValueToSlider(it) } ?:
+                0f
+        subBinding.slider.isTickVisible = preference.discrete
         slideListener = Slider.OnChangeListener { slider, value, fromUser ->
             if (!fromUser)
                 return@OnChangeListener

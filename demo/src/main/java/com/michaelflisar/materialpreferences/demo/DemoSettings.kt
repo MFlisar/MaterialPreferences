@@ -17,6 +17,7 @@ import com.michaelflisar.materialpreferences.preferencescreen.*
 import com.michaelflisar.materialpreferences.preferencescreen.activity.SettingsActivity
 import com.michaelflisar.materialpreferences.preferencescreen.bool.checkbox
 import com.michaelflisar.materialpreferences.preferencescreen.bool.switch
+import com.michaelflisar.materialpreferences.preferencescreen.bool.switchCompact
 import com.michaelflisar.materialpreferences.preferencescreen.choice.asChoiceListString
 import com.michaelflisar.materialpreferences.preferencescreen.choice.multiChoice
 import com.michaelflisar.materialpreferences.preferencescreen.choice.singleChoice
@@ -197,7 +198,7 @@ object DemoSettings {
                 icon = R.drawable.ic_baseline_check_box_24.asIcon()
                 summary = "Switches / Checkboxes".asText()
                 category {
-                    title = "Switches".asText()
+                    title = "Switches (Material 3)".asText()
                 }
                 switch(DemoSettingsModel.enableFeature1) {
                     title = "Feature 1".asText()
@@ -208,14 +209,25 @@ object DemoSettings {
                     icon = R.drawable.ic_baseline_keyboard_arrow_right_24.asIcon()
                 }
                 category {
-                    title = "Checkboxes".asText()
+                    title = "Switches (Material 2 - compact)".asText()
                 }
-                checkbox(DemoSettingsModel.enableFeature3) {
+                switchCompact(DemoSettingsModel.enableFeature3) {
                     title = "Feature 3".asText()
                     icon = R.drawable.ic_baseline_keyboard_arrow_right_24.asIcon()
                 }
-                checkbox(DemoSettingsModel.enableFeature4) {
+                switchCompact(DemoSettingsModel.enableFeature4) {
                     title = "Feature 4".asText()
+                    icon = R.drawable.ic_baseline_keyboard_arrow_right_24.asIcon()
+                }
+                category {
+                    title = "Checkboxes".asText()
+                }
+                checkbox(DemoSettingsModel.enableFeature5) {
+                    title = "Feature 5".asText()
+                    icon = R.drawable.ic_baseline_keyboard_arrow_right_24.asIcon()
+                }
+                checkbox(DemoSettingsModel.enableFeature6) {
+                    title = "Feature 6".asText()
                     icon = R.drawable.ic_baseline_keyboard_arrow_right_24.asIcon()
                 }
             }
