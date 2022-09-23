@@ -34,6 +34,7 @@ dependencies {
     implementation "com.github.MFlisar.MaterialPreferences:screen-input:<LATEST-VERSION>"
     implementation "com.github.MFlisar.MaterialPreferences:screen-choice:<LATEST-VERSION>"
     implementation "com.github.MFlisar.MaterialPreferences:screen-color:<LATEST-VERSION>"
+    implementation "com.github.MFlisar.MaterialPreferences:screen-slider:<LATEST-VERSION>"
 }
 ```
 
@@ -161,9 +162,8 @@ Check the [demo app](demo/src/main/java/com/michaelflisar/materialpreferences/de
 # TODO
 
 - [ ] Preference Types
-	- [ ] SeekBar Preference
 	- [ ] Collapse Preference - add sub items ONCE on click
-	- [ ] Dropdown Preference
+	- [ ] Dropdown Preference - can be achieved with visibility dependencies actually...
 	- [ ] Spacer Preference
 - [ ] Others
   - [ ] Global Setting - enable title numbering (Count numbers of categories yes/no)

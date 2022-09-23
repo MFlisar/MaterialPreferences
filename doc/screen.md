@@ -72,6 +72,7 @@ Following settings are supported already:
 * Input (text, number, password, ...)
 * Buttons
 * Color (w/o alpha)
+* Slider (Seekbar)
 
 And following features are supported:
 
