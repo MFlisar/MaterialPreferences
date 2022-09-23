@@ -21,7 +21,9 @@ import com.michaelflisar.materialpreferences.preferencescreen.interfaces.Prefere
 import com.michaelflisar.materialpreferences.preferencescreen.preferences.SubScreen
 import com.michaelflisar.materialpreferences.preferencescreen.recyclerview.viewholders.base.BaseDialogViewHolder
 import com.michaelflisar.materialpreferences.preferencescreen.recyclerview.viewholders.base.BaseViewHolder
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import kotlinx.parcelize.Parcelize
 import java.util.*
 
@@ -44,20 +46,37 @@ class PreferenceAdapter(
 
     init {
 
-        //submitList(currentUnfilteredPrefs)
-
         val allPreferences = ScreenUtil.flatten(preferences)
-        allPreferences
+        val preferencesWithDependency = allPreferences
             .filterIsInstance<PreferenceItem.PreferenceWithDependencies>()
+
+        // load initial visibility state + set initial filtered adapter items
+        lifecycleOwner.lifecycleScope.launch(Dispatchers.IO) {
+            preferencesWithDependency
+                .forEach {
+                    if (it.visibilityDependsOn?.state() == false) {
+                        hiddenPrefs.add(it)
+                    }
+                }
+            // this sets the initial filtered list
+            withContext(Dispatchers.Main) {
+                updateCurrentFilteredItems(true)
+            }
+        }
+
+        // observe changes of visibility dependencies and update adapter items if necessary
+        preferencesWithDependency
             .forEach { p ->
                 p.visibilityDependsOn?.let {
                     it.observe(scope) {
                         if (it) {
-                            hiddenPrefs.remove(p)
-                            updateCurrentFilteredItems(true)
+                            if (hiddenPrefs.remove(p)) {
+                                updateCurrentFilteredItems(true)
+                            }
                         } else {
-                            hiddenPrefs.add(p)
-                            updateCurrentFilteredItems(true)
+                            if (hiddenPrefs.add(p)) {
+                                updateCurrentFilteredItems(true)
+                            }
                         }
                     }
                 }
@@ -96,7 +115,8 @@ class PreferenceAdapter(
     }
 
     fun notifyItemChanged(item: StorageSetting<*>) {
-        val items = currentList.filter { it is PreferenceItem.PreferenceWithData<*> && it.setting == item }
+        val items =
+            currentList.filter { it is PreferenceItem.PreferenceWithData<*> && it.setting == item }
         items.forEach {
             notifyItemChanged(it)
         }
