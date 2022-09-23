@@ -60,27 +60,27 @@ class PreferenceAdapter(
                 }
             // this sets the initial filtered list
             withContext(Dispatchers.Main) {
+                // set initial list
                 updateCurrentFilteredItems(true)
-            }
-        }
-
-        // observe changes of visibility dependencies and update adapter items if necessary
-        preferencesWithDependency
-            .forEach { p ->
-                p.visibilityDependsOn?.let {
-                    it.observe(scope) {
-                        if (it) {
-                            if (hiddenPrefs.remove(p)) {
-                                updateCurrentFilteredItems(true)
-                            }
-                        } else {
-                            if (hiddenPrefs.add(p)) {
-                                updateCurrentFilteredItems(true)
+                // observe further visibility changes
+                preferencesWithDependency
+                    .forEach { p ->
+                        p.visibilityDependsOn?.let { dependency ->
+                            dependency.observe(scope) { visible ->
+                                if (visible) {
+                                    if (hiddenPrefs.remove(p)) {
+                                        updateCurrentFilteredItems(true)
+                                    }
+                                } else {
+                                    if (hiddenPrefs.add(p)) {
+                                        updateCurrentFilteredItems(true)
+                                    }
+                                }
                             }
                         }
                     }
-                }
             }
+        }
 
         // handle dialog events centrally here
         lifecycleOwner.onMaterialDialogEvent<IMaterialDialogEvent> {
