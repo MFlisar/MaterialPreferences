@@ -5,12 +5,11 @@ import android.view.ViewGroup
 import androidx.viewbinding.ViewBinding
 import com.michaelflisar.dialogs.interfaces.IMaterialDialogEvent
 import com.michaelflisar.materialpreferences.preferencescreen.interfaces.PreferenceItem
-import com.michaelflisar.materialpreferences.preferencescreen.recyclerview.PreferenceAdapter
 
 abstract class BaseDialogViewHolder<D : Any, T, B : ViewBinding?>(
     inflater: LayoutInflater,
     parent: ViewGroup
-) : BaseViewHolderWidget<D, T, B>(inflater, parent)
+) : BaseViewHolderWidgetSmall<D, T, B>(inflater, parent)
         where T : PreferenceItem.PreferenceWithData<D>, T : PreferenceItem.Preference {
 
     override fun bindWidget(preference: T, rebind: Boolean) {

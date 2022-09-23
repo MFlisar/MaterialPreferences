@@ -17,7 +17,6 @@ import com.michaelflisar.materialpreferences.preferencescreen.bool.checkbox
 import com.michaelflisar.materialpreferences.preferencescreen.bool.switch
 import com.michaelflisar.materialpreferences.preferencescreen.choice.asChoiceListString
 import com.michaelflisar.materialpreferences.preferencescreen.choice.multiChoice
-import com.michaelflisar.materialpreferences.preferencescreen.choice.single.SingleChoicePreference
 import com.michaelflisar.materialpreferences.preferencescreen.choice.singleChoice
 import com.michaelflisar.materialpreferences.preferencescreen.classes.Badge
 import com.michaelflisar.materialpreferences.preferencescreen.classes.asBatch
@@ -28,6 +27,7 @@ import com.michaelflisar.materialpreferences.preferencescreen.dependencies.asDep
 import com.michaelflisar.materialpreferences.preferencescreen.enums.NoIconVisibility
 import com.michaelflisar.materialpreferences.preferencescreen.input.input
 import com.michaelflisar.materialpreferences.preferencescreen.interfaces.IScreenCreator
+import com.michaelflisar.materialpreferences.preferencescreen.slider.slider
 import com.michaelflisar.text.asText
 import kotlinx.coroutines.flow.first
 import kotlinx.parcelize.Parcelize
@@ -274,6 +274,48 @@ object DemoSettings {
                     icon = R.drawable.ic_baseline_keyboard_arrow_right_24.asIcon()
                     summary = "%d".asText()
                     hint = "Long".asText()
+                }
+            }
+
+            subScreen {
+                title = "Seekbars".asText()
+                icon = R.drawable.ic_baseline_numbers_24.asIcon()
+                summary = "Works with int/long/float/double preferences!".asText()
+                category {
+                    title = "Seekbars".asText()
+                }
+                slider(DemoSettingsModel.numberSeekbarInt) {
+                    title = "Seekbar Int".asText()
+                    icon = R.drawable.ic_baseline_numbers_24.asIcon()
+                    summary = "Selected: %d".asText()
+                    badge = Badge.Text("0 - 100".asText(), Color.BLUE)
+                    min = 0
+                    max = 100
+                }
+                slider(DemoSettingsModel.numberSeekbarLong) {
+                    title = "Seekbar Long".asText()
+                    icon = R.drawable.ic_baseline_numbers_24.asIcon()
+                    summary = "Selected: %d".asText()
+                    min = 0
+                    max = 100
+                }
+                slider(DemoSettingsModel.numberSeekbarFloat) {
+                    title = "Seekbar Float".asText()
+                    icon = R.drawable.ic_baseline_numbers_24.asIcon()
+                    summary = "Selected: %f".asText()
+                    min = 0f
+                    max = 100f
+                    stepSize = 0.5f
+                    labelFormatter = { String.format("%.1f", it)}
+                }
+                slider(DemoSettingsModel.numberSeekbarDouble) {
+                    title = "Seekbar Double".asText()
+                    icon = R.drawable.ic_baseline_numbers_24.asIcon()
+                    summary = "Selected: %f".asText()
+                    min = 0.0
+                    max = 100.0
+                    stepSize = 0.5
+                    labelFormatter = { String.format("%.1f", it)}
                 }
             }
 

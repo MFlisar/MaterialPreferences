@@ -3,28 +3,38 @@ package com.michaelflisar.materialpreferences.preferencescreen.recyclerview.view
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.LinearLayout
+import android.widget.TextView
 import androidx.viewbinding.ViewBinding
 import com.michaelflisar.materialpreferences.preferencescreen.PreferenceScreenConfig
 import com.michaelflisar.materialpreferences.preferencescreen.ScreenUtil
-import com.michaelflisar.materialpreferences.preferencescreen.databinding.PreferenceBinding
 import com.michaelflisar.materialpreferences.preferencescreen.interfaces.PreferenceItem
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-abstract class BaseViewHolderWidget<D : Any, T, B : ViewBinding?>(
+abstract class BaseViewHolderWithWidget<D : Any, T, B : ViewBinding?, B2 : ViewBinding>(
     inflater: LayoutInflater,
-    parent: ViewGroup
-) : BaseViewHolder<PreferenceBinding, T>(PreferenceBinding.inflate(inflater, parent, false))
+    baseBinding: B2
+) : BaseViewHolder<B2, T>(baseBinding)
         where T : PreferenceItem.PreferenceWithData<D>, T : PreferenceItem.Preference {
 
-    val subBinding: B = createSubBinding(inflater, binding.widgetFrame, true)
+    open var clickable: Boolean = true
+    abstract val widgetFrame: LinearLayout
+    abstract val iconFrame: LinearLayout
+    abstract val title: TextView
+    abstract val summary: TextView
+    abstract val icon: ImageView
+    abstract val badge: TextView
+
+    val subBinding: B by lazy { createSubBinding(inflater, widgetFrame, true) }
 
     protected lateinit var value: D
 
-    init {
-        binding.title.maxLines = PreferenceScreenConfig.maxLinesTitle
-        binding.summary.maxLines = PreferenceScreenConfig.maxLinesSummary
+    protected fun init() {
+        title.maxLines = PreferenceScreenConfig.maxLinesTitle
+        summary.maxLines = PreferenceScreenConfig.maxLinesSummary
     }
 
     fun update(newValue: D, preference: T) {
@@ -43,20 +53,22 @@ abstract class BaseViewHolderWidget<D : Any, T, B : ViewBinding?>(
 
     override fun bind(preference: T, rebind: Boolean) {
         super.bind(preference, rebind)
-        preference.title.display(binding.title)
+        preference.title.display(title)
         if (preference is PreferenceItem.PreferenceWithIcon) {
-            updateIconFrame(preference, binding.iconFrame)
-            preference.icon.display(binding.icon)
+            updateIconFrame(preference, iconFrame)
+            preference.icon.display(icon)
         }
         if (preference is PreferenceItem.PreferenceWithBadge) {
-            preference.badge.display(binding.badge)
+            preference.badge.display(badge)
         }
         scope.launch(Dispatchers.IO) {
             value = preference.setting.read()
             withContext(Dispatchers.Main) {
                 rebind(preference)
-                binding.root.setOnClickListener {
-                    onClick(preference)
+                if (clickable) {
+                    binding.root.setOnClickListener {
+                        onClick(preference)
+                    }
                 }
             }
         }
@@ -66,10 +78,10 @@ abstract class BaseViewHolderWidget<D : Any, T, B : ViewBinding?>(
         super.unbind()
         unbindWidget()
         binding.root.setOnClickListener(null)
-        binding.title.text = null
-        binding.icon.setImageDrawable(null)
-        binding.badge.text = null
-        binding.summary.text = null
+        title.text = null
+        icon.setImageDrawable(null)
+        badge.text = null
+        summary.text = null
     }
 
     fun rebind(preference: T) {
@@ -79,7 +91,7 @@ abstract class BaseViewHolderWidget<D : Any, T, B : ViewBinding?>(
 
     open fun updateSummary(preference: T) {
         if (preference is PreferenceItem.PreferenceWithSummary) {
-            ScreenUtil.display(preference.summary, binding.summary, View.GONE, value)
+            ScreenUtil.display(preference.summary, summary, View.GONE, value)
         }
     }
 
@@ -92,5 +104,7 @@ abstract class BaseViewHolderWidget<D : Any, T, B : ViewBinding?>(
     abstract fun bindWidget(preference: T, rebind: Boolean)
     fun unbindWidget() {}
 
-    abstract fun onClick(preference: T)
+    open fun onClick(preference: T) {
+
+    }
 }

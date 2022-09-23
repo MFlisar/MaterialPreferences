@@ -1,14 +1,12 @@
 package com.michaelflisar.materialpreferences.core.settings
 
 import com.michaelflisar.materialpreferences.core.SettingsModel
-import com.michaelflisar.materialpreferences.core.initialisation.SettingSetup
 import com.michaelflisar.materialpreferences.core.interfaces.Storage
 import com.michaelflisar.materialpreferences.core.interfaces.StorageSetting
-import kotlinx.coroutines.flow.Flow
 import kotlin.reflect.KProperty
 
 internal abstract class BaseDoubleSetting<T : Double?>(
-        private val model: SettingsModel
+    private val model: SettingsModel
 ) : AbstractSetting<T>() {
 
     private var name: String? = null
@@ -32,8 +30,8 @@ internal abstract class BaseDoubleSetting<T : Double?>(
 
     /* Delegate */
     override fun getValue(
-            thisRef: SettingsModel,
-            property: KProperty<*>
+        thisRef: SettingsModel,
+        property: KProperty<*>
     ): StorageSetting<T> {
         init(property.name)
         return this
@@ -41,15 +39,15 @@ internal abstract class BaseDoubleSetting<T : Double?>(
 }
 
 internal class DoubleSetting(
-        model: SettingsModel,
-        override val defaultValue: Double,
-        override val customKey: String?,
-        override val cache: Boolean
+    model: SettingsModel,
+    override val defaultValue: Double,
+    override val customKey: String?,
+    override val cache: Boolean
 ) : BaseDoubleSetting<Double>(model)
 
 internal class NullableDoubleSetting(
-        model: SettingsModel,
-        override val defaultValue: Double?,
-        override val customKey: String?,
-        override val cache: Boolean
+    model: SettingsModel,
+    override val defaultValue: Double?,
+    override val customKey: String?,
+    override val cache: Boolean
 ) : BaseDoubleSetting<Double?>(model)

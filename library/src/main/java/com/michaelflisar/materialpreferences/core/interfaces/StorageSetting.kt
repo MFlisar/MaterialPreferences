@@ -4,7 +4,6 @@ import com.michaelflisar.materialpreferences.core.SettingsModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
-import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withContext
 import kotlin.coroutines.CoroutineContext
 import kotlin.properties.ReadOnlyProperty
@@ -22,25 +21,35 @@ interface StorageSetting<T : Any?> : ReadOnlyProperty<SettingsModel, StorageSett
     val value: T
 
     suspend fun update(value: T)
-    suspend fun read() : T = flow.first()
+    suspend fun read(): T = flow.first()
 
-    fun observeOnce(scope: CoroutineScope, transformer: ((Flow<T>) -> Flow<T>)? = null, context: CoroutineContext = Dispatchers.Main, callback: ((value: T) -> Unit)) = flow
-            .take(1)
-            .onEach {
-                withContext(context) {
-                    callback(it)
-                }
+    fun observeOnce(
+        scope: CoroutineScope,
+        transformer: ((Flow<T>) -> Flow<T>)? = null,
+        context: CoroutineContext = Dispatchers.Main,
+        callback: ((value: T) -> Unit)
+    ) = flow
+        .take(1)
+        .onEach {
+            withContext(context) {
+                callback(it)
             }
-            .launchIn(scope)
+        }
+        .launchIn(scope)
 
-    fun observe(scope: CoroutineScope, transformer: ((Flow<T>) -> Flow<T>)? = null, context: CoroutineContext = Dispatchers.Main, callback: ((value: T) -> Unit)) = flow
-            .let {
-                transformer?.invoke(it) ?: it
+    fun observe(
+        scope: CoroutineScope,
+        transformer: ((Flow<T>) -> Flow<T>)? = null,
+        context: CoroutineContext = Dispatchers.Main,
+        callback: ((value: T) -> Unit)
+    ) = flow
+        .let {
+            transformer?.invoke(it) ?: it
+        }
+        .onEach {
+            withContext(context) {
+                callback(it)
             }
-            .onEach {
-                withContext(context) {
-                    callback(it)
-                }
-            }
-            .launchIn(scope)
+        }
+        .launchIn(scope)
 }

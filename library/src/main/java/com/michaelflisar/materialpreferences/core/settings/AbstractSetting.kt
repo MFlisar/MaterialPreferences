@@ -15,7 +15,7 @@ abstract class AbstractSetting<T : Any?> : StorageSetting<T> {
     protected abstract val storage: Storage
     protected abstract val cache: Boolean
 
-    protected abstract fun createFlow() : Flow<T>
+    protected abstract fun createFlow(): Flow<T>
     protected abstract suspend fun persistValue(value: T)
 
     final override val flow: Flow<T> by lazy {
@@ -62,5 +62,5 @@ abstract class AbstractSetting<T : Any?> : StorageSetting<T> {
     // classes
     // ---------
 
-    private class Cached<T: Any?>(val data: T)
+    private class Cached<T : Any?>(val data: T)
 }

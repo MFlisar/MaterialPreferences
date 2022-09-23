@@ -2,8 +2,12 @@ package com.michaelflisar.materialpreferences.demo.settings
 
 import android.graphics.Color
 import com.michaelflisar.materialpreferences.core.SettingsModel
+import com.michaelflisar.materialpreferences.core.classes.SettingsGroup
 import com.michaelflisar.materialpreferences.core.initialisation.SettingSetup
+import com.michaelflisar.materialpreferences.core.interfaces.StorageSetting
 import com.michaelflisar.materialpreferences.datastore.DataStoreStorage
+import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.distinctUntilChanged
 
 object DemoSettingsModel : SettingsModel(
     DataStoreStorage(
@@ -25,6 +29,11 @@ object DemoSettingsModel : SettingsModel(
     val numberLong by longPref(100L)
     val numberFloat by floatPref(200.5f)
     val numberDouble by doublePref(300.5)
+
+    val numberSeekbarInt by intPref(50)
+    val numberSeekbarLong by longPref(50L)
+    val numberSeekbarFloat by floatPref(5f)
+    val numberSeekbarDouble by doublePref(5.0)
 
     val enableChild by boolPref(false)
     val childName1 by stringPref("Michael")
@@ -75,5 +84,38 @@ object DemoSettingsModel : SettingsModel(
     val nonNullableBool by boolPref()
     val nullableBool by nullableBoolPref()
 
-    val x by stringSetPref(setOf("a"))
+    // ----------------
+    // SPECIAL EXAMPLES - SettingsGroup
+    // ----------------
+
+    // Combine multiple settings in a single data class for convenience
+    // => SettingsGroup offers its own flow/value property
+    private val t1 by stringPref("t1")
+    private val t2 by intPref()
+    private val t3 by boolPref()
+    private val t4 by floatPref()
+    private val t5 by longPref()
+    val tGroup = SettingsGroup(t1, t2, t3, t4, t5) {
+        TestData.create(it)
+    }
+
+    data class TestData(
+        val test: String,
+        val testInt: Int,
+        val testBool: Boolean,
+        val testFloat: Float,
+        val testLong: Long
+    ) {
+        companion object {
+            fun create(data: List<Any?>) = TestData(
+                data[0] as String,
+                data[1] as Int,
+                data[2] as Boolean,
+                data[3] as Float,
+                data[4] as Long,
+            )
+        }
+    }
+
+
 }

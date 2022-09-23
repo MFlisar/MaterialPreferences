@@ -19,3 +19,5 @@ include ':screen-choice'
 project(':screen-choice').projectDir = new File(settingsDir, 'library-preference-screen-choice')
 include ':screen-color'
 project(':screen-color').projectDir = new File(settingsDir, 'library-preference-screen-color')
+include ':screen-slider'
+project(':screen-slider').projectDir = new File(settingsDir, 'library-preference-screen-slider')

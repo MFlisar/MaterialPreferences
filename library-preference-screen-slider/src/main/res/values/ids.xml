@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <item type="id" name="pref_seekbar_int" />
+    <item type="id" name="pref_seekbar_long" />
+    <item type="id" name="pref_seekbar_float" />
+    <item type="id" name="pref_seekbar_double" />
+
+</resources>

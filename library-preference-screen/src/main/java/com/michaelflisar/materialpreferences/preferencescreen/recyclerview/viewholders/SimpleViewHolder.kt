@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.michaelflisar.materialpreferences.preferencescreen.ScreenUtil
-import com.michaelflisar.materialpreferences.preferencescreen.databinding.PreferenceBinding
+import com.michaelflisar.materialpreferences.preferencescreen.databinding.PreferenceWithWidgetSmallBinding
 import com.michaelflisar.materialpreferences.preferencescreen.interfaces.PreferenceItem
 import com.michaelflisar.materialpreferences.preferencescreen.preferences.SubScreen
 import com.michaelflisar.materialpreferences.preferencescreen.recyclerview.PreferenceAdapter
@@ -14,8 +14,8 @@ class SimpleViewHolder(
     inflater: LayoutInflater,
     parent: ViewGroup,
     override val adapter: PreferenceAdapter
-) : BaseViewHolder<PreferenceBinding, PreferenceItem>(
-    PreferenceBinding.inflate(
+) : BaseViewHolder<PreferenceWithWidgetSmallBinding, PreferenceItem>(
+    PreferenceWithWidgetSmallBinding.inflate(
         inflater,
         parent,
         false

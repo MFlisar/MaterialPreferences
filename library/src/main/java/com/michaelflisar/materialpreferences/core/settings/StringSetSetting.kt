@@ -1,17 +1,15 @@
 package com.michaelflisar.materialpreferences.core.settings
 
 import com.michaelflisar.materialpreferences.core.SettingsModel
-import com.michaelflisar.materialpreferences.core.initialisation.SettingSetup
 import com.michaelflisar.materialpreferences.core.interfaces.Storage
 import com.michaelflisar.materialpreferences.core.interfaces.StorageSetting
-import kotlinx.coroutines.flow.Flow
 import kotlin.reflect.KProperty
 
 internal class StringSetSetting(
-        private val model: SettingsModel,
-        override val defaultValue: Set<String>,
-        override val customKey: String?,
-        override val cache: Boolean
+    private val model: SettingsModel,
+    override val defaultValue: Set<String>,
+    override val customKey: String?,
+    override val cache: Boolean
 ) : AbstractSetting<Set<String>>() {
 
     private var name: String? = null
@@ -35,8 +33,8 @@ internal class StringSetSetting(
 
     /* Delegate */
     override fun getValue(
-            thisRef: SettingsModel,
-            property: KProperty<*>
+        thisRef: SettingsModel,
+        property: KProperty<*>
     ): StorageSetting<Set<String>> {
         init(property.name)
         return this

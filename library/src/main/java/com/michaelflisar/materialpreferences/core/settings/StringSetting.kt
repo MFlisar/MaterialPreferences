@@ -1,14 +1,13 @@
 package com.michaelflisar.materialpreferences.core.settings
 
 import com.michaelflisar.materialpreferences.core.SettingsModel
-import com.michaelflisar.materialpreferences.core.initialisation.SettingSetup
 import com.michaelflisar.materialpreferences.core.interfaces.Storage
 import com.michaelflisar.materialpreferences.core.interfaces.StorageSetting
 import kotlinx.coroutines.flow.Flow
 import kotlin.reflect.KProperty
 
 internal abstract class BaseStringSetting<T : String?>(
-        private val model: SettingsModel
+    private val model: SettingsModel
 ) : AbstractSetting<T>() {
 
     private var name: String? = null
@@ -32,8 +31,8 @@ internal abstract class BaseStringSetting<T : String?>(
 
     /* Delegate */
     override fun getValue(
-            thisRef: SettingsModel,
-            property: KProperty<*>
+        thisRef: SettingsModel,
+        property: KProperty<*>
     ): StorageSetting<T> {
         init(property.name)
         return this
@@ -41,15 +40,15 @@ internal abstract class BaseStringSetting<T : String?>(
 }
 
 internal class StringSetting(
-        model: SettingsModel,
-        override val defaultValue: String,
-        override val customKey: String?,
-        override val cache: Boolean
+    model: SettingsModel,
+    override val defaultValue: String,
+    override val customKey: String?,
+    override val cache: Boolean
 ) : BaseStringSetting<String>(model)
 
 internal class NullableStringSetting(
-        model: SettingsModel,
-        override val defaultValue: String?,
-        override val customKey: String?,
-        override val cache: Boolean
+    model: SettingsModel,
+    override val defaultValue: String?,
+    override val customKey: String?,
+    override val cache: Boolean
 ) : BaseStringSetting<String?>(model)
