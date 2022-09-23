@@ -15,6 +15,7 @@ import com.michaelflisar.dialogs.interfaces.IMaterialDialogEvent
 import com.michaelflisar.dialogs.onMaterialDialogEvent
 import com.michaelflisar.dialogs.showBottomSheetDialogFragment
 import com.michaelflisar.dialogs.showDialogFragment
+import com.michaelflisar.materialpreferences.core.interfaces.StorageSetting
 import com.michaelflisar.materialpreferences.preferencescreen.*
 import com.michaelflisar.materialpreferences.preferencescreen.interfaces.PreferenceItem
 import com.michaelflisar.materialpreferences.preferencescreen.preferences.SubScreen
@@ -92,6 +93,13 @@ class PreferenceAdapter(
         val index = currentList.indexOf(item)
         if (index >= 0)
             notifyItemChanged(index)
+    }
+
+    fun notifyItemChanged(item: StorageSetting<*>) {
+        val items = currentList.filter { it is PreferenceItem.PreferenceWithData<*> && it.setting == item }
+        items.forEach {
+            notifyItemChanged(it)
+        }
     }
 
     override fun getItemViewType(position: Int) = currentList[position].type

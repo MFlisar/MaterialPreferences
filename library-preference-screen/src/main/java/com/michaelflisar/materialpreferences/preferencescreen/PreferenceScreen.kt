@@ -9,6 +9,7 @@ import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.michaelflisar.materialpreferences.core.interfaces.StorageSetting
 import com.michaelflisar.materialpreferences.preferencescreen.interfaces.PreferenceItem
 import com.michaelflisar.materialpreferences.preferencescreen.recyclerview.PreferenceAdapter
 
@@ -67,6 +68,10 @@ class PreferenceScreen(
     }
 
     fun notifyItemChanged(item: PreferenceItem) {
+        adapter.notifyItemChanged(item)
+    }
+
+    fun notifyItemChanged(item: StorageSetting<*>) {
         adapter.notifyItemChanged(item)
     }
 }
