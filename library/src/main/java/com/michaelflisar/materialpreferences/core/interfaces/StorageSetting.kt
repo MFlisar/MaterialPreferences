@@ -52,4 +52,8 @@ interface StorageSetting<T : Any?> : ReadOnlyProperty<SettingsModel, StorageSett
             }
         }
         .launchIn(scope)
+
+    suspend fun reset() {
+        update(defaultValue)
+    }
 }
