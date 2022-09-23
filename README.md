@@ -147,6 +147,7 @@ lifecycleScope.launch(Dispatchers.IO)  {
 | | | | |
 | :---: | :---: | :---: | :---: |
 | ![Demo](screenshots/preference-screen-1.jpg?raw=true "Demo") | ![Demo](screenshots/preference-screen-2.jpg?raw=true "Demo") | ![Demo](screenshots/preference-screen-3.jpg?raw=true "Demo") | ![Demo](screenshots/preference-screen-4.jpg?raw=true "Demo") |
+| ![Demo](screenshots/preference-screen-5.jpg?raw=true "Demo") | ![Demo](screenshots/preference-screen-6.jpg?raw=true "Demo") |  |  |
 
 # Modules
 
