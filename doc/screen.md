@@ -40,7 +40,7 @@ Generally the manual approach works as simple as following:
 
 Here's an example:
 
-https://github.com/MFlisar/MaterialPreferences/blob/dad0db4565464905da10d4dd17f0ba6a3d92ee0e/demo/src/main/java/com/michaelflisar/materialpreferences/demo/activities/CustomSettingsActivity.kt#L15-105
+https://github.com/MFlisar/MaterialPreferences/blob/bd25854fff6e23a826998013fdf5356fdc9b3bb0/demo/src/main/java/com/michaelflisar/materialpreferences/demo/activities/CustomSettingsActivity.kt#L15-L105
 
 # Example - Screen
 
