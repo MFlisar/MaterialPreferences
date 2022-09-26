@@ -8,7 +8,6 @@ import com.michaelflisar.lumberjack.L
 import com.michaelflisar.materialpreferences.demo.DemoSettings
 import com.michaelflisar.materialpreferences.demo.databinding.ActivityDemoBinding
 import com.michaelflisar.materialpreferences.demo.settings.DemoSettingsModel
-import com.michaelflisar.materialpreferences.preferencescreen.activity.SettingsActivity
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
@@ -42,7 +41,10 @@ class DemoActivity : AppCompatActivity() {
         // -----------------------
 
         // we drop the first item (the current state)
-        DemoSettingsModel.darkTheme.observe(lifecycleScope, transformer = { it.drop(1) }) {
+        DemoSettingsModel.darkTheme.observe(
+            lifecycleScope,
+            transformer = { it.drop(1) }
+        ) {
             recreate = true
             L.d { "darkTheme changed" }
         }
@@ -56,12 +58,12 @@ class DemoActivity : AppCompatActivity() {
         }.launchIn(lifecycleScope)
 
         DemoSettingsModel.changes
-                .filter {
-                    it.setting == DemoSettingsModel.darkTheme ||
-                            it.setting == DemoSettingsModel.testBool
-                }.onEach {
-                    L.d { "[SOME SETTINGS OBSERVER] Setting '${it.setting.key}' changed its value to '${it.value}'" }
-                }.launchIn(lifecycleScope)
+            .filter {
+                it.setting == DemoSettingsModel.darkTheme ||
+                        it.setting == DemoSettingsModel.testBool
+            }.onEach {
+                L.d { "[SOME SETTINGS OBSERVER] Setting '${it.setting.key}' changed its value to '${it.value}'" }
+            }.launchIn(lifecycleScope)
 
         // -----------------------
         // NOT RECOMMENDED - only use this if really necessary
@@ -76,7 +78,8 @@ class DemoActivity : AppCompatActivity() {
         // -----------------------
 
         DemoSettingsModel.test.observeOnce(lifecycleScope) {
-            binding.tvText1.text = binding.tvText1.text.toString() + "\n[NON BLOCKING READ] test = $it"
+            binding.tvText1.text =
+                binding.tvText1.text.toString() + "\n[NON BLOCKING READ] test = $it"
         }
 
         // -----------------------
@@ -97,7 +100,10 @@ class DemoActivity : AppCompatActivity() {
             val name3 = DemoSettingsModel.childName3.flow.first()
             val names = listOf(name1, name2, name3)
             withContext(Dispatchers.Main) {
-                binding.tvText1.text = binding.tvText1.text.toString() + "\n[SUSPENDED FLOW READ] Childrens: ${names.joinToString(", ")}"
+                binding.tvText1.text =
+                    binding.tvText1.text.toString() + "\n[SUSPENDED FLOW READ] Childrens: ${
+                        names.joinToString(", ")
+                    }"
             }
         }
 
