@@ -35,6 +35,7 @@ dependencies {
     implementation "com.github.MFlisar.MaterialPreferences:screen-choice:<LATEST-VERSION>"
     implementation "com.github.MFlisar.MaterialPreferences:screen-color:<LATEST-VERSION>"
     implementation "com.github.MFlisar.MaterialPreferences:screen-slider:<LATEST-VERSION>"
+    implementation "com.github.MFlisar.MaterialPreferences:screen-image:<LATEST-VERSION>"
 }
 ```
 
