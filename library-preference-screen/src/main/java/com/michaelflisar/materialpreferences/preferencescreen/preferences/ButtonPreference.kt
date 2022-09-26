@@ -15,7 +15,7 @@ class ButtonPreference : BasePreferenceItem(), PreferenceItem.ClickablePreferenc
     companion object : ViewHolderFactory.ViewHolderCreator {
         val TYPE = R.id.pref_button
         override fun createViewHolder(adapter: PreferenceAdapter, layoutInflater: LayoutInflater, parent: ViewGroup) =
-                SimpleViewHolder(layoutInflater, parent, adapter)
+            SimpleViewHolder(layoutInflater, parent, adapter)
     }
 
     override val type = TYPE

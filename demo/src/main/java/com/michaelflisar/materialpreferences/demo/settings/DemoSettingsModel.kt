@@ -45,6 +45,9 @@ object DemoSettingsModel : SettingsModel(
     val showChildName2 by stringPref("Thomas")
     val showChildName3 by stringPref("Christian")
 
+    val image by stringPref("")
+    val image2 by intPref(-1)
+
     val choiceSingle by intPref(0)
     val choiceSingle2 by intPref(0)
     val choiceSingle3 by intPref(0)

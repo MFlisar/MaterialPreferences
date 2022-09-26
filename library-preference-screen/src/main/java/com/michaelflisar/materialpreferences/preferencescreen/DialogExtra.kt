@@ -5,5 +5,6 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 class DialogExtra(
-    val key: String
+    val key: String,
+    val extra: Parcelable? = null
 ) : Parcelable

@@ -7,10 +7,10 @@ import android.text.InputType
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
-import androidx.lifecycle.lifecycleScope
 import com.michaelflisar.lumberjack.L
-import com.michaelflisar.materialpreferences.core.interfaces.StorageSetting
 import com.michaelflisar.materialpreferences.demo.activities.CustomSettingsActivity
+import com.michaelflisar.materialpreferences.demo.apps.DemoImagePreferenceHandler
+import com.michaelflisar.materialpreferences.demo.apps.DemoImagePreferenceHandler2
 import com.michaelflisar.materialpreferences.demo.settings.DemoSettingsModel
 import com.michaelflisar.materialpreferences.demo.settings.TestEnum
 import com.michaelflisar.materialpreferences.preferencescreen.*
@@ -28,6 +28,7 @@ import com.michaelflisar.materialpreferences.preferencescreen.color.color
 import com.michaelflisar.materialpreferences.preferencescreen.dependencies.Dependency
 import com.michaelflisar.materialpreferences.preferencescreen.dependencies.asDependency
 import com.michaelflisar.materialpreferences.preferencescreen.enums.NoIconVisibility
+import com.michaelflisar.materialpreferences.preferencescreen.image.image
 import com.michaelflisar.materialpreferences.preferencescreen.input.input
 import com.michaelflisar.materialpreferences.preferencescreen.interfaces.IScreenCreator
 import com.michaelflisar.materialpreferences.preferencescreen.slider.slider
@@ -320,7 +321,7 @@ object DemoSettings {
                     min = 0f
                     max = 100f
                     stepSize = 0.5f
-                    labelFormatter = { String.format("%.1f", it)}
+                    labelFormatter = { String.format("%.1f", it) }
                 }
                 slider(DemoSettingsModel.numberSeekbarDouble) {
                     title = "Seekbar Double".asText()
@@ -329,7 +330,7 @@ object DemoSettings {
                     min = 0.0
                     max = 100.0
                     stepSize = 0.5
-                    labelFormatter = { String.format("%.1f", it)}
+                    labelFormatter = { String.format("%.1f", it) }
                 }
             }
 
@@ -559,11 +560,17 @@ object DemoSettings {
             subScreen {
                 title = "Various".asText()
                 icon = R.drawable.ic_baseline_format_list_bulleted_24.asIcon()
+                category {
+                    title = "Customisation".asText()
+                }
                 button {
                     title = "Button".asText()
                     summary = "Custom Badge Colors".asText()
                     icon = R.drawable.ic_baseline_touch_app_24.asIcon()
                     badge = Badge.Text("Test".asText(), Color.GREEN)
+                }
+                category {
+                    title = "Icon Visibility".asText()
                 }
                 button {
                     title = "Button".asText()
@@ -574,6 +581,25 @@ object DemoSettings {
                     title = "Button".asText()
                     summary = "No Icon Visibility GONE".asText()
                     noIconVisibility = NoIconVisibility.Gone
+                }
+                category {
+                    title = "Special Types".asText()
+                }
+                image(
+                    DemoSettingsModel.image,
+                    DemoImagePreferenceHandler
+                ) {
+                    title = "Image (stored by package name)".asText()
+                    summary = "Select App:\n%s".asText()
+                    icon = R.drawable.ic_baseline_image_24.asIcon()
+                }
+                image(
+                    DemoSettingsModel.image2,
+                    DemoImagePreferenceHandler2
+                ) {
+                    title = "Image (stored by index)".asText()
+                    summary = "Select App:\n%d".asText()
+                    icon = R.drawable.ic_baseline_image_24.asIcon()
                 }
             }
 
@@ -592,11 +618,14 @@ object DemoSettings {
                 badge = "PRO".asBatch()
                 canChange = {
                     // we can't change this settings, it's enabled but will only work in the pro version
-                    activity.showMessage(
-                        "Changing this setting is disabled via 'canChange' function!",
-                        Toast.LENGTH_LONG
-                    )
-                    false
+                    val isPro = false
+                    if (!isPro) {
+                        activity.showMessage(
+                            "Changing this setting is disabled via 'canChange' function!",
+                            Toast.LENGTH_LONG
+                        )
+                    }
+                    isPro
                 }
                 onChanged = {
                     activity.showMessage("Pro feature changed (this should never be called!): $it")
