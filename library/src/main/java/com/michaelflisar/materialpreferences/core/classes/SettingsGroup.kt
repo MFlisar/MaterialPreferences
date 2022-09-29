@@ -21,4 +21,13 @@ class SettingsGroup<T>(
 
     val value: T
         get() = converter(settings.map { it.value })
+
+    suspend fun reset(): List<StorageSetting<*>> {
+        val settingsToReset = ArrayList<StorageSetting<*>>()
+        settings.forEach {
+            if (it.reset())
+                settingsToReset.add(it)
+        }
+        return settingsToReset
+    }
 }
