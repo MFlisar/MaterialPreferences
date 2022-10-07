@@ -29,7 +29,7 @@ abstract class InputNumberViewHolder<T : Number, P : InputNumberPreference<T>>(
             -1,
             title = preference.title,
             initialValue = value.toString().asText(),
-            initiallySelectAll = preference.initiallySelectAll,
+            initialState = preference.initialDialogInputState.dialogState,
             hint = preference.hint,
             inputType = dialogInputType,
             validator = SimpleInputNumberValidator(preference.min, preference.max),

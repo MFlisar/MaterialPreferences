@@ -2,6 +2,7 @@ package com.michaelflisar.materialpreferences.preferencescreen.input.number.base
 
 import com.michaelflisar.materialpreferences.core.interfaces.StorageSetting
 import com.michaelflisar.materialpreferences.preferencescreen.PreferenceScreenConfig
+import com.michaelflisar.materialpreferences.preferencescreen.input.InputState
 import com.michaelflisar.materialpreferences.preferencescreen.interfaces.PreferenceItem
 import com.michaelflisar.materialpreferences.preferencescreen.preferences.BasePreferenceItem
 import com.michaelflisar.text.Text
@@ -12,7 +13,7 @@ abstract class InputNumberPreference<T : Number>(
 ) : BasePreferenceItem(), PreferenceItem.PreferenceWithData<T>, PreferenceItem.PreferenceDialog<T> {
     override var summary: Text = "%s".asText()
     var hint: Text = "".asText()
-    var initiallySelectAll: Boolean = false
+    var initialDialogInputState: InputState = InputState.None
     abstract var defaultValue: T
     abstract var min: T
     abstract var max: T
