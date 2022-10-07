@@ -22,7 +22,7 @@ class InputStringPreference(
     var textInputType: Int? = null
     var hint: Text = "".asText()
     var allowEmpty: Boolean = true
-    var initialDialogInputState: InputState = InputState.None
+    var initialInputState: InputState = InputState.None
     override var bottomSheet: Boolean = PreferenceScreenConfig.bottomSheet
     override var canChange: (value: String) -> Boolean = { true }
     override var onChanged: ((value: String) -> Unit)? = null
