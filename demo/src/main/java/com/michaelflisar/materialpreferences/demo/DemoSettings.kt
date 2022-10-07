@@ -246,6 +246,7 @@ object DemoSettings {
                     icon = R.drawable.ic_baseline_text_fields_24.asIcon()
                     summary = "Insert ANY text\n(value = %s)".asText()
                     hint = "Insert a value...".asText()
+                    initiallySelectAll = true
                 }
                 input(DemoSettingsModel.text2) {
                     title = "Input 2".asText()

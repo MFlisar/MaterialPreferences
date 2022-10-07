@@ -40,6 +40,7 @@ class InputStringViewHolder(
             -1,
             title = preference.title,
             initialValue = value.asText(),
+            initiallySelectAll = preference.initiallySelectAll,
             hint = preference.hint,
             inputType = preference.textInputType ?: InputType.TYPE_CLASS_TEXT,
             validator = DialogInput.createSimpleValidator(if (preference.allowEmpty) null else 1),

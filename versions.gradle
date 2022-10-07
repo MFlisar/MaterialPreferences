@@ -24,12 +24,12 @@ ext {
     ]
 
     versions = [
-            kotlinVersion  : "1.7.10",
+            kotlinVersion  : "1.7.20",
             gradlePlugin   : "7.2.2",
             mavenVersion   : "2.0",
 
             lumberjack     : "5.2.5",
             androidText    : "1.2",
-            materialDialogs: "0.3.5"
+            materialDialogs: "0.3.6"
     ]
 }

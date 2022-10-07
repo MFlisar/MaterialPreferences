@@ -12,6 +12,7 @@ abstract class InputNumberPreference<T : Number>(
 ) : BasePreferenceItem(), PreferenceItem.PreferenceWithData<T>, PreferenceItem.PreferenceDialog<T> {
     override var summary: Text = "%s".asText()
     var hint: Text = "".asText()
+    var initiallySelectAll: Boolean = false
     abstract var defaultValue: T
     abstract var min: T
     abstract var max: T
