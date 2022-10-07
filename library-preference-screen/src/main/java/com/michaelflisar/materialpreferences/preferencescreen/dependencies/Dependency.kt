@@ -9,7 +9,7 @@ import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.withContext
 import kotlin.coroutines.CoroutineContext
 
-interface Dependency<T : Any> {
+interface Dependency<T : Any?> {
 
     val setting: StorageSetting<T>
 
