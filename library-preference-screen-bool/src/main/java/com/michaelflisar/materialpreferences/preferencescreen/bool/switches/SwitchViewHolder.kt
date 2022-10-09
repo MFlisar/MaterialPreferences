@@ -19,8 +19,7 @@ class SwitchViewHolder(
         inflater: LayoutInflater,
         parent: ViewGroup,
         attachToParent: Boolean
-    ) =
-        WidgetSwitchBinding.inflate(inflater, parent, attachToParent)
+    ) = WidgetSwitchBinding.inflate(inflater, parent, attachToParent)
 
     override fun bindWidget(preference: SwitchPreference, rebind: Boolean) {
         subBinding.switchWidget.isChecked = value

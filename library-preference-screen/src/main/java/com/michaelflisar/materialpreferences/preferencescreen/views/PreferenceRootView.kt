@@ -15,19 +15,26 @@ class SettingsRootView @JvmOverloads constructor(
 
     companion object {
 
-        // material design: disabled text color is white with 50% opacity
+        // material design:
+        // - LIGHT THEME: disabled text color is white with 50% opacity
+        // - DARK THEME: disabled text color is black with 38% opacity
+        const val ALPHA_LIGHT = 97
+        const val ALPHA_DARK = 128
+
+        /*
         val PAINT_DARK_THEME = Paint().apply {
             val filter: ColorFilter = PorterDuffColorFilter(Color.WHITE, PorterDuff.Mode.SRC_ATOP)
             colorFilter = filter
-            alpha = 128
+            alpha = ALPHA_DARK
         }
 
-        // material design: disabled text color is black with 38% opacity
+
         val PAINT_LIGHT_THEME = Paint().apply {
             val filter: ColorFilter = PorterDuffColorFilter(Color.BLACK, PorterDuff.Mode.SRC_ATOP)
             colorFilter = filter
-            alpha = 97
+            alpha = ALPHA_LIGHT
         }
+        */
     }
 
     private var darkTheme = false
@@ -44,11 +51,13 @@ class SettingsRootView @JvmOverloads constructor(
         }
     }
 
-    private fun getPaint() = if (darkTheme) PAINT_DARK_THEME else PAINT_LIGHT_THEME
+    //private fun getPaint() = if (darkTheme) PAINT_DARK_THEME else PAINT_LIGHT_THEME
+    private fun getLayerAlpha() = if (darkTheme) ALPHA_DARK else ALPHA_LIGHT
 
     override fun dispatchDraw(canvas: Canvas) {
         if (!viewIsEnabled) {
-            canvas.saveLayer(null, getPaint(), Canvas.ALL_SAVE_FLAG)
+            //canvas.saveLayer(null, getPaint())
+            canvas.saveLayerAlpha(null, getLayerAlpha())
         }
         super.dispatchDraw(canvas)
         if (!viewIsEnabled) {

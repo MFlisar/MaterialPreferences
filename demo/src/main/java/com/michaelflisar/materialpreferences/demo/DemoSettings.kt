@@ -641,6 +641,13 @@ object DemoSettings {
                 badge = "PRO".asBatch()
                 enabled = false
             }
+            switch(DemoSettingsModel.proFeature3) {
+                title = "Pro Feature 3".asText()
+                icon = R.drawable.ic_baseline_phone_android_24.asIcon()
+                summary = "This setting is always disabled".asText()
+                badge = "PRO".asBatch()
+                enabled = false
+            }
         }
     }
 }

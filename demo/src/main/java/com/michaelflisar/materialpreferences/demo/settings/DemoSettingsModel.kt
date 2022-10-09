@@ -22,6 +22,7 @@ object DemoSettingsModel : SettingsModel(
     val color3 by intPref(Color.parseColor("#88000000"))
     val proFeature1 by boolPref(false)
     val proFeature2 by boolPref(false)
+    val proFeature3 by boolPref(true)
     val text1 by stringPref("Input 1")
     val text2 by stringPref("1234")
     val number1 by intPref(1234)
