@@ -1,6 +1,5 @@
 package com.michaelflisar.materialpreferences.demo.apps
 
-
 import android.widget.ImageView
 import com.michaelflisar.dialogs.interfaces.IListItem
 import com.michaelflisar.text.Text
@@ -14,8 +13,7 @@ data class AppListItem(
     val app: App
 ) : IListItem {
 
-    @IgnoredOnParcel
-    override val id = index.toLong()
+    override val listItemId = index.toLong()
 
     @IgnoredOnParcel
     override val text: Text = app.name.asText()

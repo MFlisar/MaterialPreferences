@@ -34,7 +34,7 @@ class SingleChoiceViewHolder<T : Any>(
             val first = event.selectedItems.firstOrNull()
             if (first != null) {
                 first as SimpleListItem
-                val index = first.id.toInt()
+                val index = first.listItemId.toInt()
                 update(preference.getChoiceValue(index), preference)
             }
         }

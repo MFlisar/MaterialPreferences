@@ -42,7 +42,7 @@ class MultiChoiceViewHolder(
         preference as MultiChoicePreference
         if (event is DialogList.Event.Result) {
             val items = event.selectedItems as List<SimpleListItem>
-            val indizes = items.map { it.id.toInt() }
+            val indizes = items.map { it.listItemId.toInt() }
             update(indizes.toSet(), preference)
         }
     }
