@@ -29,6 +29,8 @@ inline fun Screen.Appendable.category(block: CategoryHeaderPreference.() -> Unit
 
 inline fun Screen.Appendable.button(block: ButtonPreference.() -> Unit) = ButtonPreference().apply(block).also(::addPreferenceItem)
 
+inline fun Screen.Appendable.info(block: InfoPreference.() -> Unit) = InfoPreference().apply(block).also(::addPreferenceItem)
+
 // -------------
 // BUILDER
 // -------------

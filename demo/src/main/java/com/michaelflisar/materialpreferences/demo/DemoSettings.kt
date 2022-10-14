@@ -29,7 +29,6 @@ import com.michaelflisar.materialpreferences.preferencescreen.dependencies.Depen
 import com.michaelflisar.materialpreferences.preferencescreen.dependencies.asDependency
 import com.michaelflisar.materialpreferences.preferencescreen.enums.NoIconVisibility
 import com.michaelflisar.materialpreferences.preferencescreen.image.image
-import com.michaelflisar.materialpreferences.preferencescreen.input.InputState
 import com.michaelflisar.materialpreferences.preferencescreen.input.input
 import com.michaelflisar.materialpreferences.preferencescreen.interfaces.IScreenCreator
 import com.michaelflisar.materialpreferences.preferencescreen.slider.slider
@@ -247,7 +246,7 @@ object DemoSettings {
                     icon = R.drawable.ic_baseline_text_fields_24.asIcon()
                     summary = "Insert ANY text\n(value = %s)".asText()
                     hint = "Insert a value...".asText()
-                    initialInputState = InputState.SelectAll
+                    selectAllOnFocus = true
                 }
                 input(DemoSettingsModel.text2) {
                     title = "Input 2".asText()
@@ -647,6 +646,11 @@ object DemoSettings {
                 summary = "This setting is always disabled".asText()
                 badge = "PRO".asBatch()
                 enabled = false
+            }
+            info {
+                title = "App Version".asText()
+                icon = R.drawable.ic_baseline_info_24.asIcon()
+                summary = "v1.0".asText()
             }
         }
     }

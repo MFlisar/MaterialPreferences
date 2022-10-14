@@ -7,5 +7,6 @@
     <item type="id" name="pref_switch_compact" />
     <item type="id" name="pref_checkbox" />
     <item type="id" name="pref_button" />
+    <item type="id" name="pref_info" />
 
 </resources>

@@ -5,7 +5,6 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
 import com.michaelflisar.dialogs.DialogList
 import com.michaelflisar.dialogs.MaterialDialogSetup
-import com.michaelflisar.dialogs.classes.ItemProvider
 import com.michaelflisar.dialogs.interfaces.IMaterialDialogEvent
 import com.michaelflisar.materialpreferences.core.interfaces.StorageSetting
 import com.michaelflisar.materialpreferences.preferencescreen.DialogExtra
@@ -47,7 +46,7 @@ object DemoImagePreferenceHandler2 : ImagePreferenceHandler<Int> {
             // Important!!! this will make handling of this dialog event automatically filtered
             // and only this preference will receive its result!!
             extra = DialogExtra(setting.key),
-            itemsProvider = ItemProvider.ItemLoader(AppsManager),
+            items = DialogList.Items.Loader(AppsManager),
             selectionMode = DialogList.SelectionMode.SingleClick,
             filter = null
         )

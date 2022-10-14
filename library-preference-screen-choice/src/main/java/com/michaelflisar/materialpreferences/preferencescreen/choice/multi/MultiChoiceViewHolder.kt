@@ -5,7 +5,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.viewbinding.ViewBinding
 import com.michaelflisar.dialogs.DialogList
-import com.michaelflisar.dialogs.classes.SimpleListItem
 import com.michaelflisar.dialogs.interfaces.IMaterialDialogEvent
 import com.michaelflisar.materialpreferences.preferencescreen.DialogExtra
 import com.michaelflisar.materialpreferences.preferencescreen.ScreenUtil
@@ -41,7 +40,7 @@ class MultiChoiceViewHolder(
         event as DialogList.Event
         preference as MultiChoicePreference
         if (event is DialogList.Event.Result) {
-            val items = event.selectedItems as List<SimpleListItem>
+            val items = event.selectedItems as List<DialogList.SimpleListItem>
             val indizes = items.map { it.listItemId.toInt() }
             update(indizes.toSet(), preference)
         }
@@ -51,7 +50,7 @@ class MultiChoiceViewHolder(
         val dlg = DialogList(
             -1,
             title = preference.title,
-            itemsProvider = DialogList.createItemProviderFromTexts(preference.choices.map { it.label }),
+            items = DialogList.createList(preference.choices.map { it.label }),
             selectionMode = DialogList.SelectionMode.MultiSelect(
                 value.toIntArray().map { it.toLong() }.toSortedSet()
             ),

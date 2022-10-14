@@ -39,11 +39,13 @@ class InputStringViewHolder(
         val dlg = DialogInput(
             -1,
             title = preference.title,
-            initialValue = value.asText(),
-            initialState = preference.initialInputState.dialogState,
-            hint = preference.hint,
-            inputType = preference.textInputType ?: InputType.TYPE_CLASS_TEXT,
-            validator = DialogInput.createSimpleValidator(if (preference.allowEmpty) null else 1),
+            input = DialogInput.Input.Single(
+                value = value.asText(),
+                hint = preference.hint,
+                inputType = preference.textInputType ?: InputType.TYPE_CLASS_TEXT,
+                validator = DialogInput.TextValidator(if (preference.allowEmpty) null else 1)
+            ),
+            selectAllOnFocus = preference.selectAllOnFocus,
             buttonPositive = android.R.string.ok.asText(),
             extra = DialogExtra(preference.setting.key)
         )

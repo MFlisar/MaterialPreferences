@@ -16,6 +16,7 @@ object ViewHolderFactory {
         register(SubScreen.TYPE, SubScreen.Companion)
         register(CategoryHeaderPreference.TYPE, CategoryHeaderPreference.Companion)
         register(ButtonPreference.TYPE, ButtonPreference.Companion)
+        register(InfoPreference.TYPE, InfoPreference.Companion)
 
     }
 

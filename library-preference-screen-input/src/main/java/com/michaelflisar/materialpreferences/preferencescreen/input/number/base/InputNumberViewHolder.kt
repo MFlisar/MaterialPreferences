@@ -4,7 +4,6 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.viewbinding.ViewBinding
 import com.michaelflisar.dialogs.DialogInput
-import com.michaelflisar.dialogs.classes.SimpleInputNumberValidator
 import com.michaelflisar.materialpreferences.preferencescreen.DialogExtra
 import com.michaelflisar.materialpreferences.preferencescreen.recyclerview.PreferenceAdapter
 import com.michaelflisar.materialpreferences.preferencescreen.recyclerview.viewholders.base.BaseDialogViewHolder
@@ -28,11 +27,13 @@ abstract class InputNumberViewHolder<T : Number, P : InputNumberPreference<T>>(
         val dlg = DialogInput(
             -1,
             title = preference.title,
-            initialValue = value.toString().asText(),
-            initialState = preference.initialInputState.dialogState,
-            hint = preference.hint,
-            inputType = dialogInputType,
-            validator = SimpleInputNumberValidator(preference.min, preference.max),
+            input = DialogInput.Input.Single(
+                value = value.toString().asText(),
+                hint = preference.hint,
+                inputType = dialogInputType,
+                validator = DialogInput.NumberValidator(preference.min, preference.max)
+            ),
+            selectAllOnFocus = preference.selectAllOnFocus,
             buttonPositive = android.R.string.ok.asText(),
             extra = DialogExtra(preference.setting.key)
         )

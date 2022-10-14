@@ -5,8 +5,6 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
 import com.michaelflisar.dialogs.DialogList
 import com.michaelflisar.dialogs.MaterialDialogSetup
-import com.michaelflisar.dialogs.classes.ItemProvider
-import com.michaelflisar.dialogs.classes.SimpleFilter
 import com.michaelflisar.dialogs.interfaces.IMaterialDialogEvent
 import com.michaelflisar.materialpreferences.core.interfaces.StorageSetting
 import com.michaelflisar.materialpreferences.preferencescreen.DialogExtra
@@ -43,13 +41,13 @@ object DemoImagePreferenceHandler : ImagePreferenceHandler<String> {
             // Important!!! this will make handling of this dialog event automatically filtered
             // and only this preference will receive its result!!
             extra = DialogExtra(setting.key),
-            itemsProvider = ItemProvider.ItemLoader(AppsManager),
+            items = DialogList.Items.Loader(AppsManager),
             selectionMode = DialogList.SelectionMode.SingleClick,
-            filter = SimpleFilter(
+            filter = DialogList.Filter(
                 searchInText = true,
                 searchInSubText = true,
                 highlight = true, // highlights search term in items
-                algorithm = SimpleFilter.Algorithm.String, // either search for items containing all words or the search term as a whole
+                algorithm = DialogList.Filter.Algorithm.String, // either search for items containing all words or the search term as a whole
                 ignoreCase = true,
                 unselectInvisibleItems = true // true means, items are unselected as soon as they are filtered out and get invisible for the user
             )

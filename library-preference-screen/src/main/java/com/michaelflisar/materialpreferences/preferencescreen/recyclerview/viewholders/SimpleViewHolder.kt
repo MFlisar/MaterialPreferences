@@ -35,15 +35,21 @@ class SimpleViewHolder(
         if (preference is PreferenceItem.PreferenceWithSummary) {
             ScreenUtil.display(preference.summary, binding.summary, View.GONE)
         }
-        if (!rebind) {
+        if (!rebind && isClickable(preference)) {
             binding.root.setOnClickListener {
                 onClick(preference)
             }
         }
     }
 
+    private fun isClickable(preference: PreferenceItem): Boolean {
+        return preference is PreferenceItem.ClickablePreference || preference is SubScreen
+    }
+
     private fun onClick(preference: PreferenceItem) {
-        (preference as? PreferenceItem.ClickablePreference)?.onClick?.invoke()
+        if (preference is PreferenceItem.ClickablePreference) {
+            preference.onClick?.invoke()
+        }
         if (preference is SubScreen) {
             adapter.onSubScreenClicked(preference)
         }
