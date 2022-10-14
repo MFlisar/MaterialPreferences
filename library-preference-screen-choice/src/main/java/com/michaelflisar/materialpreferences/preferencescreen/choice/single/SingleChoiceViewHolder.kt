@@ -54,7 +54,8 @@ class SingleChoiceViewHolder<T : Any>(
                 preference.getChoiceLabels(itemView.context).map { it.asText() }
             ),
             selectionMode = DialogList.SelectionMode.SingleSelect(
-                preference.getSelectedIndex().toLong(), preference.closeOnSelect
+                preference.getSelectedIndex().toLong(),
+                preference.closeOnSelect
             ),
             buttonPositive = android.R.string.ok.asText(),
             extra = DialogExtra(preference.setting.key)
