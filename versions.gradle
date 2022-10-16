@@ -29,7 +29,7 @@ ext {
             mavenVersion   : "2.0",
 
             lumberjack     : "5.2.5",
-            androidText    : "1.2", 
-            materialDialogs: "ec476ade09"
+            androidText    : "1.2",
+            materialDialogs: "3a673bb853"
     ]
 }
