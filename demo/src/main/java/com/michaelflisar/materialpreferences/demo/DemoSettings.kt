@@ -603,9 +603,9 @@ object DemoSettings {
                     icon = R.drawable.ic_baseline_image_24.asIcon()
                 }
                 info {
-                    title = "Simple non clickable info preference".asText()
+                    title = "Build Number".asText()
                     icon = R.drawable.ic_baseline_info_24.asIcon()
-                    summary = "Some static information".asText()
+                    summary = "1.0.0".asText()
                 }
             }
 
