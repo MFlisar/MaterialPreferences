@@ -602,6 +602,11 @@ object DemoSettings {
                     summary = "Select App:\n%d".asText()
                     icon = R.drawable.ic_baseline_image_24.asIcon()
                 }
+                info {
+                    title = "Simple non clickable info preference".asText()
+                    icon = R.drawable.ic_baseline_info_24.asIcon()
+                    summary = "Some static information".asText()
+                }
             }
 
             // -----------------
