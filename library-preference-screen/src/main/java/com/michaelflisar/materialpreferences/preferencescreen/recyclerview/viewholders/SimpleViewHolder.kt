@@ -39,6 +39,8 @@ class SimpleViewHolder(
             binding.root.setOnClickListener {
                 onClick(preference)
             }
+        } else {
+            binding.root.isClickable = false
         }
     }
 
