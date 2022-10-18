@@ -7,6 +7,6 @@ import com.michaelflisar.materialpreferences.core.interfaces.StorageSetting
 
 interface ImagePreferenceHandler<T: Any> {
     fun displayData(data: T, imageView: ImageView)
-    fun createDialog(setting: StorageSetting<T>): MaterialDialogSetup<*, *, *>
+    fun createDialog(setting: StorageSetting<T>): MaterialDialogSetup<*>
     fun onDialogEvent(event: IMaterialDialogEvent): T?
 }

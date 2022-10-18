@@ -33,7 +33,7 @@ object DemoImagePreferenceHandler : ImagePreferenceHandler<String> {
         }
     }
 
-    override fun createDialog(setting: StorageSetting<String>): MaterialDialogSetup<*, *, *> {
+    override fun createDialog(setting: StorageSetting<String>): MaterialDialogSetup<*> {
         return DialogList(
             -1,
             title = "Image".asText(),

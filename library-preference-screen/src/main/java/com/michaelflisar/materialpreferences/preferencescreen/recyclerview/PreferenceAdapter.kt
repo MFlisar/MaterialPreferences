@@ -234,9 +234,9 @@ class PreferenceAdapter(
         return SavedState(ArrayList(fullStack.toList()))
     }
 
-    fun <S : MaterialDialogSetup<S, B, E>, B : ViewBinding, E : IMaterialDialogEvent> showDialog(
+    fun <S : MaterialDialogSetup<S>> showDialog(
         preference: PreferenceItem.PreferenceDialog<*>,
-        dialog: MaterialDialogSetup<S, B, E>
+        dialog: MaterialDialogSetup<S>
     ) {
         if (preference.bottomSheet)
             dialog.showBottomSheetDialogFragment(fragmentManager)
