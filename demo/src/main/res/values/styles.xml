@@ -1,6 +1,28 @@
 <resources>
 
     <style name="AppTheme" parent="Theme.Material3.DayNight.NoActionBar">
+        <!--
+        <item name="textAppearanceBody2">@style/TextAppearance.App.Body2</item>
+        <item name="textAppearanceListItem">@style/TextAppearance.App.ListItem</item>
+        <item name="textAppearanceListItemSecondary">@style/TextAppearance.App.ListItemSecondary</item>
+        -->
     </style>
+
+    <!--
+    <style name="TextAppearance.App.Body2" parent="TextAppearance.MaterialComponents.Body2">
+        <item name="fontFamily">sans-serif-condensed-medium</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="TextAppearance.App.ListItem" parent="TextAppearance.Material3.TitleMedium">
+        <item name="fontFamily">sans-serif-condensed-medium</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="TextAppearance.App.ListItemSecondary" parent="TextAppearance.Material3.BodyMedium">
+        <item name="fontFamily">sans-serif-condensed-medium</item>
+        <item name="android:textSize">10sp</item>
+    </style>
+    -->
 
 </resources>
