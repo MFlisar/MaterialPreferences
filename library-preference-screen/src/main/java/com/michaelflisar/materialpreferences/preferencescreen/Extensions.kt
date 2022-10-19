@@ -1,20 +1,13 @@
 package com.michaelflisar.materialpreferences.preferencescreen
 
-import android.animation.Animator
-import android.animation.AnimatorListenerAdapter
 import android.content.Context
 import android.content.res.Resources
 import android.graphics.Color
-import android.util.Log
 import android.util.TypedValue
 import android.view.View
 import androidx.annotation.ColorInt
-import androidx.core.view.OneShotPreDrawListener
-import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.coroutines.suspendCancellableCoroutine
-
 
 internal fun Context.isUsingDarkTheme(): Boolean {
     val color = resolve(android.R.attr.colorBackground)
