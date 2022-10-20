@@ -45,11 +45,11 @@
 
     <TextView
         android:id="@android:id/title"
+        style="@style/MaterialPreferences.Preferences.Title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:ellipsize="end"
-        android:textAppearance="?textAppearanceListItem"
         app:layout_constrainedWidth="true"
         app:layout_constraintBottom_toTopOf="@android:id/summary"
         app:layout_constraintEnd_toStartOf="@id/badge"
@@ -62,11 +62,10 @@
 
     <TextView
         android:id="@android:id/summary"
+        style="@style/MaterialPreferences.Preferences.Summary"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:ellipsize="end"
-        android:textAppearance="?textAppearanceListItemSecondary"
-        android:textColor="?android:textColorSecondary"
         app:layout_constraintBottom_toTopOf="@id/widget_frame"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@android:id/title"
@@ -75,16 +74,13 @@
 
     <TextView
         android:id="@+id/badge"
+        style="@style/MaterialPreferences.Preferences.Badge"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="6dp"
         android:background="@drawable/badge_background"
-        android:fontFamily="sans-serif-condensed-medium"
         android:paddingLeft="4dp"
         android:paddingRight="4dp"
-        android:textAllCaps="true"
-        android:textColor="?colorAccent"
-        android:textSize="10sp"
         app:layout_constraintBottom_toBottomOf="@android:id/title"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@android:id/title"

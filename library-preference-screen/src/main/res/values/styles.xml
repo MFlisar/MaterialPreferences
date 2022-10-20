@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="MaterialPreferences" />
+    <style name="MaterialPreferences.Preferences" />
+
+    <style name="MaterialPreferences.Category">
+        <item name="android:textAppearance">?attr/textAppearanceBody2</item>
+        <item name="android:textColor">?attr/colorSecondary</item>
+    </style>
+
+    <style name="MaterialPreferences.Preferences.Title">
+        <item name="android:textAppearance">?attr/textAppearanceListItem</item>
+        <item name="android:textColor">?attr/colorSecondary</item>
+    </style>
+
+    <style name="MaterialPreferences.Preferences.Summary">
+        <item name="android:textAppearance">?textAppearanceListItemSecondary</item>
+        <item name="android:textColor">?android:attr/textColorSecondary</item>
+    </style>
+
+    <style name="MaterialPreferences.Preferences.Badge">
+        <item name="android:fontFamily">sans-serif-condensed-medium</item>
+        <item name="android:textColor">?android:attr/colorAccent</item>
+        <item name="android:textSize">10sp</item>
+        <item name="android:textAllCaps">true</item>
+    </style>
+
+</resources>

@@ -1,28 +1,44 @@
 <resources>
 
     <style name="AppTheme" parent="Theme.Material3.DayNight.NoActionBar">
+
+        <!-- following material text appearances are used inside the preference views -->
         <!--
-        <item name="textAppearanceBody2">@style/TextAppearance.App.Body2</item>
-        <item name="textAppearanceListItem">@style/TextAppearance.App.ListItem</item>
-        <item name="textAppearanceListItemSecondary">@style/TextAppearance.App.ListItemSecondary</item>
+        <item name="textAppearanceBody2">@style/TextAppearance.App.PreferencesCategory</item>
+        <item name="textAppearanceListItem">@style/TextAppearance.App.PreferencesTitle</item>
+        <item name="textAppearanceListItemSecondary">@style/TextAppearance.App.PreferencesSummary</item>
         -->
     </style>
 
+    <!-- ************************** -->
+    <!-- Material Preferences Style -->
+    <!-- ************************** -->
+
+    <!-- overwrites default themes -->
     <!--
-    <style name="TextAppearance.App.Body2" parent="TextAppearance.MaterialComponents.Body2">
-        <item name="fontFamily">sans-serif-condensed-medium</item>
-        <item name="android:textSize">14sp</item>
+    <style name="MaterialPreferences.Category">
+        <item name="android:textAppearance">@style/TextAppearance.App.PreferencesCategory</item>
+        <item name="android:textColor">?colorPrimary</item>
     </style>
-
-    <style name="TextAppearance.App.ListItem" parent="TextAppearance.Material3.TitleMedium">
-        <item name="fontFamily">sans-serif-condensed-medium</item>
-        <item name="android:textSize">12sp</item>
+    <style name="MaterialPreferences.Preferences.Title">
+        <item name="android:textAppearance">?textAppearanceTitleLarge</item>
+        <item name="android:textColor">#ff0000</item>
+        <item name="android:textStyle">bold</item>
     </style>
-
-    <style name="TextAppearance.App.ListItemSecondary" parent="TextAppearance.Material3.BodyMedium">
-        <item name="fontFamily">sans-serif-condensed-medium</item>
-        <item name="android:textSize">10sp</item>
+    <style name="MaterialPreferences.Preferences.Summary">
+        <item name="android:textAppearance">?textAppearanceBodySmall</item>
+        <item name="android:textColor">?colorOnBackground</item>
     </style>
     -->
+
+    <!-- *********************** -->
+    <!-- custom text appearances -->
+    <!-- *********************** -->
+
+    <style name="TextAppearance.App.PreferencesCategory" parent="TextAppearance.MaterialComponents.Body2">
+        <item name="fontFamily">sans-serif-condensed-medium</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textStyle">bold|italic</item>
+    </style>
 
 </resources>

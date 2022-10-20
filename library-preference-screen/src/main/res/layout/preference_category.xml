@@ -12,11 +12,10 @@
 <!-- Layout used for PreferenceCategory in a PreferenceActivity. -->
 <TextView xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/title"
+    style="@style/MaterialPreferences.Category"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginBottom="16dip"
     android:paddingStart="?listPreferredItemPaddingStart"
     android:paddingTop="16dip"
-    android:paddingEnd="?listPreferredItemPaddingEnd"
-    android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
-    android:textColor="?colorAccent" />
+    android:paddingEnd="?listPreferredItemPaddingEnd" />
