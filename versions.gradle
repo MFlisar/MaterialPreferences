@@ -12,7 +12,7 @@ ext {
             fragment           : "1.0.0",
             appcompat          : "1.2.0",
             recyclerview       : "1.2.1",
-            material           : "1.7.0-beta01",
+            material           : "1.7.0",
             constraint         : "2.0.2",
             palette            : "1.0.0",
             preference         : "1.0.0",
@@ -28,8 +28,8 @@ ext {
             gradlePlugin   : "7.2.2",
             mavenVersion   : "2.0",
 
-            lumberjack     : "5.2.5",
+            lumberjack     : "5.2.7",
             androidText    : "1.2",
-            materialDialogs: "a3fec54071"
+            materialDialogs: "0.7.0"
     ]
 }

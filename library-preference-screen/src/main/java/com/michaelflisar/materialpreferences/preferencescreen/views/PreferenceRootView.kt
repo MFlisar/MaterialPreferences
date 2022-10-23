@@ -1,16 +1,16 @@
 package com.michaelflisar.materialpreferences.preferencescreen.views
 
 import android.content.Context
-import android.graphics.*
+import android.graphics.Canvas
 import android.util.AttributeSet
 import android.view.MotionEvent
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.michaelflisar.materialpreferences.preferencescreen.isUsingDarkTheme
 
 class SettingsRootView @JvmOverloads constructor(
-        context: Context,
-        attrs: AttributeSet? = null,
-        defStyleAttr: Int = 0
+    context: Context,
+    attrs: AttributeSet? = null,
+    defStyleAttr: Int = 0
 ) : ConstraintLayout(context, attrs, defStyleAttr) {
 
     companion object {

@@ -5,7 +5,6 @@ import android.content.res.Resources
 import android.graphics.Color
 import android.util.TypedValue
 import android.view.View
-import androidx.annotation.ColorInt
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.coroutines.suspendCancellableCoroutine
 
@@ -16,16 +15,14 @@ internal fun Context.isUsingDarkTheme(): Boolean {
     return darkness > 0.5
 }
 
-internal val Context.colorAccent: Int
-    @ColorInt get() = resolve(R.attr.colorAccent)
-
 internal fun Context.resolve(attrId: Int): Int {
     val typedValue = TypedValue()
     theme.resolveAttribute(attrId, typedValue, true)
     return typedValue.data
 }
 
-internal val Int.dpToPx: Int get() = (this * Resources.getSystem().displayMetrics.density + 0.5f).toInt()
+internal val Int.dpToPx: Int
+    get() = (this * Resources.getSystem().displayMetrics.density).toInt()
 
 internal suspend fun RecyclerView.awaitViewHolder(index: Int): RecyclerView.ViewHolder {
     val vh = findViewHolderForAdapterPosition(index)

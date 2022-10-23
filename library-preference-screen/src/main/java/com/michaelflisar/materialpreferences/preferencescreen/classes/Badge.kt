@@ -1,17 +1,16 @@
 package com.michaelflisar.materialpreferences.preferencescreen.classes
 
-import android.content.res.ColorStateList
+import android.graphics.Color
 import android.graphics.drawable.GradientDrawable
 import android.view.View
 import android.widget.TextView
 import androidx.annotation.ColorInt
-import com.michaelflisar.materialpreferences.preferencescreen.colorAccent
 import com.michaelflisar.materialpreferences.preferencescreen.dpToPx
 import com.michaelflisar.text.asText
 
 sealed class Badge {
 
-    class Text(val text: com.michaelflisar.text.Text, @ColorInt val tint: Int? = null) : Badge()
+    class Text(val text: com.michaelflisar.text.Text, @ColorInt val tint: Int = Color.RED) : Badge()
     object Empty : Badge()
 
     fun display(tv: TextView) {
@@ -22,10 +21,8 @@ sealed class Badge {
             }
             is Text -> {
                 text.display(tv)
-                (tint ?: tv.context.colorAccent).let {
-                    tv.setTextColor(it)
-                    (tv.background as GradientDrawable).setStroke(2.dpToPx, it)
-                }
+                tv.setTextColor(tint)
+                (tv.background as GradientDrawable).setStroke(2.dpToPx, tint)
                 tv.visibility = View.VISIBLE
             }
         }
