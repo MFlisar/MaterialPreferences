@@ -13,7 +13,7 @@ interface IScreenCreator : Parcelable {
         updateTitle: (title: String) -> Unit
     ): PreferenceScreen
 
-    fun onCreate(activity: AppCompatActivity, savedInstanceState: Bundle) {
+    fun onCreate(activity: AppCompatActivity, savedInstanceState: Bundle?) {
 
     }
 

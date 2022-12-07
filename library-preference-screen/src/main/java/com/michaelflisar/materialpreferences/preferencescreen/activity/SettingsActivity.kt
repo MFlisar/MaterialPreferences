@@ -27,7 +27,7 @@ class SettingsActivity : BaseSettingsActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         data = Data.create(intent)
-        data.screenProvider.onCreate(this, savedInstanceState: Bundle?,)
+        data.screenProvider.onCreate(this, savedInstanceState)
     }
 
     override fun onDestroy() {
