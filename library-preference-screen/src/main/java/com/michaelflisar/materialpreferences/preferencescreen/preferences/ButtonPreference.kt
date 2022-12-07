@@ -8,9 +8,10 @@ import com.michaelflisar.materialpreferences.preferencescreen.interfaces.Prefere
 import com.michaelflisar.materialpreferences.preferencescreen.recyclerview.PreferenceAdapter
 import com.michaelflisar.materialpreferences.preferencescreen.recyclerview.viewholders.SimpleViewHolder
 
-class ButtonPreference : BasePreferenceItem(), PreferenceItem.ClickablePreference {
+class ButtonPreference : BasePreferenceItem(), PreferenceItem.ClickablePreference, PreferenceItem.LongClickablePreference {
 
     override var onClick: (() -> Unit)? = null
+    override var onLongClick: (() -> Unit)? = null
 
     companion object : ViewHolderFactory.ViewHolderCreator {
         val TYPE = R.id.pref_button

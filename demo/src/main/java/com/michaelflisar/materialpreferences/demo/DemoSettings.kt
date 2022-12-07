@@ -657,6 +657,15 @@ object DemoSettings {
                 icon = R.drawable.ic_baseline_info_24.asIcon()
                 summary = "v1.0".asText()
             }
+            info {
+                title = "Info with \"hidden\" long press handler".asText()
+                icon = R.drawable.ic_baseline_info_24.asIcon()
+                summary = "Long press to show toast (or developer menu, ...)".asText()
+                // optional - hidden long press menu (supported by info and button items)
+                onLongClick = {
+                    Toast.makeText(activity, "Developer Menu found!", Toast.LENGTH_SHORT).show()
+                }
+            }
         }
     }
 }

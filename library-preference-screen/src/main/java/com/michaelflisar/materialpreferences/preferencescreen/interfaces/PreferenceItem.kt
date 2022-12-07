@@ -28,6 +28,10 @@ interface PreferenceItem {
         var onClick: (() -> Unit)?
     }
 
+    interface LongClickablePreference : Preference {
+        var onLongClick: (() -> Unit)?
+    }
+
     interface PreferenceWithData<T : Any> : Preference {
         val setting: StorageSetting<T>
         var canChange: ((value: T) -> Boolean)

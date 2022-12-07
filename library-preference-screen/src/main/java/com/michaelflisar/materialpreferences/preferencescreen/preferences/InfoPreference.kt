@@ -8,7 +8,9 @@ import com.michaelflisar.materialpreferences.preferencescreen.interfaces.Prefere
 import com.michaelflisar.materialpreferences.preferencescreen.recyclerview.PreferenceAdapter
 import com.michaelflisar.materialpreferences.preferencescreen.recyclerview.viewholders.SimpleViewHolder
 
-class InfoPreference : BasePreferenceItem() {
+class InfoPreference : BasePreferenceItem(), PreferenceItem.LongClickablePreference {
+
+    override var onLongClick: (() -> Unit)? = null
 
     companion object : ViewHolderFactory.ViewHolderCreator {
         val TYPE = R.id.pref_info
