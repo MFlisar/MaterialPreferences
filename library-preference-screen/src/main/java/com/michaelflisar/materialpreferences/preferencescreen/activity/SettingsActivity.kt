@@ -24,11 +24,21 @@ class SettingsActivity : BaseSettingsActivity() {
 
     lateinit var data: Data
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        data = Data.create(intent)
+        data.screenProvider.onCreate(this)
+    }
+
+    override fun onDestroy() {
+        data.screenProvider.onDestroy(this)
+        super.onDestroy()
+    }
+
     override fun createScreen(
         savedInstanceState: Bundle?,
         updateTitle: (title: String) -> Unit
     ): PreferenceScreen {
-        data = Data.create(intent)
         return data.screenProvider.createScreen(this, savedInstanceState, updateTitle)
     }
 
