@@ -28,7 +28,7 @@ ext {
             gradlePlugin   : "7.2.2",
             mavenVersion   : "2.0",
 
-            lumberjack     : "5.2.7",
+            lumberjack     : "5.2.8",
             androidText    : "1.2",
             materialDialogs: "0.7.0"
     ]
