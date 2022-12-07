@@ -25,8 +25,8 @@ class SettingsActivity : BaseSettingsActivity() {
     lateinit var data: Data
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
         data = Data.create(intent)
+        super.onCreate(savedInstanceState)
         data.screenProvider.onCreate(this, savedInstanceState)
     }
 
