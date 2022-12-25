@@ -1,8 +1,10 @@
 package com.michaelflisar.materialpreferences.preferencescreen.imahe
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import com.michaelflisar.dialogs.interfaces.IMaterialDialogEvent
+import com.michaelflisar.materialpreferences.preferencescreen.ScreenUtil
 import com.michaelflisar.materialpreferences.preferencescreen.image.ImagePreference
 import com.michaelflisar.materialpreferences.preferencescreen.image.databinding.WidgetImageBinding
 import com.michaelflisar.materialpreferences.preferencescreen.interfaces.PreferenceItem
@@ -20,6 +22,11 @@ class ImageViewHolder(
         parent: ViewGroup,
         attachToParent: Boolean
     ) = WidgetImageBinding.inflate(inflater, parent, true)
+
+    override fun updateSummary(preference: ImagePreference<Any>) {
+        val displayValue = preference.handler.convertDataToDisplayValue(subBinding.root.context, value)
+        ScreenUtil.display(preference.summary, summary, View.GONE, displayValue)
+    }
 
     override fun bindWidget(preference: ImagePreference<Any>, rebind: Boolean) {
         preference.handler.displayData(value, subBinding.ivImage)

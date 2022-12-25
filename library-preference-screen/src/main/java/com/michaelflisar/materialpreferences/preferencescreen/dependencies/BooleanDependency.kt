@@ -4,7 +4,7 @@ import com.michaelflisar.materialpreferences.core.interfaces.StorageSetting
 
 class BooleanDependency(
     override val setting: StorageSetting<Boolean>,
-    val dependOnTrue: Boolean = true
+    private val dependOnTrue: Boolean = true
 ) : Dependency<Boolean> {
 
     override suspend fun state(): Boolean {
@@ -12,4 +12,5 @@ class BooleanDependency(
     }
 }
 
-fun StorageSetting<Boolean>.asDependency() = BooleanDependency(this)
+fun StorageSetting<Boolean>.asDependency(dependOnTrue: Boolean = true) =
+    BooleanDependency(this, dependOnTrue)
