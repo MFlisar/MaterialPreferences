@@ -54,8 +54,7 @@ object DemoSettings {
     object ScreenCreator : IScreenCreator {
         override fun createScreen(
             activity: AppCompatActivity,
-            savedInstanceState: Bundle?,
-            updateTitle: (title: String) -> Unit
+            savedInstanceState: Bundle?
         ): PreferenceScreen {
             return screen {
 
@@ -65,7 +64,7 @@ object DemoSettings {
                     val breadcrumbs =
                         subScreenStack.joinToString(" > ") { it.title.get(activity) }
                     L.d { "Preference Screen - level = ${subScreenStack.size} | $breadcrumbs | restored: $stateRestored" }
-                    updateTitle(breadcrumbs)
+                    activity.supportActionBar?.title = breadcrumbs
                 }
 
                 // init theme - not necessary, its automatically derived from parent activity
