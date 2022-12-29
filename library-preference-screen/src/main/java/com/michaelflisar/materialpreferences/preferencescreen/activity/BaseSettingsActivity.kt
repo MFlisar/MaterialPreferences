@@ -11,8 +11,6 @@ abstract class BaseSettingsActivity : AppCompatActivity() {
         savedInstanceState: Bundle?
     ): PreferenceScreen
 
-    abstract fun onActionBarReady()
-
     lateinit var binding: PreferenceActivitySettingsBinding
     lateinit var preferenceScreen: PreferenceScreen
 
@@ -27,7 +25,6 @@ abstract class BaseSettingsActivity : AppCompatActivity() {
         setContentView(view)
         setSupportActionBar(binding.toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        onActionBarReady()
         preferenceScreen.bind(binding.rvSettings, this)
     }
 

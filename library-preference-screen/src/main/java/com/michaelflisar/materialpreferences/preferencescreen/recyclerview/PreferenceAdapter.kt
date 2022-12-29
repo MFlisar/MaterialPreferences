@@ -57,6 +57,7 @@ class PreferenceAdapter(
             withContext(Dispatchers.Main) {
                 // set initial list
                 updateCurrentFilteredItems(true)
+                notifyScreenChangedListener(false)
                 // observe further visibility changes
                 preferencesWithDependency
                     .forEach { p ->

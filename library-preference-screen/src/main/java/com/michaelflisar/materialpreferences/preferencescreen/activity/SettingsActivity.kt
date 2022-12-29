@@ -31,10 +31,6 @@ class SettingsActivity : BaseSettingsActivity() {
         finishCreate(savedInstanceState)
     }
 
-    override fun onActionBarReady() {
-        data.screenProvider.onActionBarReady(this)
-    }
-
     override fun onDestroy() {
         data.screenProvider.onDestroy(this)
         super.onDestroy()
