@@ -9,11 +9,14 @@ interface IScreenCreator : Parcelable {
 
     fun createScreen(
         activity: AppCompatActivity,
-        savedInstanceState: Bundle?,
-        updateTitle: (title: String) -> Unit
+        savedInstanceState: Bundle?
     ): PreferenceScreen
 
     fun onCreate(activity: AppCompatActivity, savedInstanceState: Bundle?) {
+
+    }
+
+    fun onActionBarReady(activity: AppCompatActivity) {
 
     }
 

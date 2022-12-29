@@ -8,25 +8,26 @@ import com.michaelflisar.materialpreferences.preferencescreen.databinding.Prefer
 abstract class BaseSettingsActivity : AppCompatActivity() {
 
     abstract fun createScreen(
-        savedInstanceState: Bundle?,
-        updateTitle: (title: String) -> Unit
+        savedInstanceState: Bundle?
     ): PreferenceScreen
+
+    abstract fun onActionBarReady()
 
     lateinit var binding: PreferenceActivitySettingsBinding
     lateinit var preferenceScreen: PreferenceScreen
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        preferenceScreen = createScreen(savedInstanceState)
+    }
+
+    fun finishCreate(savedInstanceState: Bundle?) {
         binding = PreferenceActivitySettingsBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
         setSupportActionBar(binding.toolbar)
-
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-
-        preferenceScreen = createScreen(savedInstanceState) {
-            supportActionBar?.subtitle = it
-        }
+        onActionBarReady()
         preferenceScreen.bind(binding.rvSettings, this)
     }
 

@@ -17,8 +17,8 @@ typealias ScreenChangedListener = (subScreenStack: List<PreferenceItem.SubScreen
 
 class PreferenceScreen(
     val preferences: List<PreferenceItem>,
-    val savedInstanceState: Bundle?,
-    val onScreenChanged: ScreenChangedListener? = null
+    private val savedInstanceState: Bundle?,
+    private val onScreenChanged: ScreenChangedListener? = null
 ) {
 
     companion object {
@@ -36,7 +36,11 @@ class PreferenceScreen(
         bind(recyclerView, activity.supportFragmentManager, activity)
     }
 
-    fun bind(recyclerView: RecyclerView, fragmentManager: FragmentManager, lifecycleOwner: LifecycleOwner) {
+    private fun bind(
+        recyclerView: RecyclerView,
+        fragmentManager: FragmentManager,
+        lifecycleOwner: LifecycleOwner
+    ) {
 
         adapter = PreferenceAdapter(fragmentManager, lifecycleOwner, preferences, onScreenChanged)
         savedInstanceState?.getParcelable<PreferenceAdapter.SavedState>(KEY_ADAPTER_STATE)
