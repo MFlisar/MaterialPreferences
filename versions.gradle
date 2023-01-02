@@ -30,6 +30,6 @@ ext {
 
             lumberjack     : "5.2.8",
             androidText    : "1.2",
-            materialDialogs: "0.7.0"
+            materialDialogs: "0.8.4"
     ]
 }
