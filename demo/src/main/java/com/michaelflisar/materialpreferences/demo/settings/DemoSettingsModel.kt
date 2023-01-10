@@ -14,7 +14,7 @@ object DemoSettingsModel : SettingsModel(
     DataStoreStorage(
         name = "demo_settings",
         cache = SettingSetup.ENABLE_CACHING, // false by default, only relevant for blocking reads
-        encryption = DemoStorageEncryption
+        //encryption = DemoStorageEncryption
     )
 ) {
 

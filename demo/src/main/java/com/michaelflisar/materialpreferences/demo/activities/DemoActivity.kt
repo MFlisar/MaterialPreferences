@@ -7,6 +7,7 @@ import androidx.lifecycle.lifecycleScope
 import com.michaelflisar.lumberjack.L
 import com.michaelflisar.materialpreferences.demo.DemoSettings
 import com.michaelflisar.materialpreferences.demo.databinding.ActivityDemoBinding
+import com.michaelflisar.materialpreferences.demo.settings.DemoEncryptedSettingsModel
 import com.michaelflisar.materialpreferences.demo.settings.DemoSettingsModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
@@ -153,6 +154,28 @@ class DemoActivity : AppCompatActivity() {
             DemoSettingsModel.nullableBool.update(false)
             DemoSettingsModel.nonNullableBool.update(true)
             DemoSettingsModel.nonNullableBool.update(false)
+
+            // a few read/write tests (especially for encryption)
+
+            val s1 = DemoEncryptedSettingsModel.string1.read()
+            DemoEncryptedSettingsModel.string1.update("s1 updated")
+            val s1u = DemoEncryptedSettingsModel.string1.read()
+            L.d { "s1 = $s1 => $s1u" }
+
+            val i1 = DemoEncryptedSettingsModel.int1.read()
+            DemoEncryptedSettingsModel.int1.update(12345)
+            val i1u = DemoEncryptedSettingsModel.int1.read()
+            L.d { "i1 = $i1 => $i1u" }
+
+            val sSet1 = DemoEncryptedSettingsModel.stringSet1.read()
+            DemoEncryptedSettingsModel.stringSet1.update(setOf("updated", "string", "set"))
+            val sSet1u = DemoEncryptedSettingsModel.stringSet1.read()
+            L.d { "set1 = ${sSet1.joinToString(";")} => ${sSet1u.joinToString(";")}" }
+
+            val iSet1 = DemoEncryptedSettingsModel.intSet1.read()
+            DemoEncryptedSettingsModel.intSet1.update(setOf(1, 10, 100, 1000))
+            val iSet1u = DemoEncryptedSettingsModel.intSet1.read()
+            L.d { "iSet1 = ${iSet1.joinToString(";")} => ${iSet1u.joinToString(";")}" }
         }
 
         // -----------------------
