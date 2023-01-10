@@ -116,6 +116,9 @@ class DemoActivity : AppCompatActivity() {
             DemoSettingsModel.nullableString.update(null)
             DemoSettingsModel.nullableString.update("nullable value value 2")
 
+            val nullableString = DemoSettingsModel.nullableString.read()
+            L.d { "nullableString = $nullableString" }
+
             // won't compile!
             // DemoSettingsModel.nonNullableString.update(null)
             DemoSettingsModel.nonNullableString.update("non nullable value 1")
