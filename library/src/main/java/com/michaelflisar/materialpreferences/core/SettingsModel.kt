@@ -137,6 +137,18 @@ abstract class SettingsModel(
     ): StorageSetting<Float?> = NullableFloatSetting(this, default, key, cache)
 
     /**
+     * Delegate float set property
+     * @param default default float set value
+     * @param key custom storage key
+     * @param cache enable caching for blocking reads (only used if storage has caching enabled as well)
+     */
+    protected fun floatSetPref(
+        default: Set<Float> = emptySet(),
+        key: String? = null,
+        cache: Boolean = SettingSetup.ENABLE_CACHING
+    ): StorageSetting<Set<Float>> = FloatSetSetting(this, default, key, cache)
+
+    /**
      * Delegate double property
      * @param default default double value
      * @param key custom storage key
@@ -159,6 +171,18 @@ abstract class SettingsModel(
         key: String? = null,
         cache: Boolean = SettingSetup.ENABLE_CACHING
     ): StorageSetting<Double?> = NullableDoubleSetting(this, default, key, cache)
+
+    /**
+     * Delegate double set property
+     * @param default default double set value
+     * @param key custom storage key
+     * @param cache enable caching for blocking reads (only used if storage has caching enabled as well)
+     */
+    protected fun doubleSetPref(
+        default: Set<Double> = emptySet(),
+        key: String? = null,
+        cache: Boolean = SettingSetup.ENABLE_CACHING
+    ): StorageSetting<Set<Double>> = DoubleSetSetting(this, default, key, cache)
 
     /**
      * Delegate long property

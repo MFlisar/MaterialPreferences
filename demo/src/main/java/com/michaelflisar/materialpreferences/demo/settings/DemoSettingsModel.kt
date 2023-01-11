@@ -4,15 +4,13 @@ import android.graphics.Color
 import com.michaelflisar.materialpreferences.core.SettingsModel
 import com.michaelflisar.materialpreferences.core.classes.SettingsGroup
 import com.michaelflisar.materialpreferences.core.initialisation.SettingSetup
-import com.michaelflisar.materialpreferences.core.interfaces.StorageSetting
 import com.michaelflisar.materialpreferences.datastore.DataStoreStorage
-import kotlinx.coroutines.flow.combine
-import kotlinx.coroutines.flow.distinctUntilChanged
 
 object DemoSettingsModel : SettingsModel(
     DataStoreStorage(
         name = "demo_settings",
-        cache = SettingSetup.ENABLE_CACHING // false by default, only relevant for blocking reads
+        cache = SettingSetup.ENABLE_CACHING, // false by default, only relevant for blocking reads
+        //encryption = DemoStorageEncryption
     )
 ) {
 

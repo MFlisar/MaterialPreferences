@@ -1,0 +1,57 @@
+plugins {
+    id 'com.android.library'
+    id 'kotlin-android'
+    id 'maven-publish'
+}
+
+group = 'com.github.MFlisar'
+
+android {
+
+    compileSdkVersion setup.compileSdk
+
+    defaultConfig {
+        minSdkVersion setup.minSdk
+        targetSdkVersion setup.targetSdk
+        vectorDrawables.useSupportLibrary = true
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_1_8.toString()
+    }
+}
+
+dependencies {
+
+    // ------------------------
+    // Kotlin
+    // ------------------------
+
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:${versions.kotlinVersion}"
+
+    // ------------------------
+    // AndroidX
+    // ------------------------
+
+    implementation "androidx.datastore:datastore-preferences:${androidx.datastorePrefs}"
+
+    // ------------------------
+    // Library
+    // ------------------------
+
+    implementation project(':core')
+}
+
+apply from: '../maven.gradle'

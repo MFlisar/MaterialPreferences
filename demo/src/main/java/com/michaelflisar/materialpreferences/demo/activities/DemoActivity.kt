@@ -7,11 +7,14 @@ import androidx.lifecycle.lifecycleScope
 import com.michaelflisar.lumberjack.L
 import com.michaelflisar.materialpreferences.demo.DemoSettings
 import com.michaelflisar.materialpreferences.demo.databinding.ActivityDemoBinding
+import com.michaelflisar.materialpreferences.demo.settings.DemoEncryptedSettingsModel
 import com.michaelflisar.materialpreferences.demo.settings.DemoSettingsModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.text.SimpleDateFormat
+import java.util.*
 import kotlin.concurrent.fixedRateTimer
 
 class DemoActivity : AppCompatActivity() {
@@ -116,6 +119,9 @@ class DemoActivity : AppCompatActivity() {
             DemoSettingsModel.nullableString.update(null)
             DemoSettingsModel.nullableString.update("nullable value value 2")
 
+            val nullableString = DemoSettingsModel.nullableString.read()
+            L.d { "nullableString = $nullableString" }
+
             // won't compile!
             // DemoSettingsModel.nonNullableString.update(null)
             DemoSettingsModel.nonNullableString.update("non nullable value 1")
@@ -150,6 +156,32 @@ class DemoActivity : AppCompatActivity() {
             DemoSettingsModel.nullableBool.update(false)
             DemoSettingsModel.nonNullableBool.update(true)
             DemoSettingsModel.nonNullableBool.update(false)
+
+            // a few read/write tests (especially for encryption)
+
+            val sdf = SimpleDateFormat("yyyy-MMd-d HH:mm:ss", Locale.getDefault())
+            val date = Date()
+            val time = sdf.format(date)
+
+            val s1 = DemoEncryptedSettingsModel.string1.read()
+            DemoEncryptedSettingsModel.string1.update("s1 updated at $time")
+            val s1u = DemoEncryptedSettingsModel.string1.read()
+            L.tag("ENCRYPTION").d { "s1 = $s1 => $s1u" }
+
+            val i1 = DemoEncryptedSettingsModel.int1.read()
+            DemoEncryptedSettingsModel.int1.update(date.time.toInt())
+            val i1u = DemoEncryptedSettingsModel.int1.read()
+            L.tag("ENCRYPTION").d { "i1 = $i1 => $i1u" }
+
+            val sSet1 = DemoEncryptedSettingsModel.stringSet1.read()
+            DemoEncryptedSettingsModel.stringSet1.update(setOf("updated", "string", "set", "time = $time"))
+            val sSet1u = DemoEncryptedSettingsModel.stringSet1.read()
+            L.tag("ENCRYPTION").d { "set1 = ${sSet1.joinToString(";")} => ${sSet1u.joinToString(";")}" }
+
+            val iSet1 = DemoEncryptedSettingsModel.intSet1.read()
+            DemoEncryptedSettingsModel.intSet1.update(setOf(1, 10, 100, 1000, date.time.toInt()))
+            val iSet1u = DemoEncryptedSettingsModel.intSet1.read()
+            L.tag("ENCRYPTION").d { "iSet1 = ${iSet1.joinToString(";")} => ${iSet1u.joinToString(";")}" }
         }
 
         // -----------------------
