@@ -6,12 +6,13 @@ include ':datastore'
 project(':datastore').projectDir = new File(settingsDir, 'library-datastore')
 include ':screen'
 project(':screen').projectDir = new File(settingsDir, 'library-preference-screen')
-include ':encryption'
-project(':encryption').projectDir = new File(settingsDir, 'library-encryption-aes')
 
 // ------------
 // Extensions
 // ------------
+
+include ':encryption-aes'
+project(':encryption-aes').projectDir = new File(settingsDir, 'library-encryption-aes')
 
 include ':screen-bool'
 project(':screen-bool').projectDir = new File(settingsDir, 'library-preference-screen-bool')

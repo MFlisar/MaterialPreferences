@@ -9,6 +9,7 @@ import javax.crypto.*
 import javax.crypto.spec.IvParameterSpec
 import javax.crypto.spec.PBEKeySpec
 import javax.crypto.spec.SecretKeySpec
+import kotlin.collections.LinkedHashSet
 
 class StorageEncryptionAES(
     private val algorithm: String,
@@ -126,18 +127,18 @@ class StorageEncryptionAES(
     override fun decryptDouble(data: String) = decrypt(data).toDouble()
     override fun encryptDouble(value: Double) = encrypt(value.toString())
 
-    override fun decryptStringSet(data: String) = decryptSealedObject<TreeSet<String>>(data)
-    override fun encryptStringSet(value: Set<String>) = encryptSealedObject(TreeSet(value))
+    override fun decryptStringSet(data: String) = decryptSealedObject<LinkedHashSet<String>>(data)
+    override fun encryptStringSet(value: Set<String>) = encryptSealedObject(LinkedHashSet(value))
 
-    override fun decryptIntSet(data: String) = decryptSealedObject<TreeSet<Int>>(data)
-    override fun encryptIntSet(value: Set<Int>) = encryptSealedObject(TreeSet(value))
+    override fun decryptIntSet(data: String) = decryptSealedObject<LinkedHashSet<Int>>(data)
+    override fun encryptIntSet(value: Set<Int>) = encryptSealedObject(LinkedHashSet(value))
 
-    override fun decryptLongSet(data: String) = decryptSealedObject<TreeSet<Long>>(data)
-    override fun encryptLongSet(value: Set<Long>) = encryptSealedObject(TreeSet(value))
+    override fun decryptLongSet(data: String) = decryptSealedObject<LinkedHashSet<Long>>(data)
+    override fun encryptLongSet(value: Set<Long>) = encryptSealedObject(LinkedHashSet(value))
 
-    override fun decryptFloatSet(data: String) = decryptSealedObject<TreeSet<Float>>(data)
-    override fun encryptFloatSet(value: Set<Float>) = encryptSealedObject(TreeSet(value))
+    override fun decryptFloatSet(data: String) = decryptSealedObject<LinkedHashSet<Float>>(data)
+    override fun encryptFloatSet(value: Set<Float>) = encryptSealedObject(LinkedHashSet(value))
 
-    override fun decryptDoubleSet(data: String) = decryptSealedObject<TreeSet<Double>>(data)
-    override fun encryptDoubleSet(value: Set<Double>) = encryptSealedObject(TreeSet(value))
+    override fun decryptDoubleSet(data: String) = decryptSealedObject<LinkedHashSet<Double>>(data)
+    override fun encryptDoubleSet(value: Set<Double>) = encryptSealedObject(LinkedHashSet(value))
 }

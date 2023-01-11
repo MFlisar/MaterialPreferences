@@ -174,12 +174,12 @@ class DemoActivity : AppCompatActivity() {
             L.tag("ENCRYPTION").d { "i1 = $i1 => $i1u" }
 
             val sSet1 = DemoEncryptedSettingsModel.stringSet1.read()
-            DemoEncryptedSettingsModel.stringSet1.update(setOf("updated", "string", "set", "time = $time"))
+            DemoEncryptedSettingsModel.stringSet1.update(linkedSetOf("updated", "string", "set", "time = $time"))
             val sSet1u = DemoEncryptedSettingsModel.stringSet1.read()
             L.tag("ENCRYPTION").d { "set1 = ${sSet1.joinToString(";")} => ${sSet1u.joinToString(";")}" }
 
             val iSet1 = DemoEncryptedSettingsModel.intSet1.read()
-            DemoEncryptedSettingsModel.intSet1.update(setOf(1, 10, 100, 1000, date.time.toInt()))
+            DemoEncryptedSettingsModel.intSet1.update(linkedSetOf(1, 10, 100, 1000, date.time.toInt()))
             val iSet1u = DemoEncryptedSettingsModel.intSet1.read()
             L.tag("ENCRYPTION").d { "iSet1 = ${iSet1.joinToString(";")} => ${iSet1u.joinToString(";")}" }
         }
