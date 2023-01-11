@@ -158,6 +158,7 @@ Readmes are split up for each module and can be found inside the `doc` folder, h
 
 * [DataStore Storage](doc/storage-datastore.md)
 * [Screen (all modules)](doc/screen.md)
+* [Encryption)](doc/encryption.md)
 
 # DEMO APP
 
