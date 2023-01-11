@@ -16,6 +16,10 @@ interface IScreenCreator : Parcelable {
 
     }
 
+    fun onResume(activity: AppCompatActivity) {
+
+    }
+
     fun onDestroy(activity: AppCompatActivity) {
 
     }

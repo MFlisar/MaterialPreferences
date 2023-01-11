@@ -31,6 +31,11 @@ class SettingsActivity : BaseSettingsActivity() {
         finishCreate(savedInstanceState)
     }
 
+    override fun onResume() {
+        super.onResume()
+        data.screenProvider.onResume(this)
+    }
+
     override fun onDestroy() {
         data.screenProvider.onDestroy(this)
         super.onDestroy()
