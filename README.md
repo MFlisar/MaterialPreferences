@@ -28,7 +28,7 @@ dependencies {
     implementation "com.github.MFlisar.MaterialPreferences:core:<LATEST-VERSION>"
     // data store module
     implementation "com.github.MFlisar.MaterialPreferences:datastore:<LATEST-VERSION>" 
-	// encryption module
+    // encryption module
     implementation "com.github.MFlisar.MaterialPreferences:encryption-aes:<LATEST-VERSION>" 
     // screen modules
     implementation "com.github.MFlisar.MaterialPreferences:screen:<LATEST-VERSION>"
