@@ -4,8 +4,9 @@ Currently there only exists the AES encryption module. It simple implements a pr
 
 This module is placed inside the `encrpytion-aes` artifact and can simple be used like following:
 
+### Step 1/2: define the encryption
+
 ```kotlin
-// 1/2) define the encryption
 private const val ALGORITHM = StorageEncryptionAES.DEFAULT_ALGORITHM
 private const val KEY_ALGORITHM = StorageEncryptionAES.DEFAULT_KEY_ALGORITHM
 // also check out StorageEncryptionAES::generateKey and StorageEncryptionAES::generateIv if you need some helper functions
@@ -15,9 +16,12 @@ private val BYTE_ARRAY = listOf(0x16, 0x09, 0xc0, 0x4d, 0x4a, 0x09, 0xd2, 0x46, 
 	.toByteArray()
 private val IV = StorageEncryptionAES.getIv(BYTE_ARRAY) // byte array must be 16 bytes!
 val ENCRYPTION = StorageEncryptionAES(ALGORITHM, KEY, IV)
+```
 
-// 2/2) attach the encryption to your storage instance
-object DemoEncryptedSettingsModel : SettingsModel(
+### Step 2/2: attach the encryption to your storage instance
+
+```kotlin
+object MyEncryptedSettingsModel : SettingsModel(
     DataStoreStorage(
         name = "encrypted",
         cache = true,
