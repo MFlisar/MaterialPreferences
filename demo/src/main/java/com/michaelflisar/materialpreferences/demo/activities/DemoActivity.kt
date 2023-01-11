@@ -13,6 +13,8 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.text.SimpleDateFormat
+import java.util.*
 import kotlin.concurrent.fixedRateTimer
 
 class DemoActivity : AppCompatActivity() {
@@ -157,25 +159,28 @@ class DemoActivity : AppCompatActivity() {
 
             // a few read/write tests (especially for encryption)
 
+            val sdf = SimpleDateFormat("yyyy-MMd-d HH:mm:ss", Locale.getDefault())
+            val time = sdf.format(Date())
+
             val s1 = DemoEncryptedSettingsModel.string1.read()
-            DemoEncryptedSettingsModel.string1.update("s1 updated")
+            DemoEncryptedSettingsModel.string1.update("s1 updated at $time")
             val s1u = DemoEncryptedSettingsModel.string1.read()
-            L.d { "s1 = $s1 => $s1u" }
+            L.tag("ENCRYPTION").d { "s1 = $s1 => $s1u" }
 
             val i1 = DemoEncryptedSettingsModel.int1.read()
             DemoEncryptedSettingsModel.int1.update(12345)
             val i1u = DemoEncryptedSettingsModel.int1.read()
-            L.d { "i1 = $i1 => $i1u" }
+            L.tag("ENCRYPTION").d { "i1 = $i1 => $i1u" }
 
             val sSet1 = DemoEncryptedSettingsModel.stringSet1.read()
-            DemoEncryptedSettingsModel.stringSet1.update(setOf("updated", "string", "set"))
+            DemoEncryptedSettingsModel.stringSet1.update(setOf("updated", "string", "set", "time = $time"))
             val sSet1u = DemoEncryptedSettingsModel.stringSet1.read()
-            L.d { "set1 = ${sSet1.joinToString(";")} => ${sSet1u.joinToString(";")}" }
+            L.tag("ENCRYPTION").d { "set1 = ${sSet1.joinToString(";")} => ${sSet1u.joinToString(";")}" }
 
             val iSet1 = DemoEncryptedSettingsModel.intSet1.read()
             DemoEncryptedSettingsModel.intSet1.update(setOf(1, 10, 100, 1000))
             val iSet1u = DemoEncryptedSettingsModel.intSet1.read()
-            L.d { "iSet1 = ${iSet1.joinToString(";")} => ${iSet1u.joinToString(";")}" }
+            L.tag("ENCRYPTION").d { "iSet1 = ${iSet1.joinToString(";")} => ${iSet1u.joinToString(";")}" }
         }
 
         // -----------------------

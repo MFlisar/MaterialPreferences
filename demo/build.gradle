@@ -62,6 +62,7 @@ dependencies {
 
     implementation project(':core')
     implementation project(':datastore')
+    implementation project(':encryption')
     implementation project(':screen')
     implementation project(':screen-bool')
     implementation project(':screen-input')
