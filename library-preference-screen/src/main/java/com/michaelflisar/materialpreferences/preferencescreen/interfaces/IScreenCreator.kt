@@ -13,14 +13,14 @@ interface IScreenCreator : Parcelable {
     ): PreferenceScreen
 
     fun onCreate(activity: AppCompatActivity, savedInstanceState: Bundle?) {
-
     }
 
     fun onResume(activity: AppCompatActivity) {
+    }
 
+    fun onSaveInstanceState(settingsActivity: AppCompatActivity, outState: Bundle) {
     }
 
     fun onDestroy(activity: AppCompatActivity) {
-
     }
 }
