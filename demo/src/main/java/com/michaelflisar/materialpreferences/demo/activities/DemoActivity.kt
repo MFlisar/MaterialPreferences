@@ -160,7 +160,8 @@ class DemoActivity : AppCompatActivity() {
             // a few read/write tests (especially for encryption)
 
             val sdf = SimpleDateFormat("yyyy-MMd-d HH:mm:ss", Locale.getDefault())
-            val time = sdf.format(Date())
+            val date = Date()
+            val time = sdf.format(date)
 
             val s1 = DemoEncryptedSettingsModel.string1.read()
             DemoEncryptedSettingsModel.string1.update("s1 updated at $time")
@@ -168,7 +169,7 @@ class DemoActivity : AppCompatActivity() {
             L.tag("ENCRYPTION").d { "s1 = $s1 => $s1u" }
 
             val i1 = DemoEncryptedSettingsModel.int1.read()
-            DemoEncryptedSettingsModel.int1.update(12345)
+            DemoEncryptedSettingsModel.int1.update(date.time.toInt())
             val i1u = DemoEncryptedSettingsModel.int1.read()
             L.tag("ENCRYPTION").d { "i1 = $i1 => $i1u" }
 
@@ -178,7 +179,7 @@ class DemoActivity : AppCompatActivity() {
             L.tag("ENCRYPTION").d { "set1 = ${sSet1.joinToString(";")} => ${sSet1u.joinToString(";")}" }
 
             val iSet1 = DemoEncryptedSettingsModel.intSet1.read()
-            DemoEncryptedSettingsModel.intSet1.update(setOf(1, 10, 100, 1000))
+            DemoEncryptedSettingsModel.intSet1.update(setOf(1, 10, 100, 1000, date.time.toInt()))
             val iSet1u = DemoEncryptedSettingsModel.intSet1.read()
             L.tag("ENCRYPTION").d { "iSet1 = ${iSet1.joinToString(";")} => ${iSet1u.joinToString(";")}" }
         }
