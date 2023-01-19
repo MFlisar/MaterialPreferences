@@ -11,12 +11,18 @@ abstract class SettingsModel(
     internal val storage: Storage
 ) {
     internal val internalProperties: MutableMap<String, StorageSetting<*>> = mutableMapOf()
-
-    val settings: List<StorageSetting<*>>
-        get() = internalProperties.values.toList()
+    
+    private val internalSettings: MutableList<StorageSetting<*>> = mutableListOf()
 
     val changes: Flow<SettingsChangeEvent<*>> by lazy {
         storage.changeFlow
+    }
+
+    val settings: List<StorageSetting<*>>
+        get() = internalSettings
+
+    protected fun onCreate(setting: StorageSetting<*>) {
+        internalSettings.add(setting)
     }
 
     /**
@@ -30,6 +36,7 @@ abstract class SettingsModel(
         key: String? = null,
         cache: Boolean = SettingSetup.ENABLE_CACHING
     ): StorageSetting<String> = StringSetting(this, default, key, cache)
+        .also(::onCreate)
 
     /**
      * Delegate string property
@@ -42,6 +49,7 @@ abstract class SettingsModel(
         key: String? = null,
         cache: Boolean = SettingSetup.ENABLE_CACHING
     ): StorageSetting<String?> = NullableStringSetting(this, default, key, cache)
+         .also(::onCreate)
 
     /**
      * Delegate string set property
@@ -54,6 +62,7 @@ abstract class SettingsModel(
         key: String? = null,
         cache: Boolean = SettingSetup.ENABLE_CACHING
     ): StorageSetting<Set<String>> = StringSetSetting(this, default, key, cache)
+         .also(::onCreate)
 
     /**
      * Delegate bool property
@@ -66,6 +75,7 @@ abstract class SettingsModel(
         key: String? = null,
         cache: Boolean = SettingSetup.ENABLE_CACHING
     ): StorageSetting<Boolean> = BoolSetting(this, default, key, cache)
+         .also(::onCreate)
 
     /**
      * Delegate bool property
@@ -78,6 +88,7 @@ abstract class SettingsModel(
         key: String? = null,
         cache: Boolean = SettingSetup.ENABLE_CACHING
     ): StorageSetting<Boolean?> = NullableBoolSetting(this, default, key, cache)
+         .also(::onCreate)
 
     /**
      * Delegate integer property
@@ -90,6 +101,7 @@ abstract class SettingsModel(
         key: String? = null,
         cache: Boolean = SettingSetup.ENABLE_CACHING
     ): StorageSetting<Int> = IntSetting(this, default, key, cache)
+         .also(::onCreate)
 
     /**
      * Delegate integer property
@@ -102,6 +114,7 @@ abstract class SettingsModel(
         key: String? = null,
         cache: Boolean = SettingSetup.ENABLE_CACHING
     ): StorageSetting<Int?> = NullableIntSetting(this, default, key, cache)
+         .also(::onCreate)
 
     /**
      * Delegate integer set property
@@ -114,6 +127,7 @@ abstract class SettingsModel(
         key: String? = null,
         cache: Boolean = SettingSetup.ENABLE_CACHING
     ): StorageSetting<Set<Int>> = IntSetSetting(this, default, key, cache)
+         .also(::onCreate)
 
     /**
      * Delegate float property
@@ -126,6 +140,7 @@ abstract class SettingsModel(
         key: String? = null,
         cache: Boolean = SettingSetup.ENABLE_CACHING
     ): StorageSetting<Float> = FloatSetting(this, default, key, cache)
+         .also(::onCreate)
 
     /**
      * Delegate float property
@@ -138,6 +153,7 @@ abstract class SettingsModel(
         key: String? = null,
         cache: Boolean = SettingSetup.ENABLE_CACHING
     ): StorageSetting<Float?> = NullableFloatSetting(this, default, key, cache)
+         .also(::onCreate)
 
     /**
      * Delegate float set property
@@ -150,6 +166,7 @@ abstract class SettingsModel(
         key: String? = null,
         cache: Boolean = SettingSetup.ENABLE_CACHING
     ): StorageSetting<Set<Float>> = FloatSetSetting(this, default, key, cache)
+         .also(::onCreate)
 
     /**
      * Delegate double property
@@ -162,6 +179,7 @@ abstract class SettingsModel(
         key: String? = null,
         cache: Boolean = SettingSetup.ENABLE_CACHING
     ): StorageSetting<Double> = DoubleSetting(this, default, key, cache)
+         .also(::onCreate)
 
     /**
      * Delegate double property
@@ -174,6 +192,7 @@ abstract class SettingsModel(
         key: String? = null,
         cache: Boolean = SettingSetup.ENABLE_CACHING
     ): StorageSetting<Double?> = NullableDoubleSetting(this, default, key, cache)
+         .also(::onCreate)
 
     /**
      * Delegate double set property
@@ -186,6 +205,7 @@ abstract class SettingsModel(
         key: String? = null,
         cache: Boolean = SettingSetup.ENABLE_CACHING
     ): StorageSetting<Set<Double>> = DoubleSetSetting(this, default, key, cache)
+         .also(::onCreate)
 
     /**
      * Delegate long property
@@ -198,6 +218,7 @@ abstract class SettingsModel(
         key: String? = null,
         cache: Boolean = SettingSetup.ENABLE_CACHING
     ): StorageSetting<Long> = LongSetting(this, default, key, cache)
+         .also(::onCreate)
 
     /**
      * Delegate long property
@@ -210,6 +231,7 @@ abstract class SettingsModel(
         key: String? = null,
         cache: Boolean = SettingSetup.ENABLE_CACHING
     ): StorageSetting<Long?> = NullableLongSetting(this, default, key, cache)
+         .also(::onCreate)
 
     /**
      * Delegate long property
@@ -222,6 +244,7 @@ abstract class SettingsModel(
         key: String? = null,
         cache: Boolean = SettingSetup.ENABLE_CACHING
     ): StorageSetting<Set<Long>> = LongSetSetting(this, default, key, cache)
+         .also(::onCreate)
 
     /**
      * Delegate enum property
@@ -234,6 +257,7 @@ abstract class SettingsModel(
         key: String? = null,
         cache: Boolean = SettingSetup.ENABLE_CACHING
     ): StorageSetting<T> = AnyIntSetting(this, default, key, EnumConverter(T::class.java), cache)
+         .also(::onCreate)
 
     /**
      * Delegate any property
@@ -247,4 +271,5 @@ abstract class SettingsModel(
         key: String? = null,
         cache: Boolean = SettingSetup.ENABLE_CACHING
     ): StorageSetting<T> = AnyStringSetting(this, default, key, converter, cache)
+         .also(::onCreate)
 }
