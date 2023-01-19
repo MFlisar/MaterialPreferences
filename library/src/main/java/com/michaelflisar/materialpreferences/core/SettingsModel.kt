@@ -12,6 +12,9 @@ abstract class SettingsModel(
 ) {
     internal val internalProperties: MutableMap<String, StorageSetting<*>> = mutableMapOf()
 
+    val settings: List<StorageSetting<*>>
+        get() = internalProperties.values.toList()
+
     val changes: Flow<SettingsChangeEvent<*>> by lazy {
         storage.changeFlow
     }
