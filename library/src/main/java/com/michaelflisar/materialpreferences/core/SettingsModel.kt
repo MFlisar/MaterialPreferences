@@ -12,17 +12,17 @@ abstract class SettingsModel(
 ) {
     internal val internalProperties: MutableMap<String, StorageSetting<*>> = mutableMapOf()
     
-    private val internalSettings: MutableList<StorageSetting<*>> = mutableListOf()
+    //private val internalSettings: MutableList<StorageSetting<*>> = mutableListOf()
 
     val changes: Flow<SettingsChangeEvent<*>> by lazy {
         storage.changeFlow
     }
 
-    val settings: List<StorageSetting<*>>
-        get() = internalSettings
+    //val settings: List<StorageSetting<*>>
+    //    get() = internalSettings
 
     protected fun onCreate(setting: StorageSetting<*>) {
-        internalSettings.add(setting)
+        //internalSettings.add(setting)
     }
 
     /**
