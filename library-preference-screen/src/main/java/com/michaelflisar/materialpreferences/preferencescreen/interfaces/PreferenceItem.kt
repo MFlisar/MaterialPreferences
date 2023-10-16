@@ -1,6 +1,6 @@
 package com.michaelflisar.materialpreferences.preferencescreen.interfaces
 
-import com.michaelflisar.materialpreferences.core.interfaces.StorageSetting
+import com.michaelflisar.kotpreferences.core.interfaces.StorageSetting
 import com.michaelflisar.materialpreferences.preferencescreen.classes.Badge
 import com.michaelflisar.materialpreferences.preferencescreen.classes.Icon
 import com.michaelflisar.materialpreferences.preferencescreen.dependencies.Dependency

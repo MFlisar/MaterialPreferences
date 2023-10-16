@@ -1,7 +1,7 @@
 package com.michaelflisar.materialpreferences.preferencescreen.choice.single
 
 import android.content.Context
-import com.michaelflisar.materialpreferences.core.interfaces.StorageSetting
+import com.michaelflisar.kotpreferences.core.interfaces.StorageSetting
 import com.michaelflisar.materialpreferences.preferencescreen.PreferenceScreenConfig
 import com.michaelflisar.materialpreferences.preferencescreen.interfaces.PreferenceItem
 import com.michaelflisar.materialpreferences.preferencescreen.preferences.BasePreferenceItem

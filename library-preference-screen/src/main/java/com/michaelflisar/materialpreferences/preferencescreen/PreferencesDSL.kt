@@ -1,7 +1,7 @@
 package com.michaelflisar.materialpreferences.preferencescreen
 
 import android.os.Bundle
-import com.michaelflisar.materialpreferences.core.interfaces.StorageSetting
+import com.michaelflisar.kotpreferences.core.interfaces.StorageSetting
 import com.michaelflisar.materialpreferences.preferencescreen.classes.Badge
 import com.michaelflisar.materialpreferences.preferencescreen.classes.Icon
 import com.michaelflisar.materialpreferences.preferencescreen.dependencies.Dependency

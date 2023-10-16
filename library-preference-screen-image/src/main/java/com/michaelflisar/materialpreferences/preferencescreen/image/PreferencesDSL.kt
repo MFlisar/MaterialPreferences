@@ -1,6 +1,6 @@
 package com.michaelflisar.materialpreferences.preferencescreen.image
 
-import com.michaelflisar.materialpreferences.core.interfaces.StorageSetting
+import com.michaelflisar.kotpreferences.core.interfaces.StorageSetting
 import com.michaelflisar.materialpreferences.preferencescreen.Screen
 
 // -------------

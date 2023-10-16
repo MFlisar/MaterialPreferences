@@ -9,6 +9,8 @@ group = 'com.github.MFlisar'
 
 android {
 
+    namespace "com.michaelflisar.materialpreferences.preferencescreen"
+
     compileSdkVersion setup.compileSdk
 
     buildFeatures {
@@ -70,7 +72,8 @@ dependencies {
 
     api "com.github.MFlisar:AndroidText:${versions.androidText}"
 
-    implementation project(':core')
+
+    implementation "com.github.MFlisar.KotPreferences:core:${versions.kotPreferences}"
 }
 
 apply from: '../maven.gradle'

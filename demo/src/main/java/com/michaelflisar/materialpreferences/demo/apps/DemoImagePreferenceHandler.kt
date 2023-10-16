@@ -6,7 +6,7 @@ import androidx.lifecycle.lifecycleScope
 import com.michaelflisar.dialogs.DialogList
 import com.michaelflisar.dialogs.MaterialDialogSetup
 import com.michaelflisar.dialogs.interfaces.IMaterialDialogEvent
-import com.michaelflisar.materialpreferences.core.interfaces.StorageSetting
+import com.michaelflisar.kotpreferences.core.interfaces.StorageSetting
 import com.michaelflisar.materialpreferences.preferencescreen.DialogExtra
 import com.michaelflisar.materialpreferences.preferencescreen.image.ImagePreferenceHandler
 import com.michaelflisar.text.asText

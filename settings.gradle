@@ -1,28 +1,16 @@
 include ':demo'
 
-include ':core'
-project(':core').projectDir = new File(settingsDir, 'library')
-include ':datastore'
-project(':datastore').projectDir = new File(settingsDir, 'library-datastore')
-include ':screen'
-project(':screen').projectDir = new File(settingsDir, 'library-preference-screen')
-
-// ------------
-// Extensions
-// ------------
-
-include ':encryption-aes'
-project(':encryption-aes').projectDir = new File(settingsDir, 'library-encryption-aes')
-
-include ':screen-bool'
-project(':screen-bool').projectDir = new File(settingsDir, 'library-preference-screen-bool')
-include ':screen-input'
-project(':screen-input').projectDir = new File(settingsDir, 'library-preference-screen-input')
-include ':screen-choice'
-project(':screen-choice').projectDir = new File(settingsDir, 'library-preference-screen-choice')
-include ':screen-color'
-project(':screen-color').projectDir = new File(settingsDir, 'library-preference-screen-color')
-include ':screen-slider'
-project(':screen-slider').projectDir = new File(settingsDir, 'library-preference-screen-slider')
-include ':screen-image'
-project(':screen-image').projectDir = new File(settingsDir, 'library-preference-screen-image')
+include ':screen:core'
+project(':screen:core').projectDir = new File(settingsDir, 'library-preference-screen')
+include ':screen:bool'
+project(':screen:bool').projectDir = new File(settingsDir, 'library-preference-screen-bool')
+include ':screen:input'
+project(':screen:input').projectDir = new File(settingsDir, 'library-preference-screen-input')
+include ':screen:choice'
+project(':screen:choice').projectDir = new File(settingsDir, 'library-preference-screen-choice')
+include ':screen:color'
+project(':screen:color').projectDir = new File(settingsDir, 'library-preference-screen-color')
+include ':screen:slider'
+project(':screen:slider').projectDir = new File(settingsDir, 'library-preference-screen-slider')
+include ':screen:image'
+project(':screen:image').projectDir = new File(settingsDir, 'library-preference-screen-image')

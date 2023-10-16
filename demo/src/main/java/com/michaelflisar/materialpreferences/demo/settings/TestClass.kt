@@ -1,6 +1,6 @@
 package com.michaelflisar.materialpreferences.demo.settings
 
-import com.michaelflisar.materialpreferences.core.SettingsConverter
+import com.michaelflisar.kotpreferences.core.SettingsConverter
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.encodeToString

@@ -1,6 +1,6 @@
 package com.michaelflisar.materialpreferences.preferencescreen.slider
 
-import com.michaelflisar.materialpreferences.core.interfaces.StorageSetting
+import com.michaelflisar.kotpreferences.core.interfaces.StorageSetting
 import com.michaelflisar.materialpreferences.preferencescreen.Screen
 import com.michaelflisar.materialpreferences.preferencescreen.slider.slider.SliderDoublePreference
 import com.michaelflisar.materialpreferences.preferencescreen.slider.slider.SliderFloatPreference

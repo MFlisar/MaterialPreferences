@@ -2,7 +2,7 @@ package com.michaelflisar.materialpreferences.preferencescreen.bool.checkbox
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import com.michaelflisar.materialpreferences.core.interfaces.StorageSetting
+import com.michaelflisar.kotpreferences.core.interfaces.StorageSetting
 import com.michaelflisar.materialpreferences.preferencescreen.R
 import com.michaelflisar.materialpreferences.preferencescreen.ViewHolderFactory
 import com.michaelflisar.materialpreferences.preferencescreen.interfaces.PreferenceItem

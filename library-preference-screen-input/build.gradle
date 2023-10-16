@@ -8,6 +8,8 @@ group = 'com.github.MFlisar'
 
 android {
 
+    namespace "com.michaelflisar.materialpreferences.preferencescreen.input"
+
     compileSdkVersion setup.compileSdk
 
     buildFeatures {
@@ -59,8 +61,8 @@ dependencies {
     // Library
     // ------------------------
 
-    implementation project(':core')
-    implementation project(':screen')
+    implementation "com.github.MFlisar.KotPreferences:core:${versions.kotPreferences}"
+    implementation project(':screen:core')
 
     // ------------------------
     // Dialogs

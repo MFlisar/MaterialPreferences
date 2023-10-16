@@ -7,6 +7,8 @@ plugins {
 
 android {
 
+    namespace "com.michaelflisar.materialpreferences.demo"
+
     compileSdkVersion setup.compileSdk
 
     buildFeatures {
@@ -27,12 +29,12 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
     }
 
     kotlinOptions {
-        jvmTarget = JavaVersion.VERSION_1_8.toString()
+        jvmTarget = JavaVersion.VERSION_17.toString()
     }
 }
 
@@ -60,16 +62,16 @@ dependencies {
     // Library
     // ------------------------
 
-    implementation project(':core')
-    implementation project(':datastore')
-    implementation project(':encryption-aes')
-    implementation project(':screen')
-    implementation project(':screen-bool')
-    implementation project(':screen-input')
-    implementation project(':screen-choice')
-    implementation project(':screen-color')
-    implementation project(':screen-slider')
-    implementation project(':screen-image')
+    implementation "com.github.MFlisar.KotPreferences:core:${versions.kotPreferences}"
+    implementation "com.github.MFlisar.KotPreferences:datastore:${versions.kotPreferences}"
+    implementation "com.github.MFlisar.KotPreferences:encryption-aes:${versions.kotPreferences}"
+    implementation project(':screen:core')
+    implementation project(':screen:bool')
+    implementation project(':screen:input')
+    implementation project(':screen:choice')
+    implementation project(':screen:color')
+    implementation project(':screen:slider')
+    implementation project(':screen:image')
 
     // ------------------------
     // Dialogs (those are used inside the screen modules as well already!)

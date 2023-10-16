@@ -1,6 +1,6 @@
 package com.michaelflisar.materialpreferences.preferencescreen.dependencies
 
-import com.michaelflisar.materialpreferences.core.interfaces.StorageSetting
+import com.michaelflisar.kotpreferences.core.interfaces.StorageSetting
 
 class BooleanDependency(
     override val setting: StorageSetting<Boolean>,

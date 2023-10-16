@@ -1,9 +1,9 @@
 package com.michaelflisar.materialpreferences.demo.settings
 
-import com.michaelflisar.materialpreferences.core.SettingsModel
-import com.michaelflisar.materialpreferences.core.initialisation.SettingSetup
-import com.michaelflisar.materialpreferences.datastore.DataStoreStorage
-import com.michaelflisar.materialpreferences.encryption.aes.StorageEncryptionAES
+import com.michaelflisar.kotpreferences.core.SettingsModel
+import com.michaelflisar.kotpreferences.core.initialisation.SettingSetup
+import com.michaelflisar.kotpreferences.datastore.DataStoreStorage
+import com.michaelflisar.kotpreferences.encryption.aes.StorageEncryptionAES
 
 object EncryptionDefinitions {
     private const val ALGORITHM = StorageEncryptionAES.DEFAULT_ALGORITHM

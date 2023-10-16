@@ -51,7 +51,7 @@ class SimpleViewHolder(
         val onLongClick = (preference as? PreferenceItem.LongClickablePreference)?.onLongClick
         if (onLongClick!= null) {
             val gestureDetector = GestureDetector(object : SimpleOnGestureListener() {
-                override fun onDown(event: MotionEvent?): Boolean {
+                override fun onDown(event: MotionEvent): Boolean {
                     return true
                 }
                 override fun onLongPress(e: MotionEvent) {

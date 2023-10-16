@@ -13,7 +13,7 @@ import androidx.core.content.ContextCompat
 import com.michaelflisar.text.Text
 
 internal val Context.colorAccent: Int
-    @ColorInt get() = resolve(R.attr.colorAccent)
+    @ColorInt get() = resolve(android.R.attr.colorAccent)
 
 internal val Context.textColor: ColorStateList?
     get() {

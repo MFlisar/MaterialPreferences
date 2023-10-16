@@ -1,10 +1,10 @@
 package com.michaelflisar.materialpreferences.demo.settings
 
 import android.graphics.Color
-import com.michaelflisar.materialpreferences.core.SettingsModel
-import com.michaelflisar.materialpreferences.core.classes.SettingsGroup
-import com.michaelflisar.materialpreferences.core.initialisation.SettingSetup
-import com.michaelflisar.materialpreferences.datastore.DataStoreStorage
+import com.michaelflisar.kotpreferences.core.SettingsModel
+import com.michaelflisar.kotpreferences.core.classes.SettingsGroup
+import com.michaelflisar.kotpreferences.core.initialisation.SettingSetup
+import com.michaelflisar.kotpreferences.datastore.DataStoreStorage
 
 object DemoSettingsModel : SettingsModel(
     DataStoreStorage(
