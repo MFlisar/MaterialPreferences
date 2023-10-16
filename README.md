@@ -39,25 +39,25 @@ repositories {
 ```
 dependencies {
 
-	val kotPreferences = "<LATEST-VERSION>"
-	val materialPreferences = "<LATEST-VERSION>"
-	
-	// --------------
-	// KotPreferences
-	// --------------
-	
-	// core module
+    val kotPreferences = "<LATEST-VERSION>"
+    val materialPreferences = "<LATEST-VERSION>"
+    
+    // --------------
+    // KotPreferences
+    // --------------
+    
+    // core module
     implementation("com.github.MFlisar.KotPreferences:core:$kotPreferences")
-	
+    
     // data store module
     implementation("com.github.MFlisar.KotPreferences:datastore:$kotPreferences")
-	
+    
     // encryption module
     implementation("com.github.MFlisar.KotPreferences:encryption-aes:$kotPreferences") 
-	
-	// -------------------
-	// MaterialPreferences
-	// -------------------
+    
+    // -------------------
+    // MaterialPreferences
+    // -------------------
     
     // screen modules
     implementation("com.github.MFlisar.MaterialPreferences:screen:$materialPreferences")
